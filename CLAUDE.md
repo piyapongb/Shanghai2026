@@ -9,13 +9,21 @@ answers nearly every "how do I..." question that would otherwise require
 re-deriving from scratch.
 
 This repo started as a copy of the Guangzhou 2026 itinerary app. The UI is
-unchanged; all four data files were replaced with **placeholder Shanghai
-content** (12–16 Nov 2026, real landmarks and restaurants, invented flights,
-hotels, times and prices) so the app has something to render while the real
-plan is worked out. Every photo was Guangzhou's, so they were deleted —
+unchanged; all four data files hold Shanghai content instead. **The 4 days
+and both flights are real** — CNX→PVG 9C8512 on Thu 5 Nov 2026 (09:30 →
+14:30) and PVG→CNX 9C8511 on Sun 8 Nov (16:10 → 20:10), Spring Airlines.
+**Everything between them is still placeholder**: the hotel, every stop,
+meal time and entrance fee is a plausible guess, not a booking. Every photo
+was Guangzhou's, so they were deleted —
 `heroImage`, every restaurant/hotel `image` and every itinerary `thumbnail`
 is empty, which the UI handles by falling back to icons. Treat any specific
-number in the data as unconfirmed until the owner says otherwise.
+number outside the two flights as unconfirmed until the owner says otherwise.
+
+Flight cards render only airline, flight number, airports, times, optional
+terminal/date notes and price — `renderTimelineItem` returns early for
+`type: "flight"`, so aircraft type, cabin class, a thumbnail or a details
+accordion on a flight item would be silently ignored. Showing those needs a
+UI change in `components.js`, not a data edit.
 
 ## Working assumptions for whoever (human or Claude) picks this up
 

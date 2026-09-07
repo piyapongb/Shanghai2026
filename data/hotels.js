@@ -3,29 +3,18 @@
  * Fields: id, stayFrom, stayTo, name, nameZh, address, checkIn, checkOut, image
  *
  * checkIn / checkOut are the hotel's stated policy times, not what the
- * itinerary shows for an actual arrival — a 02:30 check-in after a red-eye
- * can sit alongside a 14:00 policy time without either being wrong.
+ * itinerary shows for an actual arrival — the two can legitimately differ.
  *
- * MOCK DATA: placeholder Shanghai hotels, nothing is booked. `image` is
- * empty until a photo is added with
- *   node tools/add-image.js <local-file> hotel-00N
+ * MOCK DATA: placeholder hotel, nothing is booked. Only the 3 nights
+ * (5–8 Nov) are fixed, by the flights. `image` is empty until a photo is
+ * added with
+ *   node tools/add-image.js <local-file> hotel-001
  */
 window.HOTELS_DATA = [
   {
     id: "hotel-001",
-    stayFrom: "2026-11-12",
-    stayTo: "2026-11-13",
-    name: "Jinjiang Inn (Shanghai Pudong Airport)",
-    nameZh: "锦江之星(上海浦东机场店)",
-    image: "",
-    address: "Near Shanghai Pudong International Airport, Pudong New Area, Shanghai (free airport shuttle)",
-    checkIn: "14:00",
-    checkOut: "12:00"
-  },
-  {
-    id: "hotel-002",
-    stayFrom: "2026-11-13",
-    stayTo: "2026-11-16",
+    stayFrom: "2026-11-05",
+    stayTo: "2026-11-08",
     name: "Hanting Hotel (Shanghai Nanjing East Road)",
     nameZh: "汉庭酒店(上海南京东路店)",
     image: "",

@@ -12,10 +12,12 @@
  * Keep items within a day in ascending `time` order — nothing enforces it,
  * it is what makes the timeline read top-to-bottom.
  *
- * MOCK DATA: a plausible 5-day Shanghai outline, not a booked trip. Flight
- * numbers, times and entrance fees are placeholders. The `weather` block on
- * each day is only the offline fallback — live values come from Open-Meteo
- * at page load and quietly replace it.
+ * REAL: the 4 days and both flights (9C8512 out, 9C8511 back) are booked.
+ * All times are local to the airport shown — the 09:30 → 14:30 outbound is
+ * 4h in the air plus the +1h Bangkok→Shanghai time difference.
+ * MOCK: every stop, meal time and entrance fee in between is a placeholder
+ * plan, not a booking. The `weather` block on each day is only the offline
+ * fallback — live values come from Open-Meteo at page load and replace it.
  *
  * `thumbnail` is omitted everywhere because no Shanghai photos have been
  * added yet; each stop shows its icon instead. Add photos per item with
@@ -25,100 +27,70 @@ window.ITINERARY_DATA = [
   {
     id: "day-1",
     dayNumber: 1,
-    date: "2026-11-12",
+    date: "2026-11-05",
     locationId: "shanghai",
     weather: {
       forecast: "Partly cloudy",
-      temperature: "12–19°C",
+      temperature: "14–21°C",
       rain: "20%",
       humidity: "70%",
-      wind: "14 km/h",
-      feelsLike: "18°C",
-      uvIndex: 3
+      wind: "13 km/h",
+      feelsLike: "20°C",
+      uvIndex: 4
     },
     items: [
       {
         id: "d1-flight-in",
         type: "flight",
-        time: "21:30",
+        time: "09:30",
         title: "Flight to Shanghai",
         titleZh: "飞往上海",
         icon: "flight",
         airline: "Spring Airlines",
-        flightNumber: "9C8624",
+        flightNumber: "9C8512",
         departureAirport: "CNX",
         arrivalAirport: "PVG",
-        departureTime: "21:30",
-        departureDateNote: "12 Nov 2026",
-        arrivalTime: "02:35",
-        arrivalDateNote: "13 Nov 2026",
+        departureTime: "09:30",
+        departureDateNote: "Thu 5 Nov 2026",
+        arrivalTime: "14:30",
+        arrivalDateNote: "Thu 5 Nov 2026",
         arrivalTerminal: "Terminal 2"
-      }
-    ]
-  },
-  {
-    id: "day-2",
-    dayNumber: 2,
-    date: "2026-11-13",
-    locationId: "shanghai",
-    weather: {
-      forecast: "Sunny",
-      temperature: "13–20°C",
-      rain: "10%",
-      humidity: "62%",
-      wind: "12 km/h",
-      feelsLike: "19°C",
-      uvIndex: 4
-    },
-    items: [
-      {
-        id: "d2-hotel-checkin",
-        type: "other",
-        time: "03:30",
-        title: "Airport Hotel Check-in",
-        titleZh: "机场酒店入住",
-        icon: "hotel",
-        details: {
-          description:
-            "เช็คอินโรงแรมใกล้สนามบินผู่ตงหลังลงเครื่องกลางดึก มีรถรับส่งสนามบินฟรี พักสั้นๆ ก่อนเข้าเมืองตอนเช้า",
-          location: "Jinjiang Inn, near Shanghai Pudong International Airport"
-        }
       },
       {
-        id: "d2-metro-to-city",
+        id: "d1-to-hotel",
         type: "other",
-        time: "10:00",
-        title: "Transfer to City Hotel",
-        titleZh: "前往市区酒店",
+        time: "15:30",
+        title: "Metro to Hotel & Check-in",
+        titleZh: "地铁前往酒店 · 入住",
         icon: "metro",
         details: {
           description:
-            "เช็คเอาท์แล้วนั่ง Metro สาย 2 จากสนามบินผู่ตงเข้าเมือง (ประมาณ 1 ชม.) ฝากกระเป๋าที่โรงแรมย่านหนานจิงตะวันออกก่อนเวลาเช็คอินจริง",
+            "ผ่าน ตม. รับกระเป๋าแล้วนั่ง Metro สาย 2 จากสนามบินผู่ตงเข้าเมือง ประมาณ 1 ชม. (ต้องเปลี่ยนขบวนที่สถานี Guanglan Road) เช็คอินโรงแรมย่านหนานจิงตะวันออก",
           location: "Hanting Hotel, near Nanjing East Road Metro Station",
           metroStation: "Nanjing East Road",
           metroExit: "3"
         }
       },
       {
-        id: "d2-lunch",
+        id: "d1-dinner",
         type: "restaurant",
-        time: "12:30",
-        title: "Lunch",
-        titleZh: "午餐",
+        time: "18:00",
+        title: "Dinner",
+        titleZh: "晚餐",
         icon: "food",
-        restaurantId: "restaurant-002",
-        nearbyRestaurantIds: ["restaurant-002", "restaurant-001"]
+        restaurantId: "restaurant-001",
+        nearbyRestaurantIds: ["restaurant-001", "restaurant-002"]
       },
       {
-        id: "d2-the-bund",
+        id: "d1-the-bund",
         type: "activity",
-        time: "14:30",
+        time: "19:30",
         title: "The Bund",
         titleZh: "外滩",
         icon: "landmark",
         details: {
           description:
-            "ทางเดินเลียบแม่น้ำหวงผู่ ฝั่งหนึ่งเป็นตึกยุโรปเก่า อีกฝั่งเป็นตึกระฟ้าผู่ตง จุดถ่ายรูปหลักของเซี่ยงไฮ้ สวยที่สุดตอนไฟเปิดราวหกโมงเย็น",
+            "ทางเดินเลียบแม่น้ำหวงผู่ ฝั่งหนึ่งเป็นตึกยุโรปเก่า อีกฝั่งเป็นตึกระฟ้าผู่ตง จุดถ่ายรูปหลักของเซี่ยงไฮ้ ไฟเปิดครบตั้งแต่ราวหกโมงเย็น เดินจากโรงแรมได้",
           location: "Zhongshan East 1st Road, Huangpu District",
           metroStation: "East Nanjing Road",
           metroExit: "7",
@@ -126,25 +98,15 @@ window.ITINERARY_DATA = [
         }
       },
       {
-        id: "d2-dinner",
-        type: "restaurant",
-        time: "18:00",
-        title: "Dinner",
-        titleZh: "晚餐",
-        icon: "food",
-        restaurantId: "restaurant-005",
-        nearbyRestaurantIds: ["restaurant-005", "restaurant-003"]
-      },
-      {
-        id: "d2-nanjing-road",
+        id: "d1-nanjing-road",
         type: "activity",
-        time: "20:00",
+        time: "21:00",
         title: "Nanjing Road Pedestrian Street",
         titleZh: "南京路步行街",
         icon: "shopping",
         details: {
           description:
-            "ถนนคนเดินสายช้อปปิ้งหลัก ป้ายไฟนีออนเต็มสองข้างทาง เดินต่อจากเดอะบันด์กลับโรงแรมได้เลย",
+            "ถนนคนเดินสายช้อปปิ้งหลัก ป้ายไฟนีออนเต็มสองข้างทาง เดินต่อจากเดอะบันด์กลับโรงแรมได้พอดี",
           location: "Nanjing East Road, Huangpu District",
           metroStation: "East Nanjing Road",
           metroExit: "2"
@@ -153,24 +115,24 @@ window.ITINERARY_DATA = [
     ]
   },
   {
-    id: "day-3",
-    dayNumber: 3,
-    date: "2026-11-14",
+    id: "day-2",
+    dayNumber: 2,
+    date: "2026-11-06",
     locationId: "shanghai",
     weather: {
-      forecast: "Cloudy",
-      temperature: "12–18°C",
-      rain: "30%",
-      humidity: "72%",
-      wind: "15 km/h",
-      feelsLike: "16°C",
-      uvIndex: 2
+      forecast: "Sunny",
+      temperature: "15–22°C",
+      rain: "10%",
+      humidity: "63%",
+      wind: "12 km/h",
+      feelsLike: "21°C",
+      uvIndex: 5
     },
     items: [
       {
-        id: "d3-yu-garden",
+        id: "d2-yu-garden",
         type: "activity",
-        time: "09:30",
+        time: "09:00",
         title: "Yu Garden & Old Town Bazaar",
         titleZh: "豫园 · 城隍庙",
         icon: "park",
@@ -184,7 +146,7 @@ window.ITINERARY_DATA = [
         }
       },
       {
-        id: "d3-lunch",
+        id: "d2-lunch",
         type: "restaurant",
         time: "12:00",
         title: "Lunch",
@@ -194,7 +156,7 @@ window.ITINERARY_DATA = [
         nearbyRestaurantIds: ["restaurant-003", "restaurant-002"]
       },
       {
-        id: "d3-shanghai-tower",
+        id: "d2-shanghai-tower",
         type: "activity",
         time: "14:00",
         title: "Shanghai Tower Observation Deck",
@@ -210,7 +172,7 @@ window.ITINERARY_DATA = [
         }
       },
       {
-        id: "d3-tianzifang",
+        id: "d2-tianzifang",
         type: "activity",
         time: "16:30",
         title: "Tianzifang",
@@ -226,25 +188,25 @@ window.ITINERARY_DATA = [
         }
       },
       {
-        id: "d3-dinner",
+        id: "d2-dinner",
         type: "restaurant",
         time: "18:30",
         title: "Dinner",
         titleZh: "晚餐",
         icon: "food",
-        restaurantId: "restaurant-004",
-        nearbyRestaurantIds: ["restaurant-004", "restaurant-007"]
+        restaurantId: "restaurant-007",
+        nearbyRestaurantIds: ["restaurant-007", "restaurant-004"]
       },
       {
-        id: "d3-xintiandi",
+        id: "d2-xintiandi",
         type: "activity",
-        time: "20:00",
+        time: "20:30",
         title: "Xintiandi",
         titleZh: "新天地",
         icon: "landmark",
         details: {
           description:
-            "ย่านตึกอิฐเก่าที่รีโนเวตเป็นร้านอาหารและบาร์ บรรยากาศกลางคืนดี เดินต่อจากเทียนจื่อฟางได้ในไม่กี่สถานี",
+            "ย่านตึกอิฐเก่าที่รีโนเวตเป็นร้านอาหารและบาร์ บรรยากาศกลางคืนดี ห่างจากเทียนจื่อฟางแค่ไม่กี่สถานี",
           location: "Lane 181, Taicang Road, Huangpu District",
           metroStation: "South Huangpi Road",
           metroExit: "1"
@@ -253,22 +215,22 @@ window.ITINERARY_DATA = [
     ]
   },
   {
-    id: "day-4",
-    dayNumber: 4,
-    date: "2026-11-15",
+    id: "day-3",
+    dayNumber: 3,
+    date: "2026-11-07",
     locationId: "shanghai",
     weather: {
-      forecast: "Light rain",
-      temperature: "11–16°C",
-      rain: "60%",
-      humidity: "80%",
-      wind: "17 km/h",
-      feelsLike: "14°C",
-      uvIndex: 1
+      forecast: "Cloudy",
+      temperature: "14–20°C",
+      rain: "30%",
+      humidity: "72%",
+      wind: "15 km/h",
+      feelsLike: "19°C",
+      uvIndex: 3
     },
     items: [
       {
-        id: "d4-zhujiajiao",
+        id: "d3-zhujiajiao",
         type: "activity",
         time: "08:30",
         title: "Zhujiajiao Water Town",
@@ -276,7 +238,7 @@ window.ITINERARY_DATA = [
         icon: "landmark",
         details: {
           description:
-            "เมืองน้ำเก่าอายุกว่า 1,700 ปี ห่างจากตัวเมืองราวหนึ่งชั่วโมง มีสะพานหินฟั่งเซิงและล่องเรือในคลองได้ ครึ่งวันกำลังพอดี",
+            "เมืองน้ำเก่าอายุกว่า 1,700 ปี นั่ง Metro สาย 17 จากใจกลางเมืองราวหนึ่งชั่วโมง มีสะพานหินฟั่งเซิงและล่องเรือในคลอง ครึ่งวันกำลังพอดี",
           location: "Zhujiajiao Ancient Town, Qingpu District",
           metroStation: "Zhujiajiao (Line 17)",
           metroExit: "2",
@@ -284,7 +246,7 @@ window.ITINERARY_DATA = [
         }
       },
       {
-        id: "d4-lunch",
+        id: "d3-lunch",
         type: "restaurant",
         time: "12:30",
         title: "Lunch",
@@ -294,7 +256,7 @@ window.ITINERARY_DATA = [
         nearbyRestaurantIds: ["restaurant-006"]
       },
       {
-        id: "d4-french-concession",
+        id: "d3-french-concession",
         type: "activity",
         time: "16:00",
         title: "Former French Concession Walk",
@@ -309,17 +271,17 @@ window.ITINERARY_DATA = [
         }
       },
       {
-        id: "d4-dinner",
+        id: "d3-dinner",
         type: "restaurant",
         time: "18:30",
         title: "Dinner",
         titleZh: "晚餐",
         icon: "food",
-        restaurantId: "restaurant-007",
-        nearbyRestaurantIds: ["restaurant-007", "restaurant-004"]
+        restaurantId: "restaurant-005",
+        nearbyRestaurantIds: ["restaurant-005", "restaurant-004"]
       },
       {
-        id: "d4-river-cruise",
+        id: "d3-river-cruise",
         type: "activity",
         time: "20:30",
         title: "Huangpu River Night Cruise",
@@ -337,42 +299,43 @@ window.ITINERARY_DATA = [
     ]
   },
   {
-    id: "day-5",
-    dayNumber: 5,
-    date: "2026-11-16",
+    id: "day-4",
+    dayNumber: 4,
+    date: "2026-11-08",
     locationId: "shanghai",
     weather: {
       forecast: "Partly cloudy",
-      temperature: "12–18°C",
+      temperature: "14–21°C",
       rain: "20%",
       humidity: "68%",
       wind: "13 km/h",
-      feelsLike: "17°C",
-      uvIndex: 3
+      feelsLike: "20°C",
+      uvIndex: 4
     },
     items: [
       {
-        id: "d5-hotel-checkout",
+        id: "d4-hotel-checkout",
         type: "other",
         time: "09:00",
         title: "Hotel Check-out",
         titleZh: "退房",
         icon: "hotel",
         details: {
-          description: "เช็คเอาท์จาก Hanting Hotel และฝากกระเป๋าไว้ที่ล็อบบี้ก่อนออกไปเที่ยวช่วงเช้า",
+          description:
+            "เช็คเอาท์ตามเวลาโรงแรม (12:00) แต่ออกเช้าหน่อยแล้วฝากกระเป๋าไว้ที่ล็อบบี้ จะได้เที่ยวต่อได้ก่อนไปสนามบิน",
           location: "Hanting Hotel, near Nanjing East Road Metro Station"
         }
       },
       {
-        id: "d5-jingan-temple",
+        id: "d4-jingan-temple",
         type: "activity",
-        time: "10:00",
+        time: "09:30",
         title: "Jing'an Temple",
         titleZh: "静安寺",
         icon: "landmark",
         details: {
           description:
-            "วัดทองกลางย่านธุรกิจ ตัดกับตึกกระจกรอบๆ อย่างชัดเจน ใช้เวลาไม่นานและอยู่บนเส้นทางกลับสนามบิน",
+            "วัดทองกลางย่านธุรกิจ ตัดกับตึกกระจกรอบๆ อย่างชัดเจน ใช้เวลาไม่นานและอยู่บนเส้นทางกลับสนามบิน (Metro สาย 2 สายเดียวกัน)",
           location: "1686 Nanjing West Road, Jing'an District",
           metroStation: "Jing'an Temple",
           metroExit: "1",
@@ -380,46 +343,46 @@ window.ITINERARY_DATA = [
         }
       },
       {
-        id: "d5-lunch",
+        id: "d4-lunch",
         type: "restaurant",
-        time: "12:00",
+        time: "11:30",
         title: "Farewell Lunch",
         titleZh: "最后一餐",
         icon: "food",
-        restaurantId: "restaurant-001",
-        nearbyRestaurantIds: ["restaurant-001", "restaurant-002"]
+        restaurantId: "restaurant-002",
+        nearbyRestaurantIds: ["restaurant-002", "restaurant-001"]
       },
       {
-        id: "d5-to-airport",
+        id: "d4-to-airport",
         type: "other",
-        time: "15:00",
+        time: "13:00",
         title: "Transfer to Pudong Airport",
         titleZh: "前往浦东机场",
         icon: "train",
         details: {
           description:
-            "รับกระเป๋าที่โรงแรมแล้วไปสนามบิน เลือกได้ระหว่าง Metro สาย 2 (ถูกกว่า ~1 ชม.) หรือ Maglev จากสถานีหลงหยางลู่ (8 นาที)",
+            "รับกระเป๋าที่โรงแรมแล้วออกไปสนามบิน เผื่อเวลา 3 ชม. ก่อนบิน เลือกได้ระหว่าง Metro สาย 2 (ถูกกว่า ~1 ชม.) หรือ Maglev จากสถานีหลงหยางลู่ (8 นาที)",
           location: "Shanghai Pudong International Airport, Terminal 2",
           metroStation: "Longyang Road (Maglev)",
           metroExit: "4"
         }
       },
       {
-        id: "d5-flight-out",
+        id: "d4-flight-out",
         type: "flight",
-        time: "18:40",
+        time: "16:10",
         title: "Flight back to Chiang Mai",
         titleZh: "飞回清迈",
         icon: "flight",
         airline: "Spring Airlines",
-        flightNumber: "9C8623",
+        flightNumber: "9C8511",
         departureAirport: "PVG",
         arrivalAirport: "CNX",
-        departureTime: "18:40",
-        departureDateNote: "16 Nov 2026",
+        departureTime: "16:10",
+        departureDateNote: "Sun 8 Nov 2026",
         departureTerminal: "Terminal 2",
-        arrivalTime: "22:05",
-        arrivalDateNote: "16 Nov 2026"
+        arrivalTime: "20:10",
+        arrivalDateNote: "Sun 8 Nov 2026"
       }
     ]
   }
