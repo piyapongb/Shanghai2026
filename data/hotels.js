@@ -1,27 +1,35 @@
 /**
  * Hotel Master Data
  * Fields: id, stayFrom, stayTo, name, nameZh, address, checkIn, checkOut, image
+ *
+ * checkIn / checkOut are the hotel's stated policy times, not what the
+ * itinerary shows for an actual arrival — a 02:30 check-in after a red-eye
+ * can sit alongside a 14:00 policy time without either being wrong.
+ *
+ * MOCK DATA: placeholder Shanghai hotels, nothing is booked. `image` is
+ * empty until a photo is added with
+ *   node tools/add-image.js <local-file> hotel-00N
  */
 window.HOTELS_DATA = [
   {
     id: "hotel-001",
-    stayFrom: "2026-10-22",
-    stayTo: "2026-10-23",
-    name: "Baiyun Airport Konggang Hotel - Free 24h Shuttle Bus",
-    nameZh: "广东空港大酒店(广州新白云国际机场直营店)",
-    image: "assets/images/hotels/hotel-001.png",
-    address: "Near Guangzhou Baiyun International Airport, Guangzhou (free 24h shuttle bus to/from the airport)",
+    stayFrom: "2026-11-12",
+    stayTo: "2026-11-13",
+    name: "Jinjiang Inn (Shanghai Pudong Airport)",
+    nameZh: "锦江之星(上海浦东机场店)",
+    image: "",
+    address: "Near Shanghai Pudong International Airport, Pudong New Area, Shanghai (free airport shuttle)",
     checkIn: "14:00",
     checkOut: "12:00"
   },
   {
     id: "hotel-002",
-    stayFrom: "2026-10-23",
-    stayTo: "2026-10-25",
-    name: "City Comfort Inn (Guangzhou Luyuan Road Taojin Metro Station)",
-    nameZh: "城市便捷酒店(广州麓苑路淘金地铁站店)",
-    image: "assets/images/hotels/hotel-002.png",
-    address: "Luyuan Road, near Taojin Metro Station, Yuexiu District, Guangzhou",
+    stayFrom: "2026-11-13",
+    stayTo: "2026-11-16",
+    name: "Hanting Hotel (Shanghai Nanjing East Road)",
+    nameZh: "汉庭酒店(上海南京东路店)",
+    image: "",
+    address: "Near Nanjing East Road Metro Station, Huangpu District, Shanghai",
     checkIn: "14:00",
     checkOut: "12:00"
   }

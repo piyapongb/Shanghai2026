@@ -9,200 +9,137 @@
  *
  * `links` is an array of { label, url, type: "review"|"website", rating? }
  * rendered as a "Reviews & Links" list — use it to attach one or many
- * review sites / official sites per restaurant. Mock data below; replace
- * with real links and ratings when available.
+ * review sites / official sites per restaurant.
+ *
+ * MOCK DATA: these are real, well-known Shanghai restaurants used as
+ * placeholders so the app has something to render. Addresses, prices and
+ * ratings are approximate and the links point at search-engine home pages,
+ * not at the specific listing — replace them before relying on any of it.
+ *
+ * `gallery` needs at least 2 photos before the gallery section renders at
+ * all, so a single-photo gallery is invisible. `image` is left empty here
+ * because no Shanghai photos have been added yet; add one per restaurant
+ * with `node tools/add-image.js <local-file> restaurant-00N`.
  */
 window.RESTAURANTS_DATA = [
   {
     id: "restaurant-001",
-    zone: "Liwan",
-    name: "Tao Tao Ju",
-    nameZh: "陶陶居",
-    image: "assets/images/restaurants/restaurant-001.png",
+    zone: "Huangpu",
+    name: "Yang's Fried Dumplings",
+    nameZh: "小杨生煎",
+    image: "",
     gallery: [],
-    cuisine: ["Cantonese", "Dim Sum"],
+    cuisine: ["Shanghainese", "Street Food"],
     description:
-      "ร้านติ่มซำเก่าแก่ที่เปิดมานานกว่าร้อยปี บรรยากาศแบบจีนโบราณ ขึ้นชื่อเรื่องซาลาเปาและขนมจีบ",
-    address: "20 Dishifu Road, Liwan District, Guangzhou",
-    price: "¥60–120",
-    recommendedDishes: ["Char Siu Bun", "Shrimp Dumpling", "Egg Tart"],
+      "ร้านเสี่ยวหลงเปาทอด (เชิงเจียน) ชื่อดังของเซี่ยงไฮ้ แป้งกรอบก้น น้ำซุปข้างในเยอะ ราคาไม่แพง เหมาะเป็นมื้อเช้าหรือของว่าง",
+    address: "Huanghe Road, Huangpu District, Shanghai",
+    price: "¥20–40",
+    recommendedDishes: ["Pork Sheng Jian Bao", "Beef Curry Soup", "Vermicelli Soup"],
     links: [
-      { label: "TripAdvisor", url: "https://www.tripadvisor.com/", type: "review", rating: "4.5" },
-      { label: "Dianping (大众点评)", url: "https://www.dianping.com/", type: "review", rating: "4.6" },
-      { label: "Official Website", url: "https://www.taotaoju.com/", type: "website" }
+      { label: "TripAdvisor", url: "https://www.tripadvisor.com/", type: "review", rating: "4.2" },
+      { label: "Dianping (大众点评)", url: "https://www.dianping.com/", type: "review", rating: "4.4" }
     ]
   },
   {
     id: "restaurant-002",
-    zone: "Liwan",
-    name: "Panxi Restaurant",
-    nameZh: "泮溪酒家",
-    image: "assets/images/restaurants/restaurant-002.png",
+    zone: "Huangpu",
+    name: "Jia Jia Tang Bao",
+    nameZh: "佳家汤包",
+    image: "",
     gallery: [],
-    cuisine: ["Cantonese", "Dim Sum"],
+    cuisine: ["Shanghainese", "Dim Sum"],
     description:
-      "ภัตตาคารริมน้ำสไตล์สวนจีนโบราณ ใหญ่ที่สุดแห่งหนึ่งในกวางโจว เหมาะสำหรับมื้อกลางวันแบบติ่มซำ",
-    address: "151 Longjin West Road, Liwan District, Guangzhou",
-    price: "¥80–150",
-    recommendedDishes: ["Steamed Rice Rolls", "Lotus Paste Pastry", "BBQ Pork Puff"],
-    links: []
+      "ร้านเสี่ยวหลงเปาเล็กๆ แต่คนต่อคิวยาว ขึ้นชื่อว่าน้ำซุปในตัวแป้งหวานกลมกล่อมที่สุดร้านหนึ่งในเมือง",
+    address: "90 Huanghe Road, Huangpu District, Shanghai",
+    price: "¥40–80",
+    recommendedDishes: ["Crab Roe Xiao Long Bao", "Pork Xiao Long Bao", "Wonton Soup"],
+    links: [
+      { label: "Dianping (大众点评)", url: "https://www.dianping.com/", type: "review", rating: "4.5" }
+    ]
+  },
+  {
+    id: "restaurant-003",
+    zone: "Yu Garden",
+    name: "Nanxiang Steamed Bun Restaurant",
+    nameZh: "南翔馒头店",
+    image: "",
+    gallery: [],
+    cuisine: ["Shanghainese", "Dim Sum"],
+    description:
+      "ร้านซาลาเปาน้ำซุปในตลาดสวนอวี้หยวน อายุกว่าร้อยปี ชั้นล่างซื้อกลับ ชั้นบนนั่งทานแบบสบายกว่า",
+    address: "85 Yuyuan Old Road, Huangpu District, Shanghai",
+    price: "¥60–150",
+    recommendedDishes: ["Crab Roe Bun", "Pork Xiao Long Bao", "Chicken Soup"],
+    links: [
+      { label: "TripAdvisor", url: "https://www.tripadvisor.com/", type: "review", rating: "4.0" },
+      { label: "Dianping (大众点评)", url: "https://www.dianping.com/", type: "review", rating: "4.3" }
+    ]
+  },
+  {
+    id: "restaurant-004",
+    zone: "Xintiandi",
+    name: "Din Tai Fung (Xintiandi)",
+    nameZh: "鼎泰丰(新天地店)",
+    image: "",
+    gallery: [],
+    cuisine: ["Taiwanese", "Dim Sum"],
+    description:
+      "ร้านเสี่ยวหลงเปาระดับสากล สะอาด นั่งสบาย เหมาะเวลาที่ไม่อยากเสี่ยงกับคิวหรือความสะอาดของร้านท้องถิ่น",
+    address: "South Block Xintiandi, Lane 123 Xingye Road, Huangpu District, Shanghai",
+    price: "¥150–250",
+    recommendedDishes: ["Truffle Xiao Long Bao", "Shrimp & Pork Wonton", "Braised Beef Noodle Soup"],
+    links: [
+      { label: "Official Website", url: "https://www.dintaifung.com.tw/", type: "website" },
+      { label: "TripAdvisor", url: "https://www.tripadvisor.com/", type: "review", rating: "4.5" }
+    ]
+  },
+  {
+    id: "restaurant-005",
+    zone: "The Bund",
+    name: "Lost Heaven (Bund)",
+    nameZh: "花马天堂(外滩店)",
+    image: "",
+    gallery: [],
+    cuisine: ["Yunnan", "Southeast Asian"],
+    description:
+      "อาหารยูนนานในตึกเก่าย่านเดอะบันด์ บรรยากาศไฟสลัวสวย เหมาะเป็นมื้อเย็นก่อนออกไปเดินริมน้ำ ควรจองล่วงหน้า",
+    address: "17 Yan'an East Road, Huangpu District, Shanghai",
+    price: "¥200–350",
+    recommendedDishes: ["Dai Style Grilled Fish", "Bamboo Chicken", "Yunnan Mint Salad"],
+    links: [
+      { label: "TripAdvisor", url: "https://www.tripadvisor.com/", type: "review", rating: "4.4" }
+    ]
   },
   {
     id: "restaurant-006",
-    zone: "Yuexiu",
-    name: "Beijing Road Snack Alley",
-    nameZh: "北京路小食街",
-    image: "assets/images/restaurants/restaurant-006.png",
+    zone: "Qingpu",
+    name: "Zhujiajiao Old Street Eats",
+    nameZh: "朱家角老街小吃",
+    image: "",
     gallery: [],
-    cuisine: ["Street Food"],
+    cuisine: ["Street Food", "Local"],
     description:
-      "ตรอกของกินริมถนนปักกิ่ง สายเดินเล่นตอนกลางคืน มีของว่างท้องถิ่นให้ลองหลายอย่าง",
-    address: "Beijing Road Pedestrian Street, Yuexiu District, Guangzhou",
-    price: "¥15–40",
-    recommendedDishes: ["Stinky Tofu", "Rice Noodle Rolls", "Sugar Cane Juice"],
+      "แผงของกินตลอดถนนเก่าในเมืองน้ำจูเจียเจี่ยว ขาหมูตุ๋น บะจ่างใบไผ่ และขนมท้องถิ่น กินเดินไปตามคลองได้เลย",
+    address: "North Street, Zhujiajiao Ancient Town, Qingpu District, Shanghai",
+    price: "¥30–80",
+    recommendedDishes: ["Zongzi (Bamboo Leaf Rice)", "Braised Pork Knuckle", "Sweet Osmanthus Cake"],
     links: []
   },
   {
-    id: "restaurant-009",
-    zone: "Tianhe",
-    name: "Tianhe Noodle Bar",
-    nameZh: "天河面馆",
-    image: "assets/images/restaurants/restaurant-009.png",
+    id: "restaurant-007",
+    zone: "Xuhui",
+    name: "Jian Guo 328",
+    nameZh: "建国328小馆",
+    image: "",
     gallery: [],
-    cuisine: ["Noodles"],
+    cuisine: ["Shanghainese", "Home-style"],
     description:
-      "ร้านบะหมี่เกี๊ยวสไตล์กวางตุ้งเล็ก ๆ เหมาะกับมื้อเที่ยงเร็ว ๆ ระหว่างช้อปปิ้ง",
-    address: "5 Zhongshan Avenue, Tianhe District, Guangzhou",
-    price: "¥25–45",
-    recommendedDishes: ["Wonton Noodles", "Beef Brisket Noodles"],
-    links: []
-  },
-  {
-    id: "restaurant-010",
-    zone: "Liwan",
-    name: "Dian Dou De (Xinghuan / Big Treehouse Branch)",
-    nameZh: "点都德(星寰店/大树下总店)",
-    image: "assets/images/restaurants/restaurant-010.png",
-    gallery: [],
-    cuisine: ["Cantonese", "Dim Sum"],
-    description:
-      "ติ่มซำเชนดังของกวางโจว สาขานี้ใกล้เขตเมืองเก่าซีกวน เมนูหลากหลายและคิวมักยาวช่วงเที่ยง",
-    address: "Xinghuan / Big Treehouse Branch, Liwan District, Guangzhou (confirm exact address on Amap before visiting)",
-    price: "¥70–140",
-    recommendedDishes: ["Steamed Pork Ribs", "BBQ Pork Puff", "Rice Noodle Rolls"],
+      "ร้านอาหารเซี่ยงไฮ้แบบบ้านๆ ในย่านฝรั่งเศสเก่า ราคาไม่แรง รสจัดกำลังดี เหมาะลองอาหารเซี่ยงไฮ้แท้ๆ สักมื้อ",
+    address: "328 Jianguo West Road, Xuhui District, Shanghai",
+    price: "¥100–180",
+    recommendedDishes: ["Red-braised Pork", "Crispy Duck", "Stir-fried Rice Cake"],
     links: [
-      { label: "Dianping (大众点评)", url: "https://www.dianping.com/", type: "review", rating: "4.6" }
+      { label: "Dianping (大众点评)", url: "https://www.dianping.com/", type: "review", rating: "4.4" }
     ]
-  },
-  {
-    id: "restaurant-011",
-    zone: "Yuexiu",
-    name: "HEYTEA Lab",
-    nameZh: "喜茶 LAB",
-    image: "assets/images/restaurants/restaurant-011.png",
-    gallery: [],
-    cuisine: ["Cafe", "Tea"],
-    description:
-      "ร้านชาสไตล์โมเดิร์นสาขาพิเศษ ตกแต่งเป็นธีมเฉพาะ เหมาะกับการแวะถ่ายรูปและจิบชาผลไม้ระหว่างเดินเที่ยว",
-    address: "Yuexiu District, Guangzhou (check current branch location on Amap)",
-    price: "¥25–45",
-    recommendedDishes: ["Cheese Tea", "Fruit Tea", "Soft Serve"],
-    links: [
-      { label: "Dianping (大众点评)", url: "https://www.dianping.com/", type: "review", rating: "4.5" }
-    ]
-  },
-  {
-    id: "restaurant-012",
-    zone: "Yuexiu",
-    name: "Nap Cafe Lab",
-    nameZh: "Nap Cafe Lab",
-    image: "assets/images/restaurants/restaurant-012.png",
-    gallery: [],
-    cuisine: ["Cafe"],
-    description:
-      "คาเฟ่บรรยากาศเรียบง่าย มินิมอล เหมาะกับพักดื่มกาแฟและทำงานเบา ๆ ระหว่างวัน",
-    address: "Yuexiu District, Guangzhou (check current branch location on Amap)",
-    price: "¥30–60",
-    recommendedDishes: ["Specialty Coffee", "Cold Brew", "Pastries"],
-    links: []
-  },
-  {
-    id: "restaurant-013",
-    zone: "Yuexiu",
-    name: "Wentong's",
-    nameZh: "文通冰室",
-    image: "assets/images/restaurants/restaurant-013.png",
-    gallery: [],
-    cuisine: ["Cha Chaan Teng", "Hong Kong Style", "Cafe"],
-    description:
-      "ร้าน Cha Chaan Teng สไตล์ฮ่องกงชื่อดังมาก คนแน่นและมักต้องต่อคิวช่วงมื้อหลัก มีสาขาในหลายเมือง (กว่างโจว เซินเจิ้น เซี่ยงไฮ้ ฮ่องกง มาเก๊า)",
-    address: "Mayflower Plaza (五月花广场), near Beijing Road, Yuexiu District, Guangzhou",
-    price: "¥50–120",
-    recommendedDishes: ["Hong Kong Milk Tea", "Black Truffle Steak", "Dessert Selection"],
-    links: []
-  },
-  {
-    id: "restaurant-014",
-    zone: "Yuexiu",
-    name: "Hakka Yu",
-    nameZh: "客家渔",
-    image: "assets/images/restaurants/restaurant-014.png",
-    gallery: [],
-    cuisine: ["Local Cuisine", "Hakka"],
-    description:
-      "ร้านอาหารฮากกา (จีนแคะ) รสชาติเข้มข้นแบบดั้งเดิม อยู่ในห้าง Teemall ชั้น 7 ใกล้ถนนปักกิ่ง",
-    address: "7F Teemall, Beijing Road, Yuexiu District, Guangzhou",
-    price: "¥60–120",
-    recommendedDishes: ["Hakka Salt-baked Chicken", "Stuffed Tofu", "Preserved Vegetable Pork"],
-    links: []
-  },
-  {
-    id: "restaurant-015",
-    zone: "Yuexiu",
-    name: "Tao Tao Ju (Teemall Beijing Lu Branch)",
-    nameZh: "陶陶居(北京路天汇店)",
-    image: "assets/images/restaurants/restaurant-015.png",
-    gallery: [],
-    cuisine: ["Cantonese", "Dim Sum"],
-    description:
-      "สาขาของติ่มซำชื่อดังโบราณ อยู่ในห้าง Teemall ชั้น 6 ใกล้ถนนปักกิ่ง สะดวกกว่าสาขาดั้งเดิมที่ซีกวน",
-    address: "6F Teemall, Beijing Road, Yuexiu District, Guangzhou",
-    price: "¥60–120",
-    recommendedDishes: ["Char Siu Bun", "Shrimp Dumpling", "Egg Tart"],
-    links: [
-      { label: "Dianping (大众点评)", url: "https://www.dianping.com/", type: "review", rating: "4.5" }
-    ]
-  },
-  {
-    id: "restaurant-016",
-    zone: "Yuexiu",
-    name: "Da Ge Fan (Beijing Road Branch)",
-    nameZh: "大鸽饭(北京路店)",
-    image: "assets/images/restaurants/restaurant-016.png",
-    gallery: [],
-    cuisine: ["Local Cuisine", "Cantonese"],
-    description:
-      "ร้านขึ้นชื่อเรื่องนกพิราบย่าง (乳鸽) แบบกวางตุ้งดั้งเดิม เมนูซิกเนเจอร์ของย่านถนนปักกิ่ง",
-    address: "Near Beijing Road Pedestrian Street, Yuexiu District, Guangzhou",
-    price: "¥50–100",
-    recommendedDishes: ["Roast Pigeon", "Claypot Rice", "Stir-fried Greens"],
-    links: [
-      { label: "Dianping (大众点评)", url: "https://www.dianping.com/", type: "review", rating: "4.6" }
-    ]
-  },
-  {
-    id: "restaurant-017",
-    zone: "Yuexiu",
-    name: "The raw",
-    nameZh: "The raw",
-    image: "assets/images/restaurants/restaurant-017.png",
-    gallery: [],
-    cuisine: ["Cafe"],
-    description:
-      "คาเฟ่สายสุขภาพ เมนูเบา ๆ และเครื่องดื่มปั่นสด เหมาะกับมื้อเช้าหรือพักระหว่างเดินเที่ยวย่านนี้",
-    address: "Yuexiu District, Guangzhou (near Taojin Metro Station — check current branch on Amap)",
-    price: "¥40–80",
-    recommendedDishes: ["Smoothie Bowl", "Cold-pressed Juice", "Avocado Toast"],
-    links: []
   }
 ];

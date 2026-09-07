@@ -1,4 +1,4 @@
-# Guangzhou Trip 2026 — Project Guide
+# Shanghai Trip 2026 — Project Guide
 
 A static, no-build-step travel itinerary web app (plain HTML/CSS/JS, no
 framework, no bundler, no `npm install`). Built so the owner (non-developer,
@@ -7,6 +7,15 @@ details indefinitely, and so this exact codebase can be copied to plan a
 different trip later. Read this file fully before making changes — it
 answers nearly every "how do I..." question that would otherwise require
 re-deriving from scratch.
+
+This repo started as a copy of the Guangzhou 2026 itinerary app. The UI is
+unchanged; all four data files were replaced with **placeholder Shanghai
+content** (12–16 Nov 2026, real landmarks and restaurants, invented flights,
+hotels, times and prices) so the app has something to render while the real
+plan is worked out. Every photo was Guangzhou's, so they were deleted —
+`heroImage`, every restaurant/hotel `image` and every itinerary `thumbnail`
+is empty, which the UI handles by falling back to icons. Treat any specific
+number in the data as unconfirmed until the owner says otherwise.
 
 ## Working assumptions for whoever (human or Claude) picks this up
 

@@ -27,17 +27,17 @@
  */
 window.LOCATIONS_DATA = {
   /* Used by this trip. */
-  guangzhou: {
-    name: "Guangzhou",
-    lat: 23.1291,
-    lon: 113.2644
-  },
-
-  /* Ready to use — reference them from a day whenever a trip goes there. */
   shanghai: {
     name: "Shanghai",
     lat: 31.2304,
     lon: 121.4737
+  },
+
+  /* Ready to use — reference them from a day whenever a trip goes there. */
+  guangzhou: {
+    name: "Guangzhou",
+    lat: 23.1291,
+    lon: 113.2644
   },
   beijing: {
     name: "Beijing",
