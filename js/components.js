@@ -556,12 +556,24 @@
   function renderRideCard(ride) {
     const card = U.el("article", { class: "ride-card" });
 
+    if (ride.image) {
+      card.appendChild(mediaThumb(ride.image, ride.name, "ticket", "ride-card-media", true));
+    }
+
     const head = U.el("div", { class: "ride-card-head" });
     const titles = U.el("div", { class: "ride-card-titles" });
     titles.appendChild(U.el("h5", { class: "ride-name" }, [ride.name]));
     if (ride.nameZh) titles.appendChild(U.el("p", { class: "ride-name-zh" }, [ride.nameZh]));
     head.appendChild(titles);
-    if (ride.kind) head.appendChild(U.el("span", { class: "tag ride-kind" }, [ride.kind]));
+
+    /* `kind` says in plain Thai what kind of thing this is; `kindEn` keeps
+       the industry term next to it, so "Dark ride" stops being a riddle. */
+    if (ride.kind || ride.kindEn) {
+      const kinds = U.el("div", { class: "ride-kinds" });
+      if (ride.kind) kinds.appendChild(U.el("span", { class: "tag ride-kind" }, [ride.kind]));
+      if (ride.kindEn) kinds.appendChild(U.el("span", { class: "ride-kind-en" }, [ride.kindEn]));
+      head.appendChild(kinds);
+    }
     card.appendChild(head);
 
     if (ride.description) {
@@ -576,7 +588,6 @@
 
     const stats = statRow([
       { label: "Duration", value: ride.duration },
-      { label: "Height", value: ride.height },
       { label: "Intensity", value: ride.intensity }
     ]);
     if (stats) {
@@ -587,7 +598,27 @@
     return card;
   }
 
-  function renderParkDetails(park) {
+  /* A character the index knows about becomes a button that opens the
+     popup; one it doesn't stays a plain chip, so a half-written
+     characters.js still renders something readable. */
+  function renderCharacterChip(key, characterIndex) {
+    const record = (characterIndex || {})[key];
+    if (!record || !record.bio) {
+      return U.el("span", { class: "tag" }, [record ? record.name : key]);
+    }
+    return U.el(
+      "button",
+      {
+        type: "button",
+        class: "tag tag--character",
+        "data-character-key": key,
+        "aria-label": "About " + record.name
+      },
+      [U.el("span", {}, [record.name]), U.icon("search", "tag-character-icon")]
+    );
+  }
+
+  function renderParkDetails(park, characterIndex) {
     const wrap = U.el("div", { class: "detail-content" });
     if (!park) return wrap;
 
@@ -599,8 +630,8 @@
         U.el("h4", { class: "field-label" }, ["Key characters"])
       ]);
       const row = U.el("div", { class: "tag-row" });
-      park.characters.forEach(function (name) {
-        row.appendChild(U.el("span", { class: "tag" }, [name]));
+      park.characters.forEach(function (key) {
+        row.appendChild(renderCharacterChip(key, characterIndex));
       });
       block.appendChild(row);
       wrap.appendChild(block);
@@ -690,7 +721,7 @@
       if (item.type === "restaurant") {
         panel.appendChild(renderNearbyRestaurants(item.nearbyRestaurantIds || [item.restaurantId], restaurantIndex));
       } else if (item.type === "park") {
-        panel.appendChild(renderParkDetails(item.park));
+        panel.appendChild(renderParkDetails(item.park, options.characters));
       } else {
         panel.appendChild(renderActivityDetails(item.details));
       }
@@ -710,7 +741,7 @@
 
   /* ---------- Day section ---------- */
 
-  function renderDaySection(day, restaurantIndex) {
+  function renderDaySection(day, restaurantIndex, characterIndex) {
     const section = U.el("section", {
       class: "day-section",
       id: day.id,
@@ -730,7 +761,10 @@
     const hideTimes = !!day.hideTimes;
     const list = U.el("ol", { class: "timeline" + (hideTimes ? " timeline--no-time" : "") });
     (day.items || []).forEach(function (item) {
-      list.appendChild(renderTimelineItem(item, restaurantIndex, { hideTimes: hideTimes }));
+      list.appendChild(renderTimelineItem(item, restaurantIndex, {
+        hideTimes: hideTimes,
+        characters: characterIndex
+      }));
     });
     section.appendChild(list);
 

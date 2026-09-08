@@ -14,6 +14,7 @@
   };
 
   let restaurantIndex = {};
+  let characterIndex = {};
 
   /* ---------- Bootstrap ---------- */
 
@@ -24,7 +25,8 @@
     const hotels = window.HOTELS_DATA || [];
 
     restaurantIndex = buildRestaurantIndex(restaurants);
-    validateReferences(days, restaurantIndex);
+    characterIndex = window.CHARACTERS_DATA || {};
+    validateReferences(days, restaurantIndex, characterIndex);
 
     document.getElementById("hero-root").appendChild(C.renderHero(trip));
 
@@ -42,6 +44,7 @@
     bindCopyEvents();
     bindDayNavEvents(days);
     bindLightboxEvents();
+    bindCharacterDialogEvents();
     bindThemeEvents();
     initTheme();
     initDayObserver(days);
@@ -127,16 +130,25 @@
     return index;
   }
 
-  function validateReferences(days, index) {
+  function validateReferences(days, index, characters) {
     days.forEach(function (day) {
       (day.items || []).forEach(function (item) {
-        if (item.type !== "restaurant") return;
-        const ids = [item.restaurantId].concat(item.nearbyRestaurantIds || []);
-        ids.forEach(function (id) {
-          if (id && !index[id]) {
-            console.warn("[itinerary] Unknown restaurantId referenced:", id, "in item", item.id);
-          }
-        });
+        if (item.type === "restaurant") {
+          const ids = [item.restaurantId].concat(item.nearbyRestaurantIds || []);
+          ids.forEach(function (id) {
+            if (id && !index[id]) {
+              console.warn("[itinerary] Unknown restaurantId referenced:", id, "in item", item.id);
+            }
+          });
+          return;
+        }
+        if (item.type === "park" && item.park) {
+          (item.park.characters || []).forEach(function (key) {
+            if (key && !characters[key]) {
+              console.warn("[itinerary] Unknown character key referenced:", key, "in item", item.id);
+            }
+          });
+        }
       });
     });
   }
@@ -193,7 +205,7 @@
     panel.appendChild(C.renderDayNav(days, days[0].id));
     const daysWrap = U.el("div", { class: "days-wrap" });
     days.forEach(function (day) {
-      daysWrap.appendChild(C.renderDaySection(day, restaurantIndexMap));
+      daysWrap.appendChild(C.renderDaySection(day, restaurantIndexMap, characterIndex));
     });
     panel.appendChild(daysWrap);
   }
@@ -463,6 +475,41 @@
       if (e.target === dialog) {
         dialog.close ? dialog.close() : dialog.removeAttribute("open");
       }
+    });
+  }
+
+  /* ---------- Character popup ---------- */
+
+  function bindCharacterDialogEvents() {
+    const dialog = document.getElementById("character-dialog");
+    const nameEl = document.getElementById("character-dialog-name");
+    const nameZhEl = document.getElementById("character-dialog-name-zh");
+    const bioEl = document.getElementById("character-dialog-bio");
+    const closeBtn = document.getElementById("character-dialog-close");
+
+    function close() {
+      dialog.close ? dialog.close() : dialog.removeAttribute("open");
+    }
+
+    document.addEventListener("click", function (e) {
+      const trigger = e.target.closest("[data-character-key]");
+      if (!trigger) return;
+      const record = characterIndex[trigger.getAttribute("data-character-key")];
+      if (!record) return;
+      nameEl.textContent = record.name || "";
+      nameZhEl.textContent = record.nameZh || "";
+      nameZhEl.hidden = !record.nameZh;
+      bioEl.textContent = record.bio || "";
+      if (typeof dialog.showModal === "function") {
+        dialog.showModal();
+      } else {
+        dialog.setAttribute("open", "");
+      }
+    });
+
+    closeBtn.addEventListener("click", close);
+    dialog.addEventListener("click", function (e) {
+      if (e.target === dialog) close();
     });
   }
 

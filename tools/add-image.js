@@ -38,7 +38,8 @@ const CREDITS_FILE = path.join(ROOT, "assets/images/CREDITS.md");
 const SOURCES = [
   { file: "data/restaurants.js", global: "RESTAURANTS_DATA", dir: "assets/images/restaurants", field: "image", label: "restaurant" },
   { file: "data/hotels.js", global: "HOTELS_DATA", dir: "assets/images/hotels", field: "image", label: "hotel" },
-  { file: "data/itinerary.js", global: "ITINERARY_DATA", dir: "assets/images/activities", field: "thumbnail", label: "itinerary stop" }
+  { file: "data/itinerary.js", global: "ITINERARY_DATA", dir: "assets/images/activities", field: "thumbnail", label: "itinerary stop" },
+  { file: "data/itinerary.js", global: "ITINERARY_DATA", dir: "assets/images/rides", field: "image", label: "theme park attraction" }
 ];
 
 const TRIP_FILE = "data/trip.js";
@@ -56,6 +57,13 @@ function flattenItinerary(days) {
   days.forEach(function (day) {
     (day.items || []).forEach(function (item) {
       rows.push({ id: item.id, name: item.title + (item.titleZh ? " / " + item.titleZh : "") + "  [" + day.id + "]" });
+      /* A park item's attractions each own their own image, so they are
+         addressable by id here too. */
+      if (item.park && item.park.rides) {
+        item.park.rides.forEach(function (ride) {
+          if (ride.id) rows.push({ id: ride.id, name: "  \u21b3 " + ride.name, ride: true });
+        });
+      }
     });
   });
   return rows;
@@ -77,8 +85,11 @@ function findTarget(id) {
 
   const days = loadDataGlobal("data/itinerary.js", "ITINERARY_DATA");
   for (const day of days) {
-    const hit3 = (day.items || []).find(function (item) { return item.id === id; });
-    if (hit3) return { source: SOURCES[2], record: hit3 };
+    for (const item of day.items || []) {
+      if (item.id === id) return { source: SOURCES[2], record: item };
+      const ride = (item.park && item.park.rides || []).find(function (r) { return r.id === id; });
+      if (ride) return { source: SOURCES[3], record: ride };
+    }
   }
   return null;
 }
@@ -98,9 +109,9 @@ function listAll() {
     console.log("  " + h.id.padEnd(16) + h.name + (h.image ? "" : "   (no image yet)"));
   });
 
-  console.log("\nItinerary stops (data/itinerary.js):");
+  console.log("\nItinerary stops and theme park attractions (data/itinerary.js):");
   flattenItinerary(loadDataGlobal("data/itinerary.js", "ITINERARY_DATA")).forEach(function (row) {
-    console.log("  " + row.id.padEnd(24) + row.name);
+    console.log("  " + row.id.padEnd(26) + row.name);
   });
 }
 

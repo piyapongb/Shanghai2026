@@ -74,7 +74,7 @@ then open `http://localhost:8123/index.html`. That's the entire dev loop.
 
 ## Data model — where to make almost every change
 
-All five files are plain `window.SOMETHING_DATA = [...]` assignments, loaded
+All six files are plain `window.SOMETHING_DATA = [...]` assignments, loaded
 as `<script>` tags in `index.html` (order matters — see that file's script
 list if you ever add a new data file). Every file has a header comment
 restating its own schema; the summary below is for quick orientation, the
@@ -136,13 +136,23 @@ flight | park | other`:
   `nearbyRestaurantIds` (alternates shown as a mini-grid — a good place to
   surface restaurants that don't have their own itinerary slot).
 - **`park`** — one land inside a theme park (Day 2 is Shanghai Disneyland).
-  Collapsed it shows only the land's name; Details opens
-  `park.story`, `park.characters[]` (chips), `park.tip`, then one card per
-  entry in `park.rides[]` (`name`, `nameZh`, `kind`, `description`,
-  `howItWorks`, `duration`, `height`, `intensity`). Every ride field except
-  `name` is optional and just doesn't render when missing, so half-filled
-  entries are safe to commit — which is the point: the owner fills these in
-  over time.
+  Collapsed it shows only the land's name (plus its `thumbnail`, same field
+  as any other stop); Details opens `park.story`, `park.characters[]`,
+  `park.tip`, then one card per entry in `park.rides[]` (`id`, `name`,
+  `nameZh`, `image`, `kind`, `kindEn`, `description`, `howItWorks`,
+  `duration`, `intensity`). Every ride field except `name` is optional and
+  just doesn't render when missing, so half-filled entries are safe to
+  commit — which is the point: the owner fills these in over time.
+  - **`kind` is plain Thai, `kindEn` is the industry term** ("นั่งชมฉากใน
+    อาคาร" / "Dark ride"). Both render, Thai first — the English words alone
+    meant nothing to the owner, which is why the pair exists. Keep writing
+    both when adding a ride.
+  - **`park.characters[]` holds keys into `characters.js`, not names.** A
+    key with a record renders as a tappable chip that opens the popup; an
+    unknown key still renders (raw key as label) and logs a console warning.
+  - A ride's `id` exists so `tools/add-image.js` can target its photo — see
+    "Adding photos". Lands are ordered most-popular-first in `items[]`; the
+    parade/night-show block stays last because it's fixed by time of day.
 - **`activity` / `other`** — `details.description/location/metroStation/
   metroExit/entranceFee`, all optional; the "Details" accordion only
   appears if at least one is non-empty. `thumbnail` is optional; omitting
@@ -177,6 +187,14 @@ a 2am check-in after a red-eye landing while the hotel's official policy
 field still says 14:00). Don't "fix" one to match the other without asking;
 they answer different questions.
 
+### `data/characters.js`
+A keyed map (`{ characterKey: { name, nameZh, bio } }`), referenced from
+`park.characters[]` in `itinerary.js`. It exists because the same character
+shows up in several lands (Mickey in three, Buzz in two) and a bio copied
+three times drifts. Tapping a chip opens `#character-dialog` in
+`index.html`. Unreferenced entries cost nothing. Loaded *after*
+`itinerary.js` in `index.html`'s script list.
+
 ## UI code (`js/`, `css/`, `index.html`) — rarely needs touching
 
 - `js/utils.js` — DOM helpers, the icon set (`ICON_PATHS`), date formatting.
@@ -185,7 +203,10 @@ they answer different questions.
   `opts.hideTimes`; `renderParkDetails` / `renderRideCard` build the theme
   park day.
 - `js/app.js` — state, event wiring, tab/day switching, the weather
-  hydration pass (`hydrateWeather`), theme handling.
+  hydration pass (`hydrateWeather`), theme handling, and the two `<dialog>`
+  popups (`bindLightboxEvents` for photos, `bindCharacterDialogEvents` for
+  character bios — both are one delegated document click listener keyed off
+  a data attribute, copy that pattern for a third).
 - `js/weather.js` — see next section.
 - `css/styles.css` + `css/responsive.css` — design tokens live as CSS
   custom properties near the top of `styles.css`; breakpoints are mobile
@@ -226,12 +247,14 @@ Two purpose-built scripts in `tools/`, both plain Node with no dependencies
 manually, use these instead:
 
 - **`node tools/add-image.js --list`** — every valid id across restaurants,
-  hotels, itinerary stops, plus the special id `hero` (the header/cover
-  photo, which lives in `data/trip.js` as `heroImage` rather than in an
-  array — the script special-cases it).
+  hotels, itinerary stops and theme park attractions (those are listed
+  indented under their land with a `↳`), plus the special id `hero` (the
+  header/cover photo, which lives in `data/trip.js` as `heroImage` rather
+  than in an array — the script special-cases it).
 - **`node tools/add-image.js <local-file> <id> [--gallery] [--force]`** —
   copies the file to `assets/images/<category>/<id>.<ext>` and rewrites
-  that one record's field. `--gallery` appends to a restaurant's gallery
+  that one record's field — a ride id lands in `assets/images/rides/` and
+  sets that ride's `image`, everything else works as before. `--gallery` appends to a restaurant's gallery
   array instead of replacing the main photo (numbered `-2`, `-3`, ... so
   repeat runs don't collide). `--force` replaces an existing photo,
   cleaning up the old file even across a different extension (no orphaned
