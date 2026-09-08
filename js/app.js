@@ -15,6 +15,7 @@
 
   let restaurantIndex = {};
   let characterIndex = {};
+  let infoDialogIndex = {};
 
   /* ---------- Bootstrap ---------- */
 
@@ -26,6 +27,7 @@
 
     restaurantIndex = buildRestaurantIndex(restaurants);
     characterIndex = window.CHARACTERS_DATA || {};
+    infoDialogIndex = buildInfoDialogIndex(days);
     validateReferences(days, restaurantIndex, characterIndex);
 
     document.getElementById("hero-root").appendChild(C.renderHero(trip));
@@ -45,6 +47,7 @@
     bindDayNavEvents(days);
     bindLightboxEvents();
     bindCharacterDialogEvents();
+    bindInfoDialogEvents();
     bindThemeEvents();
     initTheme();
     initDayObserver(days);
@@ -448,6 +451,47 @@
     }, 1600);
   }
 
+  /* ---------- Dialogs ---------- */
+
+  /* <dialog>.showModal() is missing on older Safari/Firefox, where setting the
+     `open` attribute alone drops the dialog into normal page flow - it looks
+     like nothing happened. The fallback class pins and layers it instead, and
+     Escape has to be wired by hand because only real modals get it free. */
+  function openDialog(dialog) {
+    if (typeof dialog.showModal === "function") {
+      dialog.showModal();
+    } else {
+      dialog.classList.add("dialog--fallback");
+      dialog.setAttribute("open", "");
+      document.addEventListener("keydown", escapeToClose);
+    }
+  }
+
+  function closeDialog(dialog) {
+    document.removeEventListener("keydown", escapeToClose);
+    if (typeof dialog.close === "function") {
+      dialog.close();
+    } else {
+      dialog.removeAttribute("open");
+    }
+    dialog.classList.remove("dialog--fallback");
+  }
+
+  function escapeToClose(e) {
+    if (e.key !== "Escape") return;
+    const open = document.querySelector("dialog[open]");
+    if (open) closeDialog(open);
+  }
+
+  /* Clicking the backdrop closes: on a real modal the click lands on the
+     dialog element itself, on the fallback on the .dialog--fallback layer. */
+  function bindDialogDismiss(dialog, closeBtn) {
+    closeBtn.addEventListener("click", function () { closeDialog(dialog); });
+    dialog.addEventListener("click", function (e) {
+      if (e.target === dialog) closeDialog(dialog);
+    });
+  }
+
   /* ---------- Lightbox ---------- */
 
   function bindLightboxEvents() {
@@ -460,22 +504,10 @@
       if (!trigger) return;
       img.src = trigger.getAttribute("data-lightbox-src");
       img.alt = trigger.getAttribute("aria-label") || "";
-      if (typeof dialog.showModal === "function") {
-        dialog.showModal();
-      } else {
-        dialog.setAttribute("open", "");
-      }
+      openDialog(dialog);
     });
 
-    closeBtn.addEventListener("click", function () {
-      dialog.close ? dialog.close() : dialog.removeAttribute("open");
-    });
-
-    dialog.addEventListener("click", function (e) {
-      if (e.target === dialog) {
-        dialog.close ? dialog.close() : dialog.removeAttribute("open");
-      }
-    });
+    bindDialogDismiss(dialog, closeBtn);
   }
 
   /* ---------- Character popup ---------- */
@@ -487,10 +519,6 @@
     const bioEl = document.getElementById("character-dialog-bio");
     const closeBtn = document.getElementById("character-dialog-close");
 
-    function close() {
-      dialog.close ? dialog.close() : dialog.removeAttribute("open");
-    }
-
     document.addEventListener("click", function (e) {
       const trigger = e.target.closest("[data-character-key]");
       if (!trigger) return;
@@ -500,17 +528,77 @@
       nameZhEl.textContent = record.nameZh || "";
       nameZhEl.hidden = !record.nameZh;
       bioEl.textContent = record.bio || "";
-      if (typeof dialog.showModal === "function") {
-        dialog.showModal();
-      } else {
-        dialog.setAttribute("open", "");
-      }
+      openDialog(dialog);
     });
 
-    closeBtn.addEventListener("click", close);
-    dialog.addEventListener("click", function (e) {
-      if (e.target === dialog) close();
+    bindDialogDismiss(dialog, closeBtn);
+  }
+
+  /* ---------- Briefing popups ---------- */
+
+  function buildInfoDialogIndex(days) {
+    const index = {};
+    days.forEach(function (day) {
+      const dialogs = (day.briefing && day.briefing.dialogs) || [];
+      dialogs.forEach(function (dialog) {
+        if (dialog.id) index[dialog.id] = dialog;
+      });
     });
+    return index;
+  }
+
+  function bindInfoDialogEvents() {
+    const dialog = document.getElementById("info-dialog");
+    const titleEl = document.getElementById("info-dialog-title");
+    const introEl = document.getElementById("info-dialog-intro");
+    const bodyEl = document.getElementById("info-dialog-body");
+    const noteEl = document.getElementById("info-dialog-note");
+    const closeBtn = document.getElementById("info-dialog-close");
+
+    document.addEventListener("click", function (e) {
+      const trigger = e.target.closest("[data-info-dialog]");
+      if (!trigger) return;
+      const record = infoDialogIndex[trigger.getAttribute("data-info-dialog")];
+      if (!record) return;
+
+      titleEl.textContent = record.title || "";
+      introEl.textContent = record.intro || "";
+      introEl.hidden = !record.intro;
+      noteEl.textContent = record.note || "";
+      noteEl.hidden = !record.note;
+
+      U.clear(bodyEl);
+
+      /* Two shapes: `groups` of bullets (the prohibited-items list) and
+         `glossary` term/meaning pairs (the ride-type words). */
+      if (record.glossary && record.glossary.length) {
+        const dl = U.el("dl", { class: "glossary" });
+        record.glossary.forEach(function (entry) {
+          dl.appendChild(U.el("div", { class: "glossary-row" }, [
+            U.el("dt", {}, [entry.term]),
+            U.el("dd", {}, [entry.meaning])
+          ]));
+        });
+        bodyEl.appendChild(dl);
+      }
+
+      (record.groups || []).forEach(function (group) {
+        const block = U.el("div", { class: "info-group" });
+        if (group.label) {
+          block.appendChild(U.el("h4", { class: "field-label" }, [group.label]));
+        }
+        const list = U.el("ul", { class: "info-list" });
+        (group.items || []).forEach(function (item) {
+          list.appendChild(U.el("li", {}, [item]));
+        });
+        block.appendChild(list);
+        bodyEl.appendChild(block);
+      });
+
+      openDialog(dialog);
+    });
+
+    bindDialogDismiss(dialog, closeBtn);
   }
 
   /* ---------- Theme ---------- */

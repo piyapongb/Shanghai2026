@@ -14,10 +14,11 @@ and both flights are real** — CNX→PVG 9C8512 on Thu 5 Nov 2026 (09:30 →
 14:30) and PVG→CNX 9C8511 on Sun 8 Nov (16:10 → 20:10), Spring Airlines.
 **Everything between them is still placeholder**: the hotel, every stop,
 meal time and entrance fee is a plausible guess, not a booking. Day 2 is a
-full day at Shanghai Disneyland, built from Claude's own knowledge of the
-park (lands, rides, height limits, show names) — accurate as far as it
-goes, but ride line-ups and show schedules change, so treat it as a draft
-the owner will correct. Every photo
+full day at Shanghai Disneyland. Ride and show details were checked against
+the web in Sep 2026 (10th-anniversary line-up: ILLUMINATE! at night, The
+Heart of Magic at the castle, parade ~12:15/15:15) and wait times are
+ranges pulled from queue-tracking sites — both drift, so re-check the
+official app before the trip rather than trusting the numbers here. Every photo
 was Guangzhou's, so they were deleted —
 `heroImage`, every restaurant/hotel `image` and every itinerary `thumbnail`
 is empty, which the UI handles by falling back to icons. Treat any specific
@@ -139,14 +140,20 @@ flight | park | other`:
   Collapsed it shows only the land's name (plus its `thumbnail`, same field
   as any other stop); Details opens `park.story`, `park.characters[]`,
   `park.tip`, then one card per entry in `park.rides[]` (`id`, `name`,
-  `nameZh`, `image`, `kind`, `kindEn`, `description`, `howItWorks`,
-  `duration`, `intensity`). Every ride field except `name` is optional and
+  `nameZh`, `image`, `kind`, `when`, `description`, `howItWorks`,
+  `duration`, `wait`, `intensity`). Every ride field except `name` is optional and
   just doesn't render when missing, so half-filled entries are safe to
   commit — which is the point: the owner fills these in over time.
-  - **`kind` is plain Thai, `kindEn` is the industry term** ("นั่งชมฉากใน
-    อาคาร" / "Dark ride"). Both render, Thai first — the English words alone
-    meant nothing to the owner, which is why the pair exists. Keep writing
-    both when adding a ride.
+  - **`kind` is the English industry term** ("Dark ride", "Walk-through").
+    An earlier version put a Thai phrase in the chip and overflowed it on
+    narrow screens; the Thai now lives once, in the day briefing's glossary
+    popup, instead of in every card. When adding a ride type not in that
+    glossary, add it there too.
+  - **`wait`** is the typical queue in plain Thai ("รอ 90–150 นาที", "เดินเข้า
+    ได้เลย") and **`when`** is a show's time slot — `when` renders first and
+    highlighted, so shows read as "when + how long", rides as "how long +
+    how long you queue". Waits are ranges on purpose: real queues swing with
+    the season and no single number is honest.
   - **`park.characters[]` holds keys into `characters.js`, not names.** A
     key with a record renders as a tappable chip that opens the popup; an
     unknown key still renders (raw key as label) and logs a console warning.
@@ -160,6 +167,13 @@ flight | park | other`:
 - **Keep items within a day in ascending `time` order.** Nothing enforces
   this programmatically; it's a house convention so the timeline reads
   top-to-bottom correctly.
+- **`briefing` on a day** renders a card between the weather and the
+  timeline: `title`, `intro`, `points[]` (`label` + `text`), and `dialogs[]`.
+  Each dialog is a button that opens `#info-dialog` with either
+  `groups[]` (labelled bullet lists — the prohibited-items list) or
+  `glossary[]` (`term`/`meaning` rows — the ride-type words), plus optional
+  `intro` and `note`. Popups exist so the briefing stays a screen tall: put
+  anything list-shaped in one rather than inline.
 - **`hideTimes: true` on a day** drops the time column for that day only
   (`.timeline--no-time`), and items on it don't need a `time` at all — the
   order in `items[]` *is* the running order. Used for the park day, where a
@@ -203,10 +217,15 @@ three times drifts. Tapping a chip opens `#character-dialog` in
   `opts.hideTimes`; `renderParkDetails` / `renderRideCard` build the theme
   park day.
 - `js/app.js` — state, event wiring, tab/day switching, the weather
-  hydration pass (`hydrateWeather`), theme handling, and the two `<dialog>`
-  popups (`bindLightboxEvents` for photos, `bindCharacterDialogEvents` for
-  character bios — both are one delegated document click listener keyed off
-  a data attribute, copy that pattern for a third).
+  hydration pass (`hydrateWeather`), theme handling, and three `<dialog>`
+  popups: `bindLightboxEvents` (photos), `bindCharacterDialogEvents`
+  (character bios), `bindInfoDialogEvents` (briefing popups). Each is one
+  delegated document click listener keyed off a data attribute — copy that
+  pattern for a fourth. All three open through `openDialog`/`closeDialog`,
+  which add a `.dialog--fallback` class when `showModal()` is missing
+  (older Safari/Firefox): without it the `open` attribute alone leaves the
+  dialog sitting inline in the page, which reads as "the button does
+  nothing". Never call `showModal()` directly.
 - `js/weather.js` — see next section.
 - `css/styles.css` + `css/responsive.css` — design tokens live as CSS
   custom properties near the top of `styles.css`; breakpoints are mobile

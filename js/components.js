@@ -553,6 +553,14 @@
 
   /* ---------- Theme park land (a day spent inside one park) ---------- */
 
+  function rideChip(value, iconKey, extraClass) {
+    if (!value) return null;
+    const chip = U.el("span", { class: "ride-chip" + (extraClass ? " " + extraClass : "") });
+    if (iconKey) chip.appendChild(U.icon(iconKey, "ride-chip-icon"));
+    chip.appendChild(U.el("span", {}, [value]));
+    return chip;
+  }
+
   function renderRideCard(ride) {
     const card = U.el("article", { class: "ride-card" });
 
@@ -560,21 +568,23 @@
       card.appendChild(mediaThumb(ride.image, ride.name, "ticket", "ride-card-media", true));
     }
 
-    const head = U.el("div", { class: "ride-card-head" });
-    const titles = U.el("div", { class: "ride-card-titles" });
-    titles.appendChild(U.el("h5", { class: "ride-name" }, [ride.name]));
-    if (ride.nameZh) titles.appendChild(U.el("p", { class: "ride-name-zh" }, [ride.nameZh]));
-    head.appendChild(titles);
+    card.appendChild(U.el("h5", { class: "ride-name" }, [ride.name]));
+    if (ride.nameZh) card.appendChild(U.el("p", { class: "ride-name-zh" }, [ride.nameZh]));
 
-    /* `kind` says in plain Thai what kind of thing this is; `kindEn` keeps
-       the industry term next to it, so "Dark ride" stops being a riddle. */
-    if (ride.kind || ride.kindEn) {
-      const kinds = U.el("div", { class: "ride-kinds" });
-      if (ride.kind) kinds.appendChild(U.el("span", { class: "tag ride-kind" }, [ride.kind]));
-      if (ride.kindEn) kinds.appendChild(U.el("span", { class: "ride-kind-en" }, [ride.kindEn]));
-      head.appendChild(kinds);
+    /* One wrapping row of chips instead of a chip pinned to the right of the
+       title: the type label used to overflow its own pill on narrow screens.
+       `kind` stays in English on purpose - the day's briefing card carries
+       the Thai glossary for these terms. */
+    const chips = [
+      rideChip(ride.when, "clock", "ride-chip--when"),
+      rideChip(ride.kind, null, "ride-chip--type"),
+      rideChip(ride.duration, "clock"),
+      rideChip(ride.wait, null, "ride-chip--wait"),
+      rideChip(ride.intensity, null, "ride-chip--intensity")
+    ].filter(Boolean);
+    if (chips.length) {
+      card.appendChild(U.el("div", { class: "ride-meta" }, chips));
     }
-    card.appendChild(head);
 
     if (ride.description) {
       card.appendChild(U.el("p", { class: "ride-description" }, [ride.description]));
@@ -584,15 +594,6 @@
         U.el("span", { class: "ride-how-label" }, ["How it works"]),
         U.el("span", {}, [ride.howItWorks])
       ]));
-    }
-
-    const stats = statRow([
-      { label: "Duration", value: ride.duration },
-      { label: "Intensity", value: ride.intensity }
-    ]);
-    if (stats) {
-      stats.classList.add("stat-row--ride");
-      card.appendChild(stats);
     }
 
     return card;
@@ -741,6 +742,46 @@
 
   /* ---------- Day section ---------- */
 
+  /* ---------- Day briefing (what to know before a park day) ---------- */
+
+  function renderDayBriefing(briefing) {
+    if (!briefing) return null;
+    const card = U.el("section", { class: "briefing-card" });
+
+    card.appendChild(U.el("h3", { class: "briefing-title" }, [
+      U.icon("ticket", "briefing-title-icon"),
+      U.el("span", {}, [briefing.title || "Before you go"])
+    ]));
+    if (briefing.intro) {
+      card.appendChild(U.el("p", { class: "briefing-intro" }, [briefing.intro]));
+    }
+
+    if (briefing.points && briefing.points.length) {
+      const list = U.el("ul", { class: "briefing-points" });
+      briefing.points.forEach(function (point) {
+        list.appendChild(U.el("li", { class: "briefing-point" }, [
+          U.el("span", { class: "briefing-point-label" }, [point.label]),
+          U.el("span", { class: "briefing-point-text" }, [point.text])
+        ]));
+      });
+      card.appendChild(list);
+    }
+
+    if (briefing.dialogs && briefing.dialogs.length) {
+      const row = U.el("div", { class: "briefing-actions" });
+      briefing.dialogs.forEach(function (dialog) {
+        row.appendChild(U.el(
+          "button",
+          { type: "button", class: "briefing-action", "data-info-dialog": dialog.id },
+          [U.icon(dialog.icon || "search", "briefing-action-icon"), U.el("span", {}, [dialog.label])]
+        ));
+      });
+      card.appendChild(row);
+    }
+
+    return card;
+  }
+
   function renderDaySection(day, restaurantIndex, characterIndex) {
     const section = U.el("section", {
       class: "day-section",
@@ -757,6 +798,9 @@
 
     const weather = renderWeather(day.weather, { dayId: day.id });
     if (weather) section.appendChild(weather);
+
+    const briefing = renderDayBriefing(day.briefing);
+    if (briefing) section.appendChild(briefing);
 
     const hideTimes = !!day.hideTimes;
     const list = U.el("ol", { class: "timeline" + (hideTimes ? " timeline--no-time" : "") });
