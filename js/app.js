@@ -518,6 +518,7 @@
     const nameZhEl = document.getElementById("character-dialog-name-zh");
     const imgEl = document.getElementById("character-dialog-image");
     const initialEl = document.getElementById("character-dialog-initial");
+    const thumbEl = document.getElementById("character-dialog-thumb");
     const bioEl = document.getElementById("character-dialog-bio");
     const closeBtn = document.getElementById("character-dialog-close");
 
@@ -530,18 +531,21 @@
       nameZhEl.textContent = record.nameZh || "";
       nameZhEl.hidden = !record.nameZh;
 
-      /* No photo yet for most characters, so the thumbnail falls back to the
-         first letter rather than a broken image box. */
+      /* Disney characters are copyrighted, so this project ships no artwork
+         for them - the thumbnail falls back to a coloured monogram until the
+         owner drops in their own park photos via tools/add-image.js. */
       if (record.image) {
         imgEl.src = record.image;
         imgEl.alt = record.name || "";
         imgEl.hidden = false;
         initialEl.hidden = true;
+        thumbEl.style.removeProperty("background");
       } else {
         imgEl.removeAttribute("src");
         imgEl.hidden = true;
-        initialEl.textContent = (record.name || "?").charAt(0);
+        initialEl.textContent = initialsFor(record.name || "?");
         initialEl.hidden = false;
+        thumbEl.style.background = monogramColor(record.id || record.name || "");
       }
 
       bioEl.textContent = record.bio || "";
@@ -549,6 +553,26 @@
     });
 
     bindDialogDismiss(dialog, closeBtn);
+  }
+
+  /* Up to two letters: "Mickey Mouse" -> MM, "CLU" -> C. */
+  function initialsFor(name) {
+    return name.split(/[\s-]+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map(function (word) { return word.charAt(0).toUpperCase(); })
+      .join("");
+  }
+
+  /* Same key always gets the same hue, so a character looks like itself
+     every time the popup opens. */
+  function monogramColor(key) {
+    let hash = 0;
+    for (let i = 0; i < key.length; i++) {
+      hash = (hash * 31 + key.charCodeAt(i)) % 360;
+    }
+    return "linear-gradient(150deg, hsl(" + hash + ", 52%, 46%), hsl(" +
+      ((hash + 28) % 360) + ", 52%, 34%))";
   }
 
   /* ---------- Briefing popups ---------- */

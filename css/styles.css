@@ -1343,9 +1343,10 @@ button.ride-card-media:focus-visible img { transform: scale(1.05); }
 }
 .character-dialog-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .character-dialog-initial {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 700;
-  color: var(--color-text-tertiary);
+  letter-spacing: 0.02em;
+  color: #fff;
 }
 .character-dialog-names { min-width: 0; }
 .character-dialog-name { font-size: 17px; }

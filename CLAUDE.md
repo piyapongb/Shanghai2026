@@ -207,8 +207,12 @@ A keyed map (`{ characterKey: { id, image, name, nameZh, bio } }`), referenced f
 `park.characters[]` in `itinerary.js`. It exists because the same character
 shows up in several lands (Mickey in three, Buzz in two) and a bio copied
 three times drifts. Tapping a chip opens `#character-dialog` in
-`index.html`, which shows the photo (or the name's first letter when
-`image` is empty) beside the name. `id` duplicates the key so
+`index.html`, which shows the photo beside the name, or a coloured monogram
+(initials on a hue derived from the key) when `image` is empty. **Do not go
+looking for character artwork to fill these in**: Mickey, Buzz, Judy Hopps
+and the rest are copyrighted, Wikimedia Commons rejects them, and
+`fetch-images.js` is built to refuse non-free files — so the only images
+that belong here are ones the owner shot at the park themselves. `id` duplicates the key so
 `tools/add-image.js` can target a character the same way it targets a
 restaurant — photos land in `assets/images/characters/`. Unreferenced
 entries cost nothing. Loaded *after* `itinerary.js` in `index.html`'s
