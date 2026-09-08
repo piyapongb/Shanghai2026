@@ -549,8 +549,6 @@
     return card;
   }
 
-  /* ---------- Timeline item (day view) ---------- */
-
   /* ---------- Theme park land (a day spent inside one park) ---------- */
 
   function rideChip(value, iconKey, extraClass) {
@@ -656,6 +654,8 @@
     return wrap;
   }
 
+  /* ---------- Timeline item (day view) ---------- */
+
   function renderTimelineItem(item, restaurantIndex, opts) {
     const options = opts || {};
     const li = U.el("li", { class: "timeline-item timeline-item--" + item.type, id: item.id });
@@ -740,8 +740,6 @@
     });
   }
 
-  /* ---------- Day section ---------- */
-
   /* ---------- Day briefing (what to know before a park day) ---------- */
 
   function renderDayBriefing(briefing) {
@@ -781,6 +779,8 @@
 
     return card;
   }
+
+  /* ---------- Day section ---------- */
 
   function renderDaySection(day, restaurantIndex, characterIndex) {
     const section = U.el("section", {

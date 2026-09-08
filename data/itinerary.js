@@ -203,7 +203,14 @@ window.ITINERARY_DATA = [
             { term: "Exhibit & meet", meaning: "นิทรรศการเดินชม มีจุดถ่ายรูปกับตัวละคร" },
             { term: "Climbing course", meaning: "เส้นทางปีนป่าย ใส่สายรัดนิรภัยเดินไต่เอง" },
             { term: "Meet & greet", meaning: "จุดต่อคิวถ่ายรูปกับตัวละคร" },
-            { term: "Play area", meaning: "ลานให้เด็กวิ่งเล่น เข้าออกได้อิสระ" }
+            { term: "Play area", meaning: "ลานให้เด็กวิ่งเล่น เข้าออกได้อิสระ" },
+            { term: "Shopping", meaning: "ร้านของที่ระลึก ไม่ใช่เครื่องเล่น" },
+            { term: "Parade", meaning: "ขบวนพาเหรดเคลื่อนผ่านหลายโซน ดูริมทาง" },
+            { term: "Castle stage show", meaning: "โชว์บนเวทีหน้าปราสาท ยืนดูกลางแจ้ง" },
+            { term: "Night show", meaning: "โชว์ปิดสวนตอนกลางคืน ภาพฉายบนปราสาท + พลุ" },
+            { term: "Stunt show", meaning: "โชว์ผาดโผน มีไฟและฉากบู๊ ในโรงละคร" },
+            { term: "Acrobatic show", meaning: "โชว์กายกรรม โหนสลิงกลางอากาศ ในโรงละคร" },
+            { term: "Interactive show", meaning: "โชว์ที่ตัวละครคุยโต้ตอบกับคนดูสดๆ" }
           ]
         },
         {
@@ -870,6 +877,7 @@ window.ITINERARY_DATA = [
               howItWorks:
                 "โรงในร่ม มีที่นั่ง เช็ครอบในแอปแล้วไปก่อนเริ่ม 15 นาที",
               duration: "~20 นาที",
+              wait: "ไปก่อนรอบ 15 นาที",
               intensity: "เบา"
             },
             {
@@ -884,6 +892,7 @@ window.ITINERARY_DATA = [
               howItWorks:
                 "โรงในร่ม มีที่นั่ง เช็ครอบในแอปแล้วไปก่อนเริ่ม 15 นาที",
               duration: "~25 นาที",
+              wait: "ไปก่อนรอบ 15 นาที",
               intensity: "เบา"
             },
             {
@@ -898,6 +907,7 @@ window.ITINERARY_DATA = [
               howItWorks:
                 "โรงเล็กในร่ม เดินเข้าได้เกือบทุกรอบ ใช้เป็นที่พักขาช่วงบ่ายได้ดี",
               duration: "~15 นาที",
+              wait: "เดินเข้าได้เกือบทุกรอบ",
               intensity: "เบา"
             }
           ]
