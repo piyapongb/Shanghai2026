@@ -861,6 +861,11 @@ button.ride-card-media:focus-visible img { transform: scale(1.05); }
   color: var(--color-accent);
   background: var(--color-accent-soft);
 }
+.ride-chip--wet {
+  font-weight: 700;
+  color: var(--color-primary);
+  background: var(--color-primary-soft);
+}
 .ride-chip--when {
   font-weight: 700;
   color: var(--color-primary);
@@ -868,6 +873,25 @@ button.ride-card-media:focus-visible img { transform: scale(1.05); }
 }
 
 .ride-description { font-size: 13.5px; color: var(--color-text-secondary); }
+
+.ride-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-muted);
+}
+.ride-warning-icon {
+  flex: 0 0 auto;
+  width: 15px;
+  height: 15px;
+  margin-top: 2px;
+  color: var(--color-accent);
+}
 
 .stat-row--ride { margin-top: 2px; }
 

@@ -149,6 +149,11 @@ flight | park | other`:
     narrow screens; the Thai now lives once, in the day briefing's glossary
     popup, instead of in every card. When adding a ride type not in that
     glossary, add it there too.
+  - **`wet`** puts a droplet chip on the card ("เปียกทั้งตัว", "ละอองน้ำ") and
+    **`warning`** an alert line under How it works. Keep `warning` to what
+    you'd regret not knowing in the queue — no photo on the ride, ponchos
+    sold at the entrance, spins hard, outdoor queue with no shade — not a
+    transcription of the sign at the gate. Most rides need neither.
   - **`when`** (a show's time slot) and `kind` render as chips at the top of
     the card; **`duration`, `wait`, `intensity`** render as labelled boxes at
     the bottom (`statRow`). `wait` carries the value only ("90–150 นาที",

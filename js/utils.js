@@ -82,6 +82,8 @@
     train: '<rect x="6" y="3" width="12" height="14" rx="3"/><path d="M6 12h12"/><circle cx="9" cy="16.5" r="0" /><path d="M9 20l-2 2"/><path d="M15 20l2 2"/><circle cx="9.5" cy="8" r="1"/><circle cx="14.5" cy="8" r="1"/>',
     filter: '<path d="M4 5h16"/><path d="M7 12h10"/><path d="M10 19h4"/>',
     image: '<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M21 16l-5.5-5.5L7 19"/>',
+    droplet: '<path d="M12 3s5.5 6 5.5 9.5a5.5 5.5 0 0 1-11 0C6.5 9 12 3 12 3z"/>',
+    alert: '<path d="M12 3l9.5 16.5H2.5L12 3z"/><path d="M12 10v4"/><circle cx="12" cy="17.2" r="0.6" fill="currentColor"/>',
     weather: '<path d="M7 17a4 4 0 1 1 1.2-7.8A5 5 0 0 1 18 11a3.5 3.5 0 0 1-.5 6.9H7z"/>',
     /* Condition icons, picked per day by WMO code (see components.js). */
     "weather-cloud": '<path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>',

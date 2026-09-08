@@ -575,7 +575,8 @@
        glossary for these terms. */
     const chips = [
       rideChip(ride.when, "clock", "ride-chip--when"),
-      rideChip(ride.kind, null, "ride-chip--type")
+      rideChip(ride.kind, null, "ride-chip--type"),
+      rideChip(ride.wet, "droplet", "ride-chip--wet")
     ].filter(Boolean);
     if (chips.length) {
       card.appendChild(U.el("div", { class: "ride-meta" }, chips));
@@ -588,6 +589,15 @@
       card.appendChild(U.el("p", { class: "ride-how" }, [
         U.el("span", { class: "ride-how-label" }, ["How it works"]),
         U.el("span", {}, [ride.howItWorks])
+      ]));
+    }
+
+    /* Only the things you would regret not knowing while standing in the
+       queue - not the full sign at the entrance. */
+    if (ride.warning) {
+      card.appendChild(U.el("p", { class: "ride-warning" }, [
+        U.icon("alert", "ride-warning-icon"),
+        U.el("span", {}, [ride.warning])
       ]));
     }
 
