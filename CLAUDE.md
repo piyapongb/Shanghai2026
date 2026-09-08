@@ -13,7 +13,11 @@ unchanged; all four data files hold Shanghai content instead. **The 4 days
 and both flights are real** — CNX→PVG 9C8512 on Thu 5 Nov 2026 (09:30 →
 14:30) and PVG→CNX 9C8511 on Sun 8 Nov (16:10 → 20:10), Spring Airlines.
 **Everything between them is still placeholder**: the hotel, every stop,
-meal time and entrance fee is a plausible guess, not a booking. Every photo
+meal time and entrance fee is a plausible guess, not a booking. Day 2 is a
+full day at Shanghai Disneyland, built from Claude's own knowledge of the
+park (lands, rides, height limits, show names) — accurate as far as it
+goes, but ride line-ups and show schedules change, so treat it as a draft
+the owner will correct. Every photo
 was Guangzhou's, so they were deleted —
 `heroImage`, every restaurant/hotel `image` and every itinerary `thumbnail`
 is empty, which the UI handles by falling back to icons. Treat any specific
@@ -122,7 +126,7 @@ already, nothing there assumes one city per trip.
 ### `data/itinerary.js`
 Array of day objects (`id`, `dayNumber`, `date`, `locationId`, `weather`
 fallback block, `items[]`). Item `type` is one of `activity | restaurant |
-flight | other`:
+flight | park | other`:
 - **`flight`** — has its own renderer (`renderFlightCard`); needs
   `departureAirport/Time`, `arrivalAirport/Time`, optional
   `*DateNote`/`*Terminal`. Never shows a thumbnail even if `thumbnail` is
@@ -131,6 +135,14 @@ flight | other`:
   `restaurants.js` by id: `restaurantId` (the one shown) and
   `nearbyRestaurantIds` (alternates shown as a mini-grid — a good place to
   surface restaurants that don't have their own itinerary slot).
+- **`park`** — one land inside a theme park (Day 2 is Shanghai Disneyland).
+  Collapsed it shows only the land's name; Details opens
+  `park.story`, `park.characters[]` (chips), `park.tip`, then one card per
+  entry in `park.rides[]` (`name`, `nameZh`, `kind`, `description`,
+  `howItWorks`, `duration`, `height`, `intensity`). Every ride field except
+  `name` is optional and just doesn't render when missing, so half-filled
+  entries are safe to commit — which is the point: the owner fills these in
+  over time.
 - **`activity` / `other`** — `details.description/location/metroStation/
   metroExit/entranceFee`, all optional; the "Details" accordion only
   appears if at least one is non-empty. `thumbnail` is optional; omitting
@@ -138,6 +150,12 @@ flight | other`:
 - **Keep items within a day in ascending `time` order.** Nothing enforces
   this programmatically; it's a house convention so the timeline reads
   top-to-bottom correctly.
+- **`hideTimes: true` on a day** drops the time column for that day only
+  (`.timeline--no-time`), and items on it don't need a `time` at all — the
+  order in `items[]` *is* the running order. Used for the park day, where a
+  clock would be fiction: everything runs on queue length. The override
+  lives in both `styles.css` and the 768px block of `responsive.css`,
+  because the wider breakpoint re-declares the grid columns.
 - Items are validated at runtime only for dangling `restaurantId`s (a
   `console.warn`, not a crash) — nothing checks description length, item
   order, or field spelling. A typo in a field name just silently does
@@ -163,7 +181,9 @@ they answer different questions.
 
 - `js/utils.js` — DOM helpers, the icon set (`ICON_PATHS`), date formatting.
 - `js/components.js` — every `render*` function; this is where markup
-  structure lives.
+  structure lives. `renderTimelineItem(item, restaurantIndex, opts)` takes
+  `opts.hideTimes`; `renderParkDetails` / `renderRideCard` build the theme
+  park day.
 - `js/app.js` — state, event wiring, tab/day switching, the weather
   hydration pass (`hydrateWeather`), theme handling.
 - `js/weather.js` — see next section.

@@ -551,11 +551,87 @@
 
   /* ---------- Timeline item (day view) ---------- */
 
-  function renderTimelineItem(item, restaurantIndex) {
+  /* ---------- Theme park land (a day spent inside one park) ---------- */
+
+  function renderRideCard(ride) {
+    const card = U.el("article", { class: "ride-card" });
+
+    const head = U.el("div", { class: "ride-card-head" });
+    const titles = U.el("div", { class: "ride-card-titles" });
+    titles.appendChild(U.el("h5", { class: "ride-name" }, [ride.name]));
+    if (ride.nameZh) titles.appendChild(U.el("p", { class: "ride-name-zh" }, [ride.nameZh]));
+    head.appendChild(titles);
+    if (ride.kind) head.appendChild(U.el("span", { class: "tag ride-kind" }, [ride.kind]));
+    card.appendChild(head);
+
+    if (ride.description) {
+      card.appendChild(U.el("p", { class: "ride-description" }, [ride.description]));
+    }
+    if (ride.howItWorks) {
+      card.appendChild(U.el("p", { class: "ride-how" }, [
+        U.el("span", { class: "ride-how-label" }, ["How it works"]),
+        U.el("span", {}, [ride.howItWorks])
+      ]));
+    }
+
+    const stats = statRow([
+      { label: "Duration", value: ride.duration },
+      { label: "Height", value: ride.height },
+      { label: "Intensity", value: ride.intensity }
+    ]);
+    if (stats) {
+      stats.classList.add("stat-row--ride");
+      card.appendChild(stats);
+    }
+
+    return card;
+  }
+
+  function renderParkDetails(park) {
+    const wrap = U.el("div", { class: "detail-content" });
+    if (!park) return wrap;
+
+    const story = fieldBlock("Story", park.story);
+    if (story) wrap.appendChild(story);
+
+    if (park.characters && park.characters.length) {
+      const block = U.el("div", { class: "field-block" }, [
+        U.el("h4", { class: "field-label" }, ["Key characters"])
+      ]);
+      const row = U.el("div", { class: "tag-row" });
+      park.characters.forEach(function (name) {
+        row.appendChild(U.el("span", { class: "tag" }, [name]));
+      });
+      block.appendChild(row);
+      wrap.appendChild(block);
+    }
+
+    const tip = fieldBlock("Good to know", park.tip);
+    if (tip) wrap.appendChild(tip);
+
+    if (park.rides && park.rides.length) {
+      const block = U.el("div", { class: "field-block" }, [
+        U.el("h4", { class: "field-label" }, ["Attractions (" + park.rides.length + ")"])
+      ]);
+      const list = U.el("div", { class: "ride-list" });
+      park.rides.forEach(function (ride) {
+        list.appendChild(renderRideCard(ride));
+      });
+      block.appendChild(list);
+      wrap.appendChild(block);
+    }
+
+    return wrap;
+  }
+
+  function renderTimelineItem(item, restaurantIndex, opts) {
+    const options = opts || {};
     const li = U.el("li", { class: "timeline-item timeline-item--" + item.type, id: item.id });
-    li.appendChild(U.el("div", { class: "timeline-time" }, [
-      U.el("time", { datetime: item.time }, [item.time])
-    ]));
+    if (!options.hideTimes && item.time) {
+      li.appendChild(U.el("div", { class: "timeline-time" }, [
+        U.el("time", { datetime: item.time }, [item.time])
+      ]));
+    }
     li.appendChild(U.el("div", { class: "timeline-marker", "aria-hidden": "true" }, [
       U.el("span", { class: "timeline-dot" })
     ]));
@@ -596,7 +672,10 @@
     main.appendChild(heading);
     row.appendChild(main);
 
-    const hasDetails = item.type === "restaurant" ? true : !!item.details && hasAnyDetailField(item.details);
+    const hasDetails =
+      item.type === "restaurant" ? true :
+      item.type === "park" ? !!item.park :
+      !!item.details && hasAnyDetailField(item.details);
     let panelId = null;
     if (hasDetails) {
       panelId = U.uid("panel");
@@ -610,6 +689,8 @@
       const panel = detailsPanel(panelId);
       if (item.type === "restaurant") {
         panel.appendChild(renderNearbyRestaurants(item.nearbyRestaurantIds || [item.restaurantId], restaurantIndex));
+      } else if (item.type === "park") {
+        panel.appendChild(renderParkDetails(item.park));
       } else {
         panel.appendChild(renderActivityDetails(item.details));
       }
@@ -646,9 +727,10 @@
     const weather = renderWeather(day.weather, { dayId: day.id });
     if (weather) section.appendChild(weather);
 
-    const list = U.el("ol", { class: "timeline" });
+    const hideTimes = !!day.hideTimes;
+    const list = U.el("ol", { class: "timeline" + (hideTimes ? " timeline--no-time" : "") });
     (day.items || []).forEach(function (item) {
-      list.appendChild(renderTimelineItem(item, restaurantIndex));
+      list.appendChild(renderTimelineItem(item, restaurantIndex, { hideTimes: hideTimes }));
     });
     section.appendChild(list);
 

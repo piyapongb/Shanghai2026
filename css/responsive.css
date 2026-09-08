@@ -20,6 +20,12 @@
 
   .timeline-item { grid-template-columns: 64px 20px 1fr; }
   .timeline-item::before { left: 73px; }
+
+  /* Park days keep their time column collapsed at every width. */
+  .timeline--no-time .timeline-item { grid-template-columns: 20px 1fr; }
+  .timeline--no-time .timeline-item::before { left: 9.5px; }
+
+  .ride-list { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* ---------- Desktop ---------- */

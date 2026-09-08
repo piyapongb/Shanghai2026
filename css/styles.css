@@ -6,7 +6,7 @@
 /* ---------- Reset ---------- */
 
 *, *::before, *::after { box-sizing: border-box; }
-html, body, h1, h2, h3, h4, p, dl, dd, ul, ol, figure { margin: 0; }
+html, body, h1, h2, h3, h4, h5, h6, p, dl, dd, ul, ol, figure { margin: 0; }
 ul, ol { padding: 0; list-style: none; }
 img { display: block; max-width: 100%; height: auto; }
 button, input, select { font: inherit; color: inherit; }
@@ -166,7 +166,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-h1, h2, h3, h4 { font-weight: 700; line-height: 1.25; letter-spacing: -0.01em; }
+h1, h2, h3, h4, h5, h6 { font-weight: 700; line-height: 1.25; letter-spacing: -0.01em; }
 
 .container {
   max-width: var(--container-max);
@@ -780,6 +780,64 @@ button.timeline-media:focus-visible img { transform: scale(1.08); }
   background: linear-gradient(150deg, var(--color-surface-muted), var(--color-border));
 }
 .media-thumb--fallback .icon { width: 22px; height: 22px; }
+
+/* ---------- Theme park day ----------
+   A day spent inside one park drops the time column: the order matters,
+   the clock does not. Set `hideTimes: true` on the day in itinerary.js. */
+
+.timeline--no-time .timeline-item { grid-template-columns: 20px 1fr; }
+.timeline--no-time .timeline-item::before { left: 9.5px; }
+.timeline--no-time .timeline-item--flight .timeline-content { grid-column: 2; }
+
+.timeline-item--park .timeline-title { font-size: 16px; }
+
+.ride-list {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: 6px;
+}
+
+.ride-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ride-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+.ride-card-titles { min-width: 0; }
+.ride-name { font-size: 14px; }
+.ride-name-zh { font-size: 12.5px; color: var(--color-text-tertiary); }
+.ride-kind { flex: 0 0 auto; white-space: nowrap; }
+
+.ride-description { font-size: 13.5px; color: var(--color-text-secondary); }
+
+.ride-how {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-left: var(--space-3);
+  border-left: 2px solid var(--color-primary-soft);
+}
+.ride-how-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+.stat-row--ride { margin-top: 2px; }
 
 /* ---------- Flight card ---------- */
 
