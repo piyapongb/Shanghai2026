@@ -516,6 +516,8 @@
     const dialog = document.getElementById("character-dialog");
     const nameEl = document.getElementById("character-dialog-name");
     const nameZhEl = document.getElementById("character-dialog-name-zh");
+    const imgEl = document.getElementById("character-dialog-image");
+    const initialEl = document.getElementById("character-dialog-initial");
     const bioEl = document.getElementById("character-dialog-bio");
     const closeBtn = document.getElementById("character-dialog-close");
 
@@ -527,6 +529,21 @@
       nameEl.textContent = record.name || "";
       nameZhEl.textContent = record.nameZh || "";
       nameZhEl.hidden = !record.nameZh;
+
+      /* No photo yet for most characters, so the thumbnail falls back to the
+         first letter rather than a broken image box. */
+      if (record.image) {
+        imgEl.src = record.image;
+        imgEl.alt = record.name || "";
+        imgEl.hidden = false;
+        initialEl.hidden = true;
+      } else {
+        imgEl.removeAttribute("src");
+        imgEl.hidden = true;
+        initialEl.textContent = (record.name || "?").charAt(0);
+        initialEl.hidden = false;
+      }
+
       bioEl.textContent = record.bio || "";
       openDialog(dialog);
     });

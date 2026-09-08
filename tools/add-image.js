@@ -39,7 +39,8 @@ const SOURCES = [
   { file: "data/restaurants.js", global: "RESTAURANTS_DATA", dir: "assets/images/restaurants", field: "image", label: "restaurant" },
   { file: "data/hotels.js", global: "HOTELS_DATA", dir: "assets/images/hotels", field: "image", label: "hotel" },
   { file: "data/itinerary.js", global: "ITINERARY_DATA", dir: "assets/images/activities", field: "thumbnail", label: "itinerary stop" },
-  { file: "data/itinerary.js", global: "ITINERARY_DATA", dir: "assets/images/rides", field: "image", label: "theme park attraction" }
+  { file: "data/itinerary.js", global: "ITINERARY_DATA", dir: "assets/images/rides", field: "image", label: "theme park attraction" },
+  { file: "data/characters.js", global: "CHARACTERS_DATA", dir: "assets/images/characters", field: "image", label: "character" }
 ];
 
 const TRIP_FILE = "data/trip.js";
@@ -83,6 +84,12 @@ function findTarget(id) {
   const hit2 = hotels.find(function (h) { return h.id === id; });
   if (hit2) return { source: SOURCES[1], record: hit2 };
 
+  /* characters.js is a keyed map, not an array - each record carries an `id`
+     equal to its key so the same id-bounded rewrite works on it. */
+  const characters = loadDataGlobal("data/characters.js", "CHARACTERS_DATA") || {};
+  const hitChar = Object.keys(characters).find(function (key) { return key === id; });
+  if (hitChar) return { source: SOURCES[4], record: characters[hitChar] };
+
   const days = loadDataGlobal("data/itinerary.js", "ITINERARY_DATA");
   for (const day of days) {
     for (const item of day.items || []) {
@@ -108,6 +115,15 @@ function listAll() {
   loadDataGlobal("data/hotels.js", "HOTELS_DATA").forEach(function (h) {
     console.log("  " + h.id.padEnd(16) + h.name + (h.image ? "" : "   (no image yet)"));
   });
+
+  const characters = loadDataGlobal("data/characters.js", "CHARACTERS_DATA") || {};
+  if (Object.keys(characters).length) {
+    console.log("\nCharacters (data/characters.js):");
+    Object.keys(characters).forEach(function (key) {
+      console.log("  " + key.padEnd(26) + characters[key].name +
+        (characters[key].image ? "" : "   (no image yet)"));
+    });
+  }
 
   console.log("\nItinerary stops and theme park attractions (data/itinerary.js):");
   flattenItinerary(loadDataGlobal("data/itinerary.js", "ITINERARY_DATA")).forEach(function (row) {

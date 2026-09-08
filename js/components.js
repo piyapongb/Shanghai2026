@@ -569,16 +569,13 @@
     card.appendChild(U.el("h5", { class: "ride-name" }, [ride.name]));
     if (ride.nameZh) card.appendChild(U.el("p", { class: "ride-name-zh" }, [ride.nameZh]));
 
-    /* One wrapping row of chips instead of a chip pinned to the right of the
-       title: the type label used to overflow its own pill on narrow screens.
-       `kind` stays in English on purpose - the day's briefing card carries
-       the Thai glossary for these terms. */
+    /* Type and showtime are chips on their own wrapping row - the chip used
+       to be pinned right of the title and overflowed on narrow screens.
+       `kind` stays in English on purpose: the day's briefing carries the Thai
+       glossary for these terms. */
     const chips = [
       rideChip(ride.when, "clock", "ride-chip--when"),
-      rideChip(ride.kind, null, "ride-chip--type"),
-      rideChip(ride.duration, "clock"),
-      rideChip(ride.wait, null, "ride-chip--wait"),
-      rideChip(ride.intensity, null, "ride-chip--intensity")
+      rideChip(ride.kind, null, "ride-chip--type")
     ].filter(Boolean);
     if (chips.length) {
       card.appendChild(U.el("div", { class: "ride-meta" }, chips));
@@ -592,6 +589,16 @@
         U.el("span", { class: "ride-how-label" }, ["How it works"]),
         U.el("span", {}, [ride.howItWorks])
       ]));
+    }
+
+    const stats = statRow([
+      { label: "Duration", value: ride.duration },
+      { label: "Wait", value: ride.wait },
+      { label: "Intensity", value: ride.intensity }
+    ]);
+    if (stats) {
+      stats.classList.add("stat-row--ride");
+      card.appendChild(stats);
     }
 
     return card;

@@ -149,11 +149,12 @@ flight | park | other`:
     narrow screens; the Thai now lives once, in the day briefing's glossary
     popup, instead of in every card. When adding a ride type not in that
     glossary, add it there too.
-  - **`wait`** is the typical queue in plain Thai ("รอ 90–150 นาที", "เดินเข้า
-    ได้เลย") and **`when`** is a show's time slot — `when` renders first and
-    highlighted, so shows read as "when + how long", rides as "how long +
-    how long you queue". Waits are ranges on purpose: real queues swing with
-    the season and no single number is honest.
+  - **`when`** (a show's time slot) and `kind` render as chips at the top of
+    the card; **`duration`, `wait`, `intensity`** render as labelled boxes at
+    the bottom (`statRow`). `wait` carries the value only ("90–150 นาที",
+    "เดินเข้าได้เลย") because the box already says "Wait". Waits are ranges on
+    purpose: real queues swing with the season and no single number is
+    honest.
   - **`park.characters[]` holds keys into `characters.js`, not names.** A
     key with a record renders as a tappable chip that opens the popup; an
     unknown key still renders (raw key as label) and logs a console warning.
@@ -202,12 +203,16 @@ field still says 14:00). Don't "fix" one to match the other without asking;
 they answer different questions.
 
 ### `data/characters.js`
-A keyed map (`{ characterKey: { name, nameZh, bio } }`), referenced from
+A keyed map (`{ characterKey: { id, image, name, nameZh, bio } }`), referenced from
 `park.characters[]` in `itinerary.js`. It exists because the same character
 shows up in several lands (Mickey in three, Buzz in two) and a bio copied
 three times drifts. Tapping a chip opens `#character-dialog` in
-`index.html`. Unreferenced entries cost nothing. Loaded *after*
-`itinerary.js` in `index.html`'s script list.
+`index.html`, which shows the photo (or the name's first letter when
+`image` is empty) beside the name. `id` duplicates the key so
+`tools/add-image.js` can target a character the same way it targets a
+restaurant — photos land in `assets/images/characters/`. Unreferenced
+entries cost nothing. Loaded *after* `itinerary.js` in `index.html`'s
+script list.
 
 ## UI code (`js/`, `css/`, `index.html`) — rarely needs touching
 
@@ -266,8 +271,8 @@ Two purpose-built scripts in `tools/`, both plain Node with no dependencies
 manually, use these instead:
 
 - **`node tools/add-image.js --list`** — every valid id across restaurants,
-  hotels, itinerary stops and theme park attractions (those are listed
-  indented under their land with a `↳`), plus the special id `hero` (the
+  hotels, characters, itinerary stops and theme park attractions (those are
+  listed indented under their land with a `↳`), plus the special id `hero` (the
   header/cover photo, which lives in `data/trip.js` as `heroImage` rather
   than in an array — the script special-cases it).
 - **`node tools/add-image.js <local-file> <id> [--gallery] [--force]`** —
