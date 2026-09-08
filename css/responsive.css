@@ -1,11 +1,19 @@
 /* =========================================================================
    Responsive breakpoints
-   Mobile: < 768px (base styles in styles.css)
+   Narrow phones: < 360px (base styles in styles.css)
+   Mobile: 360–767px
    Tablet: 768–1023px
    Desktop: >= 1024px
    ========================================================================= */
 
 /* ---------- Tablet ---------- */
+
+/* ---------- Narrow phones (below 360px) ---------- */
+/* The base rules drop the tab icons so all three tabs fit a 320px screen;
+   every phone from 360px up gets them back. */
+@media (min-width: 360px) {
+  .main-tab-icon { display: inline-flex; }
+}
 
 @media (min-width: 768px) {
   .container { padding-inline: var(--space-6); }

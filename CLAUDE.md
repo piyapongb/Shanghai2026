@@ -242,8 +242,17 @@ script list.
   nothing". Never call `showModal()` directly.
 - `js/weather.js` — see next section.
 - `css/styles.css` + `css/responsive.css` — design tokens live as CSS
-  custom properties near the top of `styles.css`; breakpoints are mobile
-  (base), 768px, 1024px, 1280px in `responsive.css`.
+  custom properties near the top of `styles.css`; breakpoints are narrow
+  phone (base), 360px, 768px, 1024px, 1280px in `responsive.css`.
+- **Nothing may make the page scroll sideways on a phone.** Two things
+  did and both are easy to reintroduce: a flex row of fixed-size items
+  (the tab bar) with nowhere to shrink, and an *invisible* absolutely
+  positioned element near the right edge — `.copy-feedback` was hidden with
+  `opacity: 0`, which still counts towards the page's scroll width, so
+  hide that kind of thing with `display: none`. Rows that genuinely cannot
+  fit (tabs, day nav) scroll inside themselves instead. To check: at 320px
+  and 360px, `document.documentElement.scrollWidth` must equal
+  `clientWidth` on every tab, with every accordion open.
 - Accordions (`.details-toggle` / `.details-panel`) use a
   `grid-template-rows: 0fr → 1fr` transition, not `max-height` — this was a
   deliberate fix (see "Known gotchas"). Don't reintroduce a fixed

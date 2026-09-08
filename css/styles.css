@@ -346,16 +346,26 @@ html { scroll-behavior: smooth; }
   border-bottom: 1px solid var(--color-border);
 }
 
+/* Scrolls inside itself, the way .day-nav-list does. Three tabs plus their
+   icons overflow a 320px screen - and any screen once the reader turns the
+   system font size up - and a flex row with nowhere to go widens the whole
+   page instead of itself. */
 .main-tabs {
   display: flex;
   gap: var(--space-2);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
+.main-tabs::-webkit-scrollbar { display: none; }
 
 .main-tab {
+  flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
+  white-space: nowrap;
   padding: var(--space-4) var(--space-2);
   font-size: 14px;
   font-weight: 600;
@@ -363,7 +373,7 @@ html { scroll-behavior: smooth; }
   border-bottom: 2px solid transparent;
   transition: color var(--motion-fast) var(--ease-standard), border-color var(--motion-fast) var(--ease-standard);
 }
-.main-tab-icon { width: 16px; height: 16px; flex: 0 0 auto; }
+.main-tab-icon { display: none; width: 16px; height: 16px; flex: 0 0 auto; }
 .main-tab:hover { color: var(--color-text); }
 .main-tab.is-active {
   color: var(--color-primary);
@@ -630,11 +640,15 @@ button.timeline-media:focus-visible img { transform: scale(1.08); }
 .copy-btn.is-copied .copy-btn-icon--copy { display: none; }
 .copy-btn.is-copied { background: var(--color-success-soft); }
 
+/* Hidden with `display: none`, not just opacity: an out-of-flow element still
+   counts towards the page's scrollable width, and this 50px tooltip sitting
+   beside a copy button near the right edge was enough to make the whole page
+   scroll sideways. Anchored right so it grows inwards when it does show. */
 .copy-feedback {
+  display: none;
   position: absolute;
   bottom: 100%;
-  left: 50%;
-  transform: translate(-50%, 4px);
+  right: 0;
   margin-bottom: 4px;
   background: var(--color-text);
   color: var(--color-bg);
@@ -643,11 +657,9 @@ button.timeline-media:focus-visible img { transform: scale(1.08); }
   padding: 3px 7px;
   border-radius: var(--radius-sm);
   white-space: nowrap;
-  opacity: 0;
   pointer-events: none;
-  transition: opacity var(--motion-fast) var(--ease-standard), transform var(--motion-fast) var(--ease-standard);
 }
-.copy-btn.is-copied .copy-feedback { opacity: 1; transform: translate(-50%, 0); }
+.copy-btn.is-copied .copy-feedback { display: block; }
 
 /* ---------- Details toggle / accordion panel ---------- */
 
