@@ -572,7 +572,7 @@ window.ITINERARY_DATA = [
               id: "d2-mine-train",
               name: "Seven Dwarfs Mine Train",
               nameZh: "七个小矮人矿山车",
-              image: "",
+              image: "assets/images/rides/d2-mine-train.jpg",
               kind: "Roller coaster",
               description:
                 "รถรางเหมืองแร่ของคนแคระทั้งเจ็ด วิ่งสลับระหว่างกลางแจ้งกับในเหมืองที่มีฉากคนแคระร้องเพลงทำงาน",
@@ -602,7 +602,7 @@ window.ITINERARY_DATA = [
               id: "d2-crystal-grotto",
               name: "Voyage to the Crystal Grotto",
               nameZh: "晶彩奇航",
-              image: "",
+              image: "assets/images/rides/d2-crystal-grotto.jpg",
               kind: "Boat ride",
               wet: "ละอองน้ำจากน้ำพุ",
               description:
@@ -619,7 +619,7 @@ window.ITINERARY_DATA = [
               id: "d2-pooh",
               name: "The Many Adventures of Winnie the Pooh",
               nameZh: "小熊维尼历险记",
-              image: "",
+              image: "assets/images/rides/d2-pooh.jpg",
               kind: "Dark ride",
               description:
                 "นั่งกระถางน้ำผึ้งผ่านเรื่องราวคืนพายุในป่าร้อยเอเคอร์",
@@ -633,7 +633,7 @@ window.ITINERARY_DATA = [
               id: "d2-hunny-pot",
               name: "Hunny Pot Spin",
               nameZh: "旋转疯蜜罐",
-              image: "",
+              image: "assets/images/rides/d2-hunny-pot.jpg",
               kind: "Spinner",
               description:
                 "ถ้วยหมุนเวอร์ชันกระถางน้ำผึ้งของวินนี่",
@@ -649,7 +649,7 @@ window.ITINERARY_DATA = [
               id: "d2-alice-maze",
               name: "Alice in Wonderland Maze",
               nameZh: "爱丽丝梦游仙境迷宫",
-              image: "",
+              image: "assets/images/rides/d2-alice-maze.jpg",
               kind: "Walk-through",
               description:
                 "เขาวงกตพุ่มไม้ธีมอลิซฉบับหนังคนแสดง มีราชินีโพแดงรออยู่ปลายทาง",
@@ -664,7 +664,7 @@ window.ITINERARY_DATA = [
               id: "d2-once-upon-a-time",
               name: "“Once Upon a Time” Adventure",
               nameZh: "漫游童话时光",
-              image: "",
+              image: "assets/images/rides/d2-once-upon-a-time.jpg",
               kind: "Walk-through",
               description:
                 "เดินเข้าไปข้างในปราสาท ชมเรื่องสโนว์ไวท์ผ่านฉากและภาพฉายบนผนัง มีเฉพาะที่เซี่ยงไฮ้",
@@ -694,7 +694,7 @@ window.ITINERARY_DATA = [
               id: "d2-rex-racer",
               name: "Rex's Racer",
               nameZh: "抱抱龙冲天赛车",
-              image: "",
+              image: "assets/images/rides/d2-rex-racer.jpg",
               kind: "Shuttle ride",
               description:
                 "รถแข่งของเร็กซ์วิ่งกลับไปกลับมาบนรางรูปตัว U จนเกือบตั้งฉากกับพื้น",
@@ -710,7 +710,7 @@ window.ITINERARY_DATA = [
               id: "d2-slinky",
               name: "Slinky Dog Spin",
               nameZh: "弹簧狗团团转",
-              image: "",
+              image: "assets/images/rides/d2-slinky.jpg",
               kind: "Family ride",
               description:
                 "นั่งบนตัวสลิงกี้ที่ขดตัวหมุนวนรอบกองไม้บล็อก",
@@ -724,7 +724,7 @@ window.ITINERARY_DATA = [
               id: "d2-woody-roundup",
               name: "Woody's Round-Up",
               nameZh: "胡迪牛仔嘉年华",
-              image: "",
+              image: "assets/images/rides/d2-woody-roundup.jpg",
               kind: "Family ride",
               description:
                 "รถลากคาวบอยหมุนวนเป็นวงพร้อมเพลงประจำโซน",
@@ -757,7 +757,7 @@ window.ITINERARY_DATA = [
               id: "d2-carousel",
               name: "Fantasia Carousel",
               nameZh: "幻想曲旋转木马",
-              image: "",
+              image: "assets/images/rides/d2-carousel.jpg",
               kind: "Family ride",
               description:
                 "ม้าหมุนขนาดใหญ่กลางสวน ธีมจากการ์ตูนเรื่อง Fantasia",
@@ -771,7 +771,7 @@ window.ITINERARY_DATA = [
               id: "d2-dumbo",
               name: "Dumbo the Flying Elephant",
               nameZh: "小飞象",
-              image: "",
+              image: "assets/images/rides/d2-dumbo.jpg",
               kind: "Spinner",
               description:
                 "นั่งดัมโบ้บินวนเป็นวงกลม เครื่องเล่นคลาสสิกที่มีในทุกสวนดิสนีย์",
@@ -787,7 +787,7 @@ window.ITINERARY_DATA = [
               id: "d2-twelve-friends",
               name: "Garden of the Twelve Friends",
               nameZh: "十二朋友园",
-              image: "",
+              image: "assets/images/rides/d2-twelve-friends.jpg",
               kind: "Walk-through",
               description:
                 "สวนโมเสกที่จับคู่ 12 นักษัตรจีนกับตัวละครดิสนีย์และพิกซาร์",
@@ -817,7 +817,7 @@ window.ITINERARY_DATA = [
               id: "d2-meet-mickey",
               name: "Meet Mickey & Friends",
               nameZh: "与米奇和朋友们见面",
-              image: "",
+              image: "assets/images/rides/d2-meet-mickey.jpg",
               kind: "Meet & greet",
               description:
                 "จุดถ่ายรูปกับตัวละครหลัก กระจายอยู่ตามหน้าร้านต่างๆ บนถนนสายนี้",
@@ -832,7 +832,7 @@ window.ITINERARY_DATA = [
               id: "d2-avenue-shops",
               name: "Avenue M Arcade & shops",
               nameZh: "米奇大街商店",
-              image: "",
+              image: "assets/images/rides/d2-avenue-shops.jpg",
               kind: "Shopping",
               description:
                 "แถวร้านของที่ระลึกยาวตลอดสองฝั่ง ตั้งแต่หูมิกกี้ ตุ๊กตา ไปจนถึงขนมกล่องสวยไว้ฝากคนที่บ้าน",
@@ -859,7 +859,7 @@ window.ITINERARY_DATA = [
               id: "d2-parade",
               name: "Mickey's Storybook Express",
               nameZh: "米奇童话专列",
-              image: "",
+              image: "assets/images/rides/d2-parade.jpg",
               kind: "Parade",
               when: "ประมาณ 12:15 และ 15:15 (วันละ 2 รอบ)",
               description:
@@ -876,7 +876,7 @@ window.ITINERARY_DATA = [
               id: "d2-heart-of-magic",
               name: "The Heart of Magic",
               nameZh: "心之魔法",
-              image: "",
+              image: "assets/images/rides/d2-heart-of-magic.jpg",
               kind: "Castle stage show",
               when: "หลายรอบต่อวัน ช่วงสาย–บ่าย",
               description:
@@ -891,7 +891,7 @@ window.ITINERARY_DATA = [
               id: "d2-illuminate",
               name: "ILLUMINATE! A Nighttime Celebration",
               nameZh: "点亮奇梦：夜光幻影秀",
-              image: "",
+              image: "assets/images/rides/d2-illuminate.jpg",
               kind: "Night show",
               when: "รอบเดียว ก่อนสวนปิด (ราว 20:00–21:00)",
               description:
@@ -908,7 +908,7 @@ window.ITINERARY_DATA = [
               id: "d2-show-jack",
               name: "Eye of the Storm: Captain Jack's Stunt Spectacular",
               nameZh: "风暴来临－杰克船长之惊天特技大冒险",
-              image: "",
+              image: "assets/images/rides/d2-show-jack.jpg",
               kind: "Stunt show",
               when: "หลายรอบต่อวัน ช่วงบ่าย",
               description:
@@ -923,7 +923,7 @@ window.ITINERARY_DATA = [
               id: "d2-show-tarzan",
               name: "Tarzan: Call of the Jungle",
               nameZh: "人猿泰山：丛林的呼唤",
-              image: "",
+              image: "assets/images/rides/d2-show-tarzan.jpg",
               kind: "Acrobatic show",
               when: "หลายรอบต่อวัน ช่วงสาย–บ่าย",
               description:
@@ -938,7 +938,7 @@ window.ITINERARY_DATA = [
               id: "d2-show-stitch",
               name: "Stitch Encounter",
               nameZh: "史迪奇宝宝",
-              image: "",
+              image: "assets/images/rides/d2-show-stitch.jpg",
               kind: "Interactive show",
               when: "รอบต่อเนื่องเกือบทั้งวัน",
               description:
