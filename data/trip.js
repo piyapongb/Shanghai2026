@@ -11,9 +11,10 @@
  * 9C8512 out, 9C8511 back). Hotels, stops, meal times and prices are still
  * placeholders — replace them as the plan firms up.
  *
- * heroImage is intentionally empty: no Shanghai cover photo has been added
- * yet, and the hero renders fine without one. Add one with
- *   node tools/add-image.js <local-file> hero
+ * heroImageAlt describes heroImage for screen readers and for the case
+ * where the file fails to load — keep the two in step when swapping the
+ * cover photo. Replace it with
+ *   node tools/add-image.js <local-file> hero --force
  */
 window.TRIP_DATA = {
   id: "shanghai-2026",
@@ -21,6 +22,6 @@ window.TRIP_DATA = {
   destination: "Shanghai, China",
   startDate: "2026-11-05",
   endDate: "2026-11-08",
-  heroImage: "",
+  heroImage: "assets/images/hero.webp",
   heroImageAlt: "The Bund waterfront and the Pudong skyline at dusk"
 };
