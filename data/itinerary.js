@@ -744,7 +744,7 @@ window.ITINERARY_DATA = [
         type: "park",
         title: "Gardens of Imagination",
         titleZh: "奇想花园",
-        thumbnail: "",
+        thumbnail: "assets/images/activities/d2-gardens-of-imagination.png",
         icon: "park",
         park: {
           story:
@@ -804,7 +804,7 @@ window.ITINERARY_DATA = [
         type: "park",
         title: "Mickey Avenue",
         titleZh: "米奇大街",
-        thumbnail: "assets/images/activities/d2-mickey-avenue.png",
+        thumbnail: "assets/images/activities/d2-mickey-avenue.webp",
         icon: "shopping",
         park: {
           story:
@@ -817,7 +817,7 @@ window.ITINERARY_DATA = [
               id: "d2-meet-mickey",
               name: "Meet Mickey & Friends",
               nameZh: "与米奇和朋友们见面",
-              image: "assets/images/rides/d2-meet-mickey.jpg",
+              image: "",
               kind: "Meet & greet",
               description:
                 "จุดถ่ายรูปกับตัวละครหลัก กระจายอยู่ตามหน้าร้านต่างๆ บนถนนสายนี้",
@@ -832,7 +832,7 @@ window.ITINERARY_DATA = [
               id: "d2-avenue-shops",
               name: "Avenue M Arcade & shops",
               nameZh: "米奇大街商店",
-              image: "assets/images/rides/d2-avenue-shops.webp",
+              image: "",
               kind: "Shopping",
               description:
                 "แถวร้านของที่ระลึกยาวตลอดสองฝั่ง ตั้งแต่หูมิกกี้ ตุ๊กตา ไปจนถึงขนมกล่องสวยไว้ฝากคนที่บ้าน",
@@ -849,7 +849,7 @@ window.ITINERARY_DATA = [
         type: "park",
         title: "Shows & Parade — 6 รายการ",
         titleZh: "巡游与演出",
-        thumbnail: "",
+        thumbnail: "assets/images/activities/d2-shows.jpg",
         icon: "ticket",
         park: {
           tip:
