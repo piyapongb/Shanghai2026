@@ -122,7 +122,7 @@ window.CHARACTERS_DATA = {
   },
   bb8: {
     id: "bb8",
-    image: "",
+    image: "assets/images/characters/bb8.jpg",
     name: "BB-8",
     nameZh: "BB-8",
     bio: "หุ่นยนต์ทรงลูกบอลกลิ้งจาก Star Wars ภาคใหม่ สื่อสารด้วยเสียงบี๊บและการเอียงหัว เป็นตัวที่เด็กชอบที่สุดในโซนสตาร์วอร์ส"
