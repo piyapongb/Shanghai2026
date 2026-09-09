@@ -79,10 +79,10 @@ window.ITINERARY_DATA = [
         icon: "metro",
         details: {
           description:
-            "ผ่าน ตม. รับกระเป๋าแล้วนั่ง Metro สาย 2 จากสนามบินผู่ตงเข้าเมือง ประมาณ 1 ชม. (ต้องเปลี่ยนขบวนที่สถานี Guanglan Road) เช็คอินโรงแรมย่านหนานจิงตะวันออก",
-          location: "Hanting Hotel, near Nanjing East Road Metro Station",
-          metroStation: "Nanjing East Road",
-          metroExit: "3"
+            "ผ่าน ตม. รับกระเป๋าแล้วนั่ง Metro สาย 2 จากสนามบินผู่ตงเข้าเมือง (เปลี่ยนขบวนที่สถานี Guanglan Road) ลงที่ People's Square แล้วต่อสาย 1 อีกสถานีเดียวถึง Xinzha Road ออกทางออก 6 เดินอีก 170 เมตรถึงโรงแรม รวมราว 1 ชม. ครึ่ง",
+          location: "Lechao Hotel, 333 Huanghe Road, Huangpu District",
+          metroStation: "Xinzha Road",
+          metroExit: "6"
         }
       },
       {
@@ -104,7 +104,7 @@ window.ITINERARY_DATA = [
         icon: "landmark",
         details: {
           description:
-            "ทางเดินเลียบแม่น้ำหวงผู่ ฝั่งหนึ่งเป็นตึกยุโรปเก่า อีกฝั่งเป็นตึกระฟ้าผู่ตง จุดถ่ายรูปหลักของเซี่ยงไฮ้ ไฟเปิดครบตั้งแต่ราวหกโมงเย็น เดินจากโรงแรมได้",
+            "ทางเดินเลียบแม่น้ำหวงผู่ ฝั่งหนึ่งเป็นตึกยุโรปเก่า อีกฝั่งเป็นตึกระฟ้าผู่ตง จุดถ่ายรูปหลักของเซี่ยงไฮ้ ไฟเปิดครบตั้งแต่ราวหกโมงเย็น จากโรงแรมนั่งสาย 1 ไป People's Square ต่อสาย 2 อีกสถานีเดียวถึง East Nanjing Road หรือเดินเล่นไปตามถนนหนานจิงราว 2.5 กม. ก็ได้",
           location: "Zhongshan East 1st Road, Huangpu District",
           metroStation: "East Nanjing Road",
           metroExit: "7",
@@ -120,7 +120,7 @@ window.ITINERARY_DATA = [
         icon: "shopping",
         details: {
           description:
-            "ถนนคนเดินสายช้อปปิ้งหลัก ป้ายไฟนีออนเต็มสองข้างทาง เดินต่อจากเดอะบันด์กลับโรงแรมได้พอดี",
+            "ถนนคนเดินสายช้อปปิ้งหลัก ป้ายไฟนีออนเต็มสองข้างทาง เดินจากเดอะบันด์มาทางตะวันตกจนสุดถนนที่ People's Square แล้วขึ้นเหนืออีกราว 700 เมตรถึงโรงแรม",
           location: "Nanjing East Road, Huangpu District",
           metroStation: "East Nanjing Road",
           metroExit: "2"
@@ -1063,7 +1063,7 @@ window.ITINERARY_DATA = [
         details: {
           description:
             "เช็คเอาท์ตามเวลาโรงแรม (12:00) แต่ออกเช้าหน่อยแล้วฝากกระเป๋าไว้ที่ล็อบบี้ จะได้เที่ยวต่อได้ก่อนไปสนามบิน",
-          location: "Hanting Hotel, near Nanjing East Road Metro Station"
+          location: "Lechao Hotel, 333 Huanghe Road, Huangpu District"
         }
       },
       {
@@ -1101,7 +1101,7 @@ window.ITINERARY_DATA = [
         icon: "train",
         details: {
           description:
-            "รับกระเป๋าที่โรงแรมแล้วออกไปสนามบิน เผื่อเวลา 3 ชม. ก่อนบิน เลือกได้ระหว่าง Metro สาย 2 (ถูกกว่า ~1 ชม.) หรือ Maglev จากสถานีหลงหยางลู่ (8 นาที)",
+            "รับกระเป๋าที่โรงแรมแล้วออกไปสนามบิน เผื่อเวลา 3 ชม. ก่อนบิน ตั้งต้นที่ Xinzha Road นั่งสาย 1 หนึ่งสถานีไป People's Square แล้วเลือกได้ระหว่าง Metro สาย 2 ตรงไปสนามบิน (ถูกกว่า ~1 ชม.) หรือสาย 2 ไปลงหลงหยางลู่แล้วต่อ Maglev (8 นาที)",
           location: "Shanghai Pudong International Airport, Terminal 2",
           metroStation: "Longyang Road (Maglev)",
           metroExit: "4"
