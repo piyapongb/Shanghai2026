@@ -588,7 +588,7 @@ window.ITINERARY_DATA = [
               id: "d2-peter-pan",
               name: "Peter Pan's Flight",
               nameZh: "小飞侠天空奇遇",
-              image: "",
+              image: "assets/images/rides/d2-peter-pan.jpg",
               kind: "Dark ride",
               description:
                 "นั่งเรือเหาะลอยเหนือกรุงลอนดอนยามค่ำและเกาะเนเวอร์แลนด์",
