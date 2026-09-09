@@ -280,7 +280,7 @@ window.ITINERARY_DATA = [
               id: "d2-tron",
               name: "TRON Lightcycle Power Run",
               nameZh: "创极速光轮",
-              image: "",
+              image: "assets/images/rides/d2-tron.jpg",
               kind: "Launch coaster",
               description:
                 "รถไฟเหาะที่เร็วที่สุดในสวน พุ่งออกจากสถานีเข้าไปในอุโมงค์แสงนีออน ใช้เวลาสั้นแต่ตื่นเต้นที่สุดในวัน",
@@ -296,7 +296,7 @@ window.ITINERARY_DATA = [
               id: "d2-buzz",
               name: "Buzz Lightyear Planet Rescue",
               nameZh: "巴斯光年星际营救",
-              image: "",
+              image: "assets/images/rides/d2-buzz.jpg",
               kind: "Interactive dark ride",
               description:
                 "ยิงเป้าช่วยบัซซ์สู้กับจักรพรรดิเซิร์ก เก็บแต้มแข่งกับคนที่นั่งข้างๆ ได้",
@@ -312,7 +312,7 @@ window.ITINERARY_DATA = [
               id: "d2-jet-packs",
               name: "Jet Packs",
               nameZh: "喷气背包飞行器",
-              image: "",
+              image: "assets/images/rides/d2-jet-packs.jpg",
               kind: "Spinner",
               description:
                 "บินวนรอบเสากลางด้วยเจ็ตแพ็ก มองเห็นวิวโซนอนาคตได้ทั้งโซน",
@@ -328,7 +328,7 @@ window.ITINERARY_DATA = [
               id: "d2-stitch",
               name: "Stitch Encounter",
               nameZh: "史迪奇宝宝",
-              image: "",
+              image: "assets/images/rides/d2-stitch.jpg",
               kind: "Interactive show",
               when: "รอบต่อเนื่องเกือบทั้งวัน",
               description:
@@ -343,7 +343,7 @@ window.ITINERARY_DATA = [
               id: "d2-star-wars",
               name: "Star Wars Launch Bay",
               nameZh: "星球大战远征基地",
-              image: "",
+              image: "assets/images/rides/d2-star-wars.jpg",
               kind: "Exhibit & meet",
               description:
                 "นิทรรศการยานและชุดจากสตาร์วอร์ส พร้อมจุดถ่ายรูปกับตัวละคร",
@@ -373,7 +373,7 @@ window.ITINERARY_DATA = [
               id: "d2-soaring",
               name: "Soaring Over the Horizon",
               nameZh: "翱翔·飞越地平线",
-              image: "",
+              image: "assets/images/rides/d2-soaring.jpg",
               kind: "Flying theater",
               description:
                 "โรงหนังจอโค้งครึ่งวงกลม พาบินข้ามแลนด์มาร์กทั่วโลก มีลมและกลิ่นจริงพ่นเข้ามาตามฉาก",
@@ -389,7 +389,7 @@ window.ITINERARY_DATA = [
               id: "d2-roaring-rapids",
               name: "Roaring Rapids",
               nameZh: "雷鸣山漂流",
-              image: "",
+              image: "assets/images/rides/d2-roaring-rapids.jpg",
               kind: "Water ride",
               wet: "เปียกทั้งตัว",
               description:
@@ -406,7 +406,7 @@ window.ITINERARY_DATA = [
               id: "d2-camp-discovery",
               name: "Camp Discovery – Challenge Trails",
               nameZh: "古迹探索营－探险家营地",
-              image: "",
+              image: "assets/images/rides/d2-camp-discovery.jpg",
               kind: "Climbing course",
               description:
                 "เส้นทางปีนป่ายบนหน้าผาจำลอง มีให้เลือกหลายระดับความยาก",
@@ -422,7 +422,7 @@ window.ITINERARY_DATA = [
               id: "d2-tarzan-show",
               name: "Tarzan: Call of the Jungle",
               nameZh: "人猿泰山：丛林的呼唤",
-              image: "",
+              image: "assets/images/rides/d2-tarzan-show.jpg",
               kind: "Acrobatic show",
               when: "หลายรอบต่อวัน ช่วงสาย–บ่าย",
               description:
@@ -454,7 +454,7 @@ window.ITINERARY_DATA = [
               id: "d2-zootopia-ride",
               name: "Zootopia: Hot Pursuit",
               nameZh: "疯狂动物城：热力追踪",
-              image: "",
+              image: "assets/images/rides/d2-zootopia-ride.jpg",
               kind: "Trackless dark ride",
               description:
                 "ตามจูดี้กับนิคไล่ล่าคดีในเมืองสัตว์ ผ่านทุกย่านของเมืองรวมถึงย่านหนูจิ๋ว",
@@ -487,7 +487,7 @@ window.ITINERARY_DATA = [
               id: "d2-pirates",
               name: "Pirates of the Caribbean: Battle for the Sunken Treasure",
               nameZh: "加勒比海盗－沉落宝藏之战",
-              image: "",
+              image: "assets/images/rides/d2-pirates.jpg",
               kind: "Boat dark ride",
               wet: "ละอองน้ำเล็กน้อย",
               description:
@@ -504,7 +504,7 @@ window.ITINERARY_DATA = [
               id: "d2-canoes",
               name: "Explorer Canoes",
               nameZh: "探险家独木舟",
-              image: "",
+              image: "assets/images/rides/d2-canoes.jpg",
               kind: "Interactive ride",
               wet: "ละอองน้ำจากไม้พาย",
               description:
@@ -521,7 +521,7 @@ window.ITINERARY_DATA = [
               id: "d2-jack-stunt",
               name: "Eye of the Storm: Captain Jack's Stunt Spectacular",
               nameZh: "风暴来临－杰克船长之惊天特技大冒险",
-              image: "",
+              image: "assets/images/rides/d2-jack-stunt.jpg",
               kind: "Stunt show",
               wet: "แถวหน้าอาจโดนละอองน้ำ",
               when: "หลายรอบต่อวัน ช่วงบ่าย",
@@ -539,7 +539,7 @@ window.ITINERARY_DATA = [
               id: "d2-shipwreck",
               name: "Shipwreck Shore",
               nameZh: "沉船海滩",
-              image: "",
+              image: "assets/images/rides/d2-shipwreck.jpg",
               kind: "Play area",
               wet: "เปียกแน่ ถ้าลงเล่น",
               description:
