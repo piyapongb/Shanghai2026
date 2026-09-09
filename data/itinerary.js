@@ -267,7 +267,7 @@ window.ITINERARY_DATA = [
         type: "park",
         title: "Tomorrowland",
         titleZh: "明日世界",
-        thumbnail: "",
+        thumbnail: "assets/images/activities/d2-tomorrowland.webp",
         icon: "landmark",
         park: {
           story:
@@ -360,7 +360,7 @@ window.ITINERARY_DATA = [
         type: "park",
         title: "Adventure Isle",
         titleZh: "探险岛",
-        thumbnail: "",
+        thumbnail: "assets/images/activities/d2-adventure-isle.jpg",
         icon: "park",
         park: {
           story:
@@ -441,7 +441,7 @@ window.ITINERARY_DATA = [
         type: "park",
         title: "Zootopia",
         titleZh: "疯狂动物城",
-        thumbnail: "",
+        thumbnail: "assets/images/activities/d2-zootopia.jpg",
         icon: "landmark",
         park: {
           story:
@@ -474,7 +474,7 @@ window.ITINERARY_DATA = [
         type: "park",
         title: "Treasure Cove",
         titleZh: "宝藏湾",
-        thumbnail: "",
+        thumbnail: "assets/images/activities/d2-treasure-cove.jpg",
         icon: "landmark",
         park: {
           story:
@@ -559,7 +559,7 @@ window.ITINERARY_DATA = [
         type: "park",
         title: "Fantasyland",
         titleZh: "梦幻世界",
-        thumbnail: "",
+        thumbnail: "assets/images/activities/d2-fantasyland.jpg",
         icon: "landmark",
         park: {
           story:
@@ -681,7 +681,7 @@ window.ITINERARY_DATA = [
         type: "park",
         title: "Disney·Pixar Toy Story Land",
         titleZh: "迪士尼·皮克斯玩具总动员",
-        thumbnail: "",
+        thumbnail: "assets/images/activities/d2-toy-story-land.jpg",
         icon: "park",
         park: {
           story:
@@ -804,7 +804,7 @@ window.ITINERARY_DATA = [
         type: "park",
         title: "Mickey Avenue",
         titleZh: "米奇大街",
-        thumbnail: "",
+        thumbnail: "assets/images/activities/d2-mickey-avenue.png",
         icon: "shopping",
         park: {
           story:
@@ -817,7 +817,7 @@ window.ITINERARY_DATA = [
               id: "d2-meet-mickey",
               name: "Meet Mickey & Friends",
               nameZh: "与米奇和朋友们见面",
-              image: "",
+              image: "assets/images/rides/d2-meet-mickey.jpg",
               kind: "Meet & greet",
               description:
                 "จุดถ่ายรูปกับตัวละครหลัก กระจายอยู่ตามหน้าร้านต่างๆ บนถนนสายนี้",
@@ -832,7 +832,7 @@ window.ITINERARY_DATA = [
               id: "d2-avenue-shops",
               name: "Avenue M Arcade & shops",
               nameZh: "米奇大街商店",
-              image: "",
+              image: "assets/images/rides/d2-avenue-shops.webp",
               kind: "Shopping",
               description:
                 "แถวร้านของที่ระลึกยาวตลอดสองฝั่ง ตั้งแต่หูมิกกี้ ตุ๊กตา ไปจนถึงขนมกล่องสวยไว้ฝากคนที่บ้าน",
