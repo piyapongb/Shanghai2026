@@ -171,7 +171,7 @@ window.RESTAURANTS_DATA = [
     zone: "Disneytown",
     name: "Shanghai Min (Disneytown)",
     nameZh: "小南国(迪士尼小镇店)",
-    image: "",
+    image: "assets/images/restaurants/restaurant-009.jpg",
     gallery: [],
     cuisine: ["Shanghainese"],
     description:
@@ -179,7 +179,10 @@ window.RESTAURANTS_DATA = [
     address: "Disneytown, Shanghai Disney Resort, Pudong New Area, Shanghai",
     price: "¥100–200",
     recommendedDishes: ["ลูกชิ้นหมูน้ำซุป", "หมูตุ๋นซีอิ๊ว", "ผัดผักตามฤดู"],
-    links: []
+    links: [
+      { label: "Lemon8", url: "https://www.lemon8-app.com/experience/%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3-disney-town-shanghai?region=th", type: "review" },
+      { label: "TripAdvisor", url: "https://www.tripadvisor.com/Restaurant_Review-g308272-d14058126-Reviews-Shanghai_Min_Disney_Town-Shanghai.html", type: "review" }
+    ]
   },
   {
     id: "restaurant-010",
