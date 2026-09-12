@@ -263,14 +263,18 @@ window.RESTAURANTS_DATA = [
     zone: "Huangpu",
     name: "Huxilao Longtang Noodle House (Guangdong Rd)",
     nameZh: "沪西老弄堂面馆(广东路店)",
-    image: "",
-    gallery: [],
+    image: "assets/images/restaurants/restaurant-016.jpg",
+    gallery: [
+      "assets/images/restaurants/restaurant-016-2.jpg"
+    ],
     cuisine: ["Shanghainese", "Noodles"],
     description:
       "สาขาถนนกวางตุ้งของร้านบะหมี่เจ้าเดียวกัน อยู่ห่างจาก M1NT (ถนนฝูโจว) แค่บล็อกเดียว กินเร็วก่อนไปคลับได้พอดี เมนูเหมือนสาขาหลัก",
     address: "Room 02, 1F World Trade Building, 500 Guangdong Road, Huangpu District, Shanghai",
     price: "¥30–60",
     recommendedDishes: ["บะหมี่ตับหมู-หอยลาย (蛤蜊猪肝面)", "บะหมี่น้ำมันต้นหอม (葱油面)"],
-    links: []
+    links: [
+      { label: "Lemon8 (@praew_napat)", url: "https://www.lemon8-app.com/@praew_napat/7601287417132073490?region=th", type: "review" }
+    ]
   }
 ];
