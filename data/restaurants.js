@@ -92,7 +92,7 @@ window.RESTAURANTS_DATA = [
     zone: "Xintiandi",
     name: "Din Tai Fung (Xintiandi)",
     nameZh: "鼎泰丰(新天地店)",
-    image: "",
+    image: "assets/images/restaurants/restaurant-004.jpg",
     gallery: [],
     cuisine: ["Taiwanese", "Dim Sum"],
     description:
@@ -102,7 +102,7 @@ window.RESTAURANTS_DATA = [
     recommendedDishes: ["Truffle Xiao Long Bao", "Shrimp & Pork Wonton", "Braised Beef Noodle Soup"],
     links: [
       { label: "Official Website", url: "https://www.dintaifung.com.tw/", type: "website" },
-      { label: "TripAdvisor", url: "https://www.tripadvisor.com/", type: "review", rating: "4.5" }
+      { label: "TripAdvisor", url: "https://th.tripadvisor.com/Restaurant_Review-g308272-d1119977-Reviews-Din_Tai_Fung-Shanghai.html", type: "review", rating: "4.5" }
     ]
   },
   {
@@ -249,7 +249,7 @@ window.RESTAURANTS_DATA = [
     zone: "Yu Garden",
     name: "Lü Bo Lang",
     nameZh: "绿波廊",
-    image: "",
+    image: "assets/images/restaurants/restaurant-015.jpg",
     gallery: [],
     cuisine: ["Shanghainese"],
     description:
