@@ -189,7 +189,7 @@ window.RESTAURANTS_DATA = [
     zone: "Disneytown",
     name: "The Cheesecake Factory (Disneytown)",
     nameZh: "芝乐坊餐厅(迪士尼小镇店)",
-    image: "",
+    image: "assets/images/restaurants/restaurant-010.jpg",
     gallery: [],
     cuisine: ["American"],
     description:
@@ -197,7 +197,9 @@ window.RESTAURANTS_DATA = [
     address: "Disneytown, Shanghai Disney Resort, Pudong New Area, Shanghai",
     price: "¥150–300",
     recommendedDishes: ["Cheesecake", "Pasta", "Burger"],
-    links: []
+    links: [
+      { label: "TripAdvisor", url: "https://www.tripadvisor.com/Restaurant_Review-g308272-d10394411-Reviews-The_Cheesecake_Factory_Disneytown-Shanghai.html", type: "review" }
+    ]
   },
   {
     id: "restaurant-011",
