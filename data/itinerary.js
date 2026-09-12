@@ -1135,6 +1135,16 @@ window.ITINERARY_DATA = [
         }
       },
       {
+        id: "d3-matcha-break",
+        type: "restaurant",
+        time: "16:30",
+        title: "Matcha Break",
+        titleZh: "抹茶时间",
+        icon: "food",
+        restaurantId: "restaurant-017",
+        nearbyRestaurantIds: ["restaurant-017"]
+      },
+      {
         id: "d3-dinner",
         type: "restaurant",
         time: "18:00",

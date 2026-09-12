@@ -281,6 +281,26 @@ window.RESTAURANTS_DATA = [
     ]
   },
   {
+    id: "restaurant-017",
+    zone: "Huaihai Rd",
+    name: "Matcha Wang",
+    nameZh: "抹茶王",
+    image: "assets/images/restaurants/restaurant-017.webp",
+    gallery: [],
+    cuisine: ["Coffee", "Matcha"],
+    description:
+      "ร้านมัทฉะล้วนสไตล์แล็บ พนักงานใส่ชุดคล้ายนักวิทยาศาสตร์ ชงให้ดูสดๆ หน้าร้าน เมนูซิกเนเจอร์คือ Lily Lamb Matcha Latte ที่วาดหน้าแกะน่ารักบนฟองนม อยู่ในห้าง HAI550 บนถนนหวยไห่ ใกล้ซินเทียนตี้ แวะได้ระหว่างเดินย่านนี้",
+    address: "Shop 02, L1, HAI550, 550 Middle Huaihai Road, Huangpu District, Shanghai",
+    price: "¥30–45",
+    recommendedDishes: ["Lily Lamb Matcha Latte (¥34)", "Matcha Dirty", "Matcha Soft Serve"],
+    links: [
+      { label: "The Standard", url: "https://thestandard.co/life/matcha-wang-cafe-shanghai/", type: "review" },
+      { label: "Facebook (aundentes)", url: "https://www.facebook.com/aundentes/posts/-matcha-wang-shanghai-%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%8A%E0%B8%B2%E0%B9%80%E0%B8%82%E0%B8%B5%E0%B8%A2%E0%B8%A7%E0%B8%AA%E0%B8%B8%E0%B8%94%E0%B8%84%E0%B8%B9%E0%B8%A5-%E0%B9%81%E0%B8%95%E0%B9%88%E0%B8%87%E0%B8%A1%E0%B8%B2%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%E0%B9%81%E0%B8%81%E0%B8%B0%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%81%E0%B8%B3%E0%B8%A5%E0%B8%B1%E0%B8%87%E0%B8%A1%E0%B8%B2%E0%B9%81%E0%B8%A3%E0%B8%87-%E0%B8%A1%E0%B8%B2%E0%B9%80%E0%B8%8B%E0%B8%B5%E0%B9%88%E0%B8%A2%E0%B8%87%E0%B9%84%E0%B8%AE%E0%B9%89%E0%B8%97%E0%B8%B1/1231674879106755/", type: "review" },
+      { label: "Facebook (kaegracechuan.dak)", url: "https://www.facebook.com/kaegracechuan.dak/posts/matcha-wang-%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%8A%E0%B8%B2%E0%B9%80%E0%B8%82%E0%B8%B5%E0%B8%A2%E0%B8%A7%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%81%E0%B8%B3%E0%B8%A5%E0%B8%B1%E0%B8%87%E0%B8%A1%E0%B8%B2%E0%B9%81%E0%B8%A3%E0%B8%87%E0%B8%A1%E0%B8%B2%E0%B8%81%E0%B9%86%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B9%80%E0%B8%8B%E0%B8%B5%E0%B9%88%E0%B8%A2%E0%B8%87%E0%B9%84%E0%B8%AE%E0%B9%89-%E0%B9%80%E0%B8%A1%E0%B8%99%E0%B8%B9%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B9%80%E0%B8%A3%E0%B8%B2%E0%B9%80%E0%B8%A5%E0%B8%B7%E0%B8%AD%E0%B8%81%E0%B8%A1%E0%B8%B2%E0%B8%84%E0%B8%B7%E0%B8%AD-lily-l/1571776828287536/", type: "review" },
+      { label: "Lemon8 (@tripaddict)", url: "https://www.lemon8-app.com/@tripaddict/7626720893787505168?region=th", type: "review" }
+    ]
+  },
+  {
     id: "restaurant-015",
     zone: "Yu Garden",
     name: "Lü Bo Lang",
