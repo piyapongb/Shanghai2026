@@ -31,8 +31,11 @@ window.RESTAURANTS_DATA = [
     zone: "Huangpu",
     name: "Yang's Fried Dumplings",
     nameZh: "小杨生煎",
-    image: "",
-    gallery: [],
+    image: "assets/images/restaurants/restaurant-001.jpg",
+    gallery: [
+      "assets/images/restaurants/restaurant-001-2.jpg",
+      "assets/images/restaurants/restaurant-001-3.jpg"
+    ],
     cuisine: ["Shanghainese", "Street Food"],
     description:
       "ร้านเสี่ยวหลงเปาทอด (เชิงเจียน) ชื่อดังของเซี่ยงไฮ้ แป้งกรอบก้น น้ำซุปข้างในเยอะ ราคาไม่แพง เหมาะเป็นมื้อเช้าหรือของว่าง",
