@@ -1082,6 +1082,7 @@ window.ITINERARY_DATA = [
       },
       {
         id: "d3-wukang",
+        thumbnail: "assets/images/activities/d3-wukang.jpg",
         type: "activity",
         time: "11:30",
         title: "Wukang Mansion",
