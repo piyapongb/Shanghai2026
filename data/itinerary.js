@@ -45,7 +45,7 @@ window.ITINERARY_DATA = [
     locationId: "shanghai",
     weather: {
       forecast: "Partly cloudy",
-      temperature: "14–21°C",
+      temperature: "10–17°C",
       rain: "20%",
       humidity: "70%",
       wind: "13 km/h",
@@ -53,6 +53,19 @@ window.ITINERARY_DATA = [
       uvIndex: 4
     },
     items: [
+      {
+        id: "d1-checkin-cnx",
+        type: "other",
+        time: "07:00",
+        title: "Counter Check-in",
+        titleZh: "办理登机",
+        icon: "flight",
+        details: {
+          description:
+            "ถึงเคาน์เตอร์ 07:00 ก่อนเวลาบิน 2 ชม. ครึ่ง Spring Airlines เป็นโลว์คอสต์ที่คุมน้ำหนักกระเป๋าถือขึ้นเครื่องเข้มและชั่งจริงที่เคาน์เตอร์ เผื่อเวลาเผื่อคิวไว้หน่อย",
+          location: "Chiang Mai International Airport (CNX) — International Departures"
+        }
+      },
       {
         id: "d1-flight-in",
         type: "flight",
@@ -73,13 +86,13 @@ window.ITINERARY_DATA = [
       {
         id: "d1-to-hotel",
         type: "other",
-        time: "15:30",
+        time: "16:00",
         title: "Metro to Hotel & Check-in",
         titleZh: "地铁前往酒店 · 入住",
         icon: "metro",
         details: {
           description:
-            "ผ่าน ตม. รับกระเป๋าแล้วนั่ง Metro สาย 2 จากสนามบินผู่ตงเข้าเมือง (เปลี่ยนขบวนที่สถานี Guanglan Road) ลงที่ People's Square แล้วต่อสาย 1 อีกสถานีเดียวถึง Xinzha Road ออกทางออก 6 เดินอีก 170 เมตรถึงโรงแรม รวมราว 1 ชม. ครึ่ง",
+            "ผ่าน ตม. รับกระเป๋าแล้วนั่ง Metro เข้าเมือง ราว 1 ชม. — (1) สาย 2 จากสนามบินผู่ตง ลงที่ People\u2019s Square (2) ต่อสาย 1 อีกสถานีเดียวถึง Xinzha Road (3) ออกทางออก 6 เดินอีกราว 110 เมตรถึงโรงแรม",
           location: "Lechao Hotel, 333 Huanghe Road, Huangpu District",
           metroStation: "Xinzha Road",
           metroExit: "6"
@@ -88,42 +101,41 @@ window.ITINERARY_DATA = [
       {
         id: "d1-dinner",
         type: "restaurant",
-        time: "18:00",
+        time: "18:30",
         title: "Dinner",
         titleZh: "晚餐",
         icon: "food",
-        restaurantId: "restaurant-001",
-        nearbyRestaurantIds: ["restaurant-001", "restaurant-002"]
-      },
-      {
-        id: "d1-the-bund",
-        type: "activity",
-        time: "19:30",
-        title: "The Bund",
-        titleZh: "外滩",
-        icon: "landmark",
-        details: {
-          description:
-            "ทางเดินเลียบแม่น้ำหวงผู่ ฝั่งหนึ่งเป็นตึกยุโรปเก่า อีกฝั่งเป็นตึกระฟ้าผู่ตง จุดถ่ายรูปหลักของเซี่ยงไฮ้ ไฟเปิดครบตั้งแต่ราวหกโมงเย็น จากโรงแรมนั่งสาย 1 ไป People's Square ต่อสาย 2 อีกสถานีเดียวถึง East Nanjing Road หรือเดินเล่นไปตามถนนหนานจิงราว 2.5 กม. ก็ได้",
-          location: "Zhongshan East 1st Road, Huangpu District",
-          metroStation: "East Nanjing Road",
-          metroExit: "7",
-          entranceFee: "ฟรี"
-        }
+        restaurantId: "restaurant-008",
+        nearbyRestaurantIds: ["restaurant-008", "restaurant-001", "restaurant-002"]
       },
       {
         id: "d1-nanjing-road",
         type: "activity",
-        time: "21:00",
-        title: "Nanjing Road Pedestrian Street",
-        titleZh: "南京路步行街",
+        time: "19:30",
+        title: "Nanjing Road \u2192 Beijing Road",
+        titleZh: "南京路 → 北京路",
         icon: "shopping",
         details: {
           description:
-            "ถนนคนเดินสายช้อปปิ้งหลัก ป้ายไฟนีออนเต็มสองข้างทาง เดินจากเดอะบันด์มาทางตะวันตกจนสุดถนนที่ People's Square แล้วขึ้นเหนืออีกราว 700 เมตรถึงโรงแรม",
-          location: "Nanjing East Road, Huangpu District",
+            "ออกช่วงไฟเปิดพอดี ถนนคนเดินหนานจิงมีป้ายไฟนีออนเต็มสองข้างทาง เดินจากสถานี East Nanjing Road ไปทางตะวันตกจนสุดถนนที่ People\u2019s Square แล้วขึ้นเหนือไปถนนปักกิ่ง กลับเข้าย่านโรงแรมได้พอดี ไป: (1) สาย 1 Xinzha Road → People\u2019s Square (2) สาย 2 → East Nanjing Road ทางออก 3",
+          location: "East Nanjing Road → Beijing East Road, Huangpu District",
           metroStation: "East Nanjing Road",
-          metroExit: "2"
+          metroExit: "3"
+        }
+      },
+      {
+        id: "d1-back-hotel",
+        type: "other",
+        time: "22:00",
+        title: "Back to Lechao Hotel",
+        titleZh: "返回酒店",
+        icon: "hotel",
+        details: {
+          description:
+            "กลับ: (1) สาย 2 East Nanjing Road → People\u2019s Square (2) สาย 1 → Xinzha Road ทางออก 6 — รถไฟฟ้าเซี่ยงไฮ้เที่ยวสุดท้ายราว 22:30–23:00 แล้วแต่สาย ถ้าเลยเวลาให้เรียก DiDi",
+          location: "Lechao Hotel, 333 Huanghe Road, Huangpu District",
+          metroStation: "Xinzha Road",
+          metroExit: "6"
         }
       }
     ]
@@ -133,10 +145,9 @@ window.ITINERARY_DATA = [
     dayNumber: 2,
     date: "2026-11-06",
     locationId: "shanghai",
-    hideTimes: true,
     weather: {
       forecast: "Sunny",
-      temperature: "15–22°C",
+      temperature: "10–18°C",
       rain: "10%",
       humidity: "63%",
       wind: "12 km/h",
@@ -262,6 +273,30 @@ window.ITINERARY_DATA = [
       ]
     },
     items: [
+      {
+        id: "d2-breakfast",
+        type: "restaurant",
+        time: "07:00",
+        title: "Breakfast & Coffee",
+        titleZh: "早餐 · 咖啡",
+        icon: "food",
+        restaurantId: "restaurant-008",
+        nearbyRestaurantIds: ["restaurant-008", "restaurant-001", "restaurant-002"]
+      },
+      {
+        id: "d2-to-disney",
+        type: "other",
+        time: "08:00",
+        title: "Metro to Shanghai Disneyland",
+        titleZh: "地铁前往上海迪士尼",
+        icon: "metro",
+        details: {
+          description:
+            "ราว 1 ชม. 15 นาที — (1) สาย 1 Xinzha Road → People\u2019s Square (2) สาย 2 → Jiangsu Road (3) ต่อสาย 11 ปลายทาง Disney Resort ออกจากโรงแรม 08:00 ถึงหน้าประตูราว 09:15 ทันเวลาสวนเปิด",
+          location: "Shanghai Disney Resort, Pudong New Area",
+          metroStation: "Disney Resort (Line 11)"
+        }
+      },
       {
         id: "d2-tomorrowland",
         type: "park",
@@ -952,6 +987,54 @@ window.ITINERARY_DATA = [
           ]
         }
       }
+,
+      {
+        id: "d2-lunch",
+        type: "restaurant",
+        time: "12:30",
+        title: "Lunch @ Disney Town",
+        titleZh: "午餐 · 迪士尼小镇",
+        icon: "food",
+        restaurantId: "restaurant-009",
+        nearbyRestaurantIds: ["restaurant-009", "restaurant-010"]
+      },
+      {
+        id: "d2-dinner",
+        type: "restaurant",
+        time: "18:00",
+        title: "Dinner",
+        titleZh: "晚餐",
+        icon: "food",
+        restaurantId: "restaurant-016",
+        nearbyRestaurantIds: ["restaurant-016", "restaurant-005"]
+      },
+      {
+        id: "d2-club",
+        type: "activity",
+        time: "20:00",
+        title: "M1NT Club",
+        titleZh: "M1NT 夜店",
+        icon: "landmark",
+        details: {
+          description:
+            "คลับชั้น 24 มีระเบียงเห็นวิวเมืองและตู้ปลาฉลามยาวที่ทางเข้า ข้อสำคัญคือมีกฎการแต่งตัวเข้มงวด ห้ามกางเกงขาสั้นและรองเท้าผ้าใบ ถ้ามาจากดิสนีย์ต้องแวะเปลี่ยนชุดที่โรงแรมก่อน ฟลอร์คลับเปิดพุธ–เสาร์ 21:00 (6 พ.ย. เป็นวันศุกร์ เปิดปกติ) ส่วนเลานจ์และร้านอาหารเปิดทุกวัน 18:00 มาถึง 20:00 จะได้นั่งเลานจ์ก่อน",
+          location: "24/F, 318 Fuzhou Road (ตัดถนน Shandong Road), Huangpu District",
+          metroStation: "East Nanjing Road"
+        }
+      },
+      {
+        id: "d2-back-hotel",
+        type: "other",
+        time: "23:00",
+        title: "Back to Lechao Hotel",
+        titleZh: "返回酒店",
+        icon: "hotel",
+        details: {
+          description:
+            "จาก M1NT กลับโรงแรมราว 2.5 กม. เลยเวลารถไฟฟ้าเที่ยวสุดท้ายแล้ว ให้เรียก DiDi ราว ¥20–30 หรือเดินก็ได้ราว 30 นาที",
+          location: "Lechao Hotel, 333 Huanghe Road, Huangpu District"
+        }
+      }
     ]
   },
   {
@@ -961,7 +1044,7 @@ window.ITINERARY_DATA = [
     locationId: "shanghai",
     weather: {
       forecast: "Cloudy",
-      temperature: "14–20°C",
+      temperature: "9–17°C",
       rain: "30%",
       humidity: "72%",
       wind: "15 km/h",
@@ -970,70 +1053,125 @@ window.ITINERARY_DATA = [
     },
     items: [
       {
-        id: "d3-zhujiajiao",
+        id: "d3-breakfast",
+        type: "restaurant",
+        time: "08:00",
+        title: "Breakfast & Coffee",
+        titleZh: "早餐 · 咖啡",
+        icon: "food",
+        restaurantId: "restaurant-008",
+        nearbyRestaurantIds: ["restaurant-008", "restaurant-001", "restaurant-002"]
+      },
+      {
+        id: "d3-longhua",
         type: "activity",
-        time: "08:30",
-        title: "Zhujiajiao Water Town",
-        titleZh: "朱家角古镇",
+        time: "09:30",
+        title: "Longhua Temple",
+        titleZh: "龙华寺",
         icon: "landmark",
         details: {
           description:
-            "เมืองน้ำเก่าอายุกว่า 1,700 ปี นั่ง Metro สาย 17 จากใจกลางเมืองราวหนึ่งชั่วโมง มีสะพานหินฟั่งเซิงและล่องเรือในคลอง ครึ่งวันกำลังพอดี",
-          location: "Zhujiajiao Ancient Town, Qingpu District",
-          metroStation: "Zhujiajiao (Line 17)",
-          metroExit: "2",
-          entranceFee: "ฟรี (ค่าเข้าบางจุด ¥30–80)"
+            "วัดพุทธที่เก่าแก่ที่สุดของเซี่ยงไฮ้ อายุกว่า 1,700 ปี มีเจดีย์เก่าตั้งอยู่ฝั่งตรงข้ามถนน เปิด 07:00–16:30 ทุกวัน เดินในลานวัดฟรี แต่เข้าวิหารหลักต้องมีตั๋ว ไป: (1) สาย 1 Xinzha Road ลงใต้ 3 สถานีถึง South Shaanxi Road (2) ต่อสาย 12 ถึง Longhua ออกทางออก 3 วัดอยู่ตรงข้ามถนนพอดี",
+          location: "2853 Longhua Road, Xuhui District",
+          metroStation: "Longhua (Line 11/12)",
+          metroExit: "3",
+          entranceFee: "¥10"
+        }
+      },
+      {
+        id: "d3-wukang",
+        type: "activity",
+        time: "11:30",
+        title: "Wukang Mansion",
+        titleZh: "武康大楼",
+        icon: "landmark",
+        details: {
+          description:
+            "ตึกอพาร์ตเมนต์ปี 1924 ทรงหัวเรือตั้งอยู่ตรงห้าแยก เป็นจุดถ่ายรูปดังที่สุดของย่านสัมปทานฝรั่งเศสเดิม มุมถ่ายอยู่ฝั่งตรงข้ามถนน ชั้นล่างมี Old Mai Cafe นั่งมองตึกได้ คนเยอะช่วงบ่ายวันหยุด ไป: สาย 11 จาก Longhua → Jiao Tong University ออกทางออก 1 แล้วเดิน",
+          location: "1850 Huaihai Middle Road, Xuhui District",
+          metroStation: "Jiao Tong University (Line 10/11)",
+          metroExit: "1",
+          entranceFee: "ฟรี (ชมจากภายนอก)"
+        }
+      },
+      {
+        id: "d3-anfu",
+        type: "activity",
+        time: "12:30",
+        title: "Anfu Road Caf\u00e9 Walk",
+        titleZh: "安福路 · 咖啡街",
+        icon: "shopping",
+        details: {
+          description:
+            "ถนนสายคาเฟ่และร้านเสื้อผ้าในย่านเก่า ต้นไม้คลุมทั้งถนน เดินต่อจากตึกอู่คังมาได้เลยไม่ต้องขึ้นรถ ร้านที่คนแวะ: % Arabica, 13DE MARZO (คาเฟ่ธีมหมี ได้ตุ๊กตาหมีติดถุง), Corner Cone (เจลาโตปั้นเป็นรูป) เลี่ยงบ่ายวันหยุดถ้าไม่อยากเจอคนแน่น",
+          location: "Anfu Road, Xuhui District",
+          entranceFee: "ฟรี"
         }
       },
       {
         id: "d3-lunch",
         type: "restaurant",
-        time: "12:30",
+        time: "13:30",
         title: "Lunch",
         titleZh: "午餐",
         icon: "food",
-        restaurantId: "restaurant-006",
-        nearbyRestaurantIds: ["restaurant-006"]
+        restaurantId: "restaurant-012",
+        nearbyRestaurantIds: ["restaurant-012", "restaurant-013", "restaurant-014", "restaurant-007"]
       },
       {
-        id: "d3-french-concession",
+        id: "d3-xintiandi",
         type: "activity",
-        time: "16:00",
-        title: "Former French Concession Walk",
-        titleZh: "法租界漫步",
-        icon: "walk",
+        time: "15:30",
+        title: "Xintiandi",
+        titleZh: "新天地",
+        icon: "shopping",
         details: {
           description:
-            "เดินเล่นถนนอู่คังลู่และหวยไห่ลู่ ต้นไม้สองข้างทางกับตึกเก่าสไตล์ยุโรป ย่านคาเฟ่และร้านเล็กๆ ของเซี่ยงไฮ้",
-          location: "Wukang Road / Huaihai Middle Road, Xuhui District",
-          metroStation: "Shanghai Library",
-          metroExit: "3"
+            "ย่านตึกอิฐ shikumen เก่าที่รีโนเวตเป็นร้านค้า คาเฟ่ และร้านอาหาร เดินสบายร่มรื่นและสะอาด เหมาะพักขาช่วงบ่ายก่อนไปมื้อเย็น ไป: สาย 10 จาก Jiao Tong University → Xintiandi ออกทางออก 6",
+          location: "Lane 181 Taicang Road, Huangpu District",
+          metroStation: "Xintiandi",
+          metroExit: "6",
+          entranceFee: "ฟรี"
         }
       },
       {
         id: "d3-dinner",
         type: "restaurant",
-        time: "18:30",
-        title: "Dinner",
-        titleZh: "晚餐",
+        time: "18:00",
+        title: "Dinner @ Yuyuan Bazaar",
+        titleZh: "晚餐 · 豫园商城",
         icon: "food",
-        restaurantId: "restaurant-005",
-        nearbyRestaurantIds: ["restaurant-005", "restaurant-004"]
+        restaurantId: "restaurant-003",
+        nearbyRestaurantIds: ["restaurant-003", "restaurant-015"]
       },
       {
-        id: "d3-river-cruise",
+        id: "d3-lujiazui",
         type: "activity",
-        time: "20:30",
-        title: "Huangpu River Night Cruise",
-        titleZh: "黄浦江夜游",
-        icon: "ticket",
+        time: "20:00",
+        title: "Lujiazui Night View \u2014 Waterfront",
+        titleZh: "陆家嘴夜景 · 滨江",
+        icon: "landmark",
         details: {
           description:
-            "ล่องเรือชมไฟสองฝั่งแม่น้ำหวงผู่ ราว 50 นาที ขึ้นเรือที่ท่าเรือสิบหกผู่ ซื้อตั๋วหน้าท่าได้",
-          location: "Shiliupu Wharf, Zhongshan East 2nd Road, Huangpu District",
-          metroStation: "Yuyuan Garden",
-          metroExit: "1",
-          entranceFee: "¥120"
+            "ข้ามไปฝั่งผู่ตงเพื่อถ่ายวิวกลางคืน จากทางเดินเลียบน้ำเห็นครบสามอย่างในเฟรมเดียว: หอไข่มุกตะวันออก, Shanghai Tower และเดอะบันด์ฝั่งตรงข้ามแม่น้ำ ไฟเปิดครบตั้งแต่ราวหกโมงเย็น ริมน้ำลมแรงกว่าในเมือง เอาเสื้อกันลมไปด้วย",
+          location: "Lujiazui Riverside Promenade, Pudong New Area",
+          metroStation: "Lujiazui (Line 2)",
+          entranceFee: "ฟรี"
+        }
+      },
+      {
+        id: "d3-back-hotel",
+        type: "other",
+        time: "22:00",
+        title: "Back to Lechao Hotel",
+        titleZh: "返回酒店",
+        icon: "hotel",
+        details: {
+          description:
+            "กลับ: (1) สาย 2 Lujiazui → People\u2019s Square (2) สาย 1 → Xinzha Road ทางออก 6",
+          location: "Lechao Hotel, 333 Huanghe Road, Huangpu District",
+          metroStation: "Xinzha Road",
+          metroExit: "6"
         }
       }
     ]
@@ -1045,7 +1183,7 @@ window.ITINERARY_DATA = [
     locationId: "shanghai",
     weather: {
       forecast: "Partly cloudy",
-      temperature: "14–21°C",
+      temperature: "10–17°C",
       rain: "20%",
       humidity: "68%",
       wind: "13 km/h",
@@ -1056,55 +1194,91 @@ window.ITINERARY_DATA = [
       {
         id: "d4-hotel-checkout",
         type: "other",
-        time: "09:00",
-        title: "Hotel Check-out",
-        titleZh: "退房",
+        time: "08:00",
+        title: "Hotel Check-out & Leave Luggage",
+        titleZh: "退房 · 寄存行李",
         icon: "hotel",
         details: {
           description:
-            "เช็คเอาท์ตามเวลาโรงแรม (12:00) แต่ออกเช้าหน่อยแล้วฝากกระเป๋าไว้ที่ล็อบบี้ จะได้เที่ยวต่อได้ก่อนไปสนามบิน",
+            "เช็คเอาท์ตามเวลาโรงแรม (12:00) แต่ออกเช้ากว่าแล้วฝากกระเป๋าไว้ที่ล็อบบี้ จะได้เที่ยวต่ออีกครึ่งวัน แล้ววนกลับมารับตอนเที่ยงก่อนไปสนามบิน",
           location: "Lechao Hotel, 333 Huanghe Road, Huangpu District"
         }
       },
       {
-        id: "d4-jingan-temple",
+        id: "d4-breakfast",
+        type: "restaurant",
+        time: "08:30",
+        title: "Breakfast & Coffee",
+        titleZh: "早餐 · 咖啡",
+        icon: "food",
+        restaurantId: "restaurant-008",
+        nearbyRestaurantIds: ["restaurant-008", "restaurant-001", "restaurant-002"]
+      },
+      {
+        id: "d4-museum",
         type: "activity",
-        time: "09:30",
-        title: "Jing'an Temple",
-        titleZh: "静安寺",
+        time: "09:00",
+        title: "Shanghai Natural History Museum",
+        titleZh: "上海自然博物馆",
         icon: "landmark",
         details: {
           description:
-            "วัดทองกลางย่านธุรกิจ ตัดกับตึกกระจกรอบๆ อย่างชัดเจน ใช้เวลาไม่นานและอยู่บนเส้นทางกลับสนามบิน (Metro สาย 2 สายเดียวกัน)",
-          location: "1686 Nanjing West Road, Jing'an District",
-          metroStation: "Jing'an Temple",
-          metroExit: "1",
-          entranceFee: "¥50"
+            "ข้อสำคัญ: พิพิธภัณฑ์นี้ไม่ขายตั๋วหน้างาน ต้องจองออนไลน์ล่วงหน้าผ่าน WeChat official account ของพิพิธภัณฑ์เท่านั้น เปิด 09:00–17:00 อังคาร–อาทิตย์ ปิดวันจันทร์ (8 พ.ย. เป็นวันอาทิตย์ เปิดปกติ) เข้าคนสุดท้าย 16:00 เผื่อเวลาไว้ 09:00–10:45 พอเดินรอบเดียวจบ ถ้าไม่อยากเข้าพิพิธภัณฑ์ สลับเป็นเก็บตกถนนหนานจิงแทนได้ อยู่บนเส้นทางเดียวกัน ไป: (1) สาย 1 Xinzha Road → People\u2019s Square (2) สาย 2 → West Nanjing Road (3) เดินเชื่อมในสถานีไปขึ้นสาย 13 อีกสถานีเดียวถึง Natural History Museum",
+          location: "510 Beijing West Road, Jing\u2019an District (ใน Jing\u2019an Sculpture Park)",
+          metroStation: "Natural History Museum (Line 13)",
+          entranceFee: "¥30 (นักเรียน/ผู้สูงอายุ ¥12 · เด็กสูงไม่ถึง 1.3 ม. ฟรี)"
         }
       },
       {
         id: "d4-lunch",
         type: "restaurant",
-        time: "11:30",
-        title: "Farewell Lunch",
-        titleZh: "最后一餐",
+        time: "11:15",
+        title: "Lunch",
+        titleZh: "午餐",
         icon: "food",
-        restaurantId: "restaurant-002",
-        nearbyRestaurantIds: ["restaurant-002", "restaurant-001"]
+        restaurantId: "restaurant-011",
+        nearbyRestaurantIds: ["restaurant-011", "restaurant-002"]
+      },
+      {
+        id: "d4-pickup-bags",
+        type: "other",
+        time: "12:00",
+        title: "Pick Up Luggage at Hotel",
+        titleZh: "回酒店取行李",
+        icon: "hotel",
+        details: {
+          description:
+            "วนกลับมารับกระเป๋าที่ฝากไว้ กลับ: (1) สาย 2 West Nanjing Road → People\u2019s Square (2) สาย 1 → Xinzha Road ทางออก 6",
+          location: "Lechao Hotel, 333 Huanghe Road, Huangpu District",
+          metroStation: "Xinzha Road",
+          metroExit: "6"
+        }
       },
       {
         id: "d4-to-airport",
         type: "other",
-        time: "13:00",
+        time: "12:30",
         title: "Transfer to Pudong Airport",
         titleZh: "前往浦东机场",
-        icon: "train",
+        icon: "metro",
         details: {
           description:
-            "รับกระเป๋าที่โรงแรมแล้วออกไปสนามบิน เผื่อเวลา 3 ชม. ก่อนบิน ตั้งต้นที่ Xinzha Road นั่งสาย 1 หนึ่งสถานีไป People's Square แล้วเลือกได้ระหว่าง Metro สาย 2 ตรงไปสนามบิน (ถูกกว่า ~1 ชม.) หรือสาย 2 ไปลงหลงหยางลู่แล้วต่อ Maglev (8 นาที)",
+            "ออกจากโรงแรม 12:30 ถึงสนามบินราว 13:30 — (1) สาย 1 Xinzha Road → People\u2019s Square (2) สาย 2 ตรงไปปลายทางสนามบินผู่ตง ราว 1 ชม. ถ้าอยากเร็วกว่า ลงหลงหยางลู่แล้วต่อ Maglev 8 นาทีก็ได้ แต่ต้องซื้อตั๋วแยก",
           location: "Shanghai Pudong International Airport, Terminal 2",
-          metroStation: "Longyang Road (Maglev)",
-          metroExit: "4"
+          metroStation: "Pudong International Airport (Line 2)"
+        }
+      },
+      {
+        id: "d4-checkin-pvg",
+        type: "other",
+        time: "13:30",
+        title: "Counter Check-in",
+        titleZh: "办理登机",
+        icon: "flight",
+        details: {
+          description:
+            "เช็คอินเคาน์เตอร์ 13:30 ก่อนบิน 16:10 ราว 2 ชม. ครึ่ง เผื่อเวลาคืนภาษีและผ่าน ตม. ขาออกด้วย",
+          location: "Shanghai Pudong International Airport, Terminal 2"
         }
       },
       {

@@ -676,10 +676,12 @@
   function renderTimelineItem(item, restaurantIndex, opts) {
     const options = opts || {};
     const li = U.el("li", { class: "timeline-item timeline-item--" + item.type, id: item.id });
-    if (!options.hideTimes && item.time) {
-      li.appendChild(U.el("div", { class: "timeline-time" }, [
-        U.el("time", { datetime: item.time }, [item.time])
-      ]));
+    if (!options.hideTimes) {
+      // The cell goes in even with no clock to show, so an untimed item on an
+      // otherwise-timed day still lands in the content column rather than
+      // sliding one column left.
+      li.appendChild(U.el("div", { class: "timeline-time" },
+        item.time ? [U.el("time", { datetime: item.time }, [item.time])] : []));
     }
     li.appendChild(U.el("div", { class: "timeline-marker", "aria-hidden": "true" }, [
       U.el("span", { class: "timeline-dot" })

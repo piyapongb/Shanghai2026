@@ -11,10 +11,14 @@
  * rendered as a "Reviews & Links" list — use it to attach one or many
  * review sites / official sites per restaurant.
  *
- * MOCK DATA: these are real, well-known Shanghai restaurants used as
- * placeholders so the app has something to render. Addresses, prices and
- * ratings are approximate and the links point at search-engine home pages,
- * not at the specific listing — replace them before relying on any of it.
+ * These are real Shanghai restaurants chosen to match the itinerary, but
+ * prices are indicative only and restaurant-001..007 still carry the
+ * original placeholder links (search-engine home pages, not the actual
+ * listing) — swap those before relying on them. Records added later have
+ * an empty `links` array rather than a fake one.
+ *
+ * restaurant-006 was Zhujiajiao Water Town and was dropped when the Day 3
+ * plan changed to a city walk; the id is deliberately left unused.
  *
  * `gallery` needs at least 2 photos before the gallery section renders at
  * all, so a single-photo gallery is invisible. `image` is left empty here
@@ -111,21 +115,6 @@ window.RESTAURANTS_DATA = [
     ]
   },
   {
-    id: "restaurant-006",
-    zone: "Qingpu",
-    name: "Zhujiajiao Old Street Eats",
-    nameZh: "朱家角老街小吃",
-    image: "",
-    gallery: [],
-    cuisine: ["Street Food", "Local"],
-    description:
-      "แผงของกินตลอดถนนเก่าในเมืองน้ำจูเจียเจี่ยว ขาหมูตุ๋น บะจ่างใบไผ่ และขนมท้องถิ่น กินเดินไปตามคลองได้เลย",
-    address: "North Street, Zhujiajiao Ancient Town, Qingpu District, Shanghai",
-    price: "¥30–80",
-    recommendedDishes: ["Zongzi (Bamboo Leaf Rice)", "Braised Pork Knuckle", "Sweet Osmanthus Cake"],
-    links: []
-  },
-  {
     id: "restaurant-007",
     zone: "Xuhui",
     name: "Jian Guo 328",
@@ -141,5 +130,140 @@ window.RESTAURANTS_DATA = [
     links: [
       { label: "Dianping (大众点评)", url: "https://www.dianping.com/", type: "review", rating: "4.4" }
     ]
+  },
+  {
+    id: "restaurant-008",
+    zone: "Huanghe Rd",
+    name: "Huanghe Road Food Street",
+    nameZh: "黄河路美食街",
+    image: "",
+    gallery: [],
+    cuisine: ["Shanghainese", "Street Food"],
+    description:
+      "ถนนสายอาหารที่โรงแรมตั้งอยู่ ออกจากล็อบบี้เดินถึงเลย มีตั้งแต่ร้านเสี่ยวหลงเปา-เชิงเจียนกินเร็ว ไปจนถึงร้านเซี่ยงไฮ้แบบสั่งทั้งโต๊ะ (ปลาตุ๋นซีอิ๊ว กุ้งแม่น้ำ) ดังขึ้นอีกรอบหลังละคร 繁花 ปี 2024 — ต้นเดือน พ.ย. ตรงฤดูปูขนพอดี",
+    address: "Huanghe Road, Huangpu District, Shanghai",
+    price: "¥30–150",
+    recommendedDishes: ["Sheng Jian Bao", "Xiao Long Bao", "ปูขน (ตามฤดู)", "ปลาตุ๋นซีอิ๊ว"],
+    links: []
+  },
+  {
+    id: "restaurant-009",
+    zone: "Disneytown",
+    name: "Shanghai Min (Disneytown)",
+    nameZh: "小南国(迪士尼小镇店)",
+    image: "",
+    gallery: [],
+    cuisine: ["Shanghainese"],
+    description:
+      "ร้านอาหารเซี่ยงไฮ้ในดิสนีย์ทาวน์ ซึ่งอยู่นอกประตูสวน ไม่ต้องใช้บัตรเข้าสวนก็กินได้ ราคาสมเหตุสมผลกว่าร้านในสวนและนั่งสบายกว่า สั่งแบ่งกันทั้งโต๊ะได้",
+    address: "Disneytown, Shanghai Disney Resort, Pudong New Area, Shanghai",
+    price: "¥100–200",
+    recommendedDishes: ["ลูกชิ้นหมูน้ำซุป", "หมูตุ๋นซีอิ๊ว", "ผัดผักตามฤดู"],
+    links: []
+  },
+  {
+    id: "restaurant-010",
+    zone: "Disneytown",
+    name: "The Cheesecake Factory (Disneytown)",
+    nameZh: "芝乐坊餐厅(迪士尼小镇店)",
+    image: "",
+    gallery: [],
+    cuisine: ["American"],
+    description:
+      "ร้านอเมริกันจานใหญ่ในดิสนีย์ทาวน์ เหมาะถ้าอยากพักจากอาหารจีนสักมื้อ พอร์ชั่นใหญ่สั่งแบ่งกันได้ ชีสเค้กเป็นของหวานประจำร้าน คนเยอะช่วงเที่ยง-เย็น",
+    address: "Disneytown, Shanghai Disney Resort, Pudong New Area, Shanghai",
+    price: "¥150–300",
+    recommendedDishes: ["Cheesecake", "Pasta", "Burger"],
+    links: []
+  },
+  {
+    id: "restaurant-011",
+    zone: "Jing'an",
+    name: "Huxilao Longtang Noodle House (Maoming North Rd)",
+    nameZh: "沪西老弄堂面馆(茂名北路)",
+    image: "",
+    gallery: [],
+    cuisine: ["Shanghainese", "Noodles"],
+    description:
+      "ร้านบะหมี่เซี่ยงไฮ้แบบเปิ่นปังที่คนท้องถิ่นต่อคิว เมนูขึ้นชื่อคือบะหมี่ตับหมูผัดกับหอยลาย ซีอิ๊วเข้มข้น สาขานี้เดินจากสถานี West Nanjing Road ได้ อยู่บนเส้นทางวันสุดท้ายพอดี",
+    address: "107 Maoming North Road, Jing'an District, Shanghai",
+    price: "¥30–60",
+    recommendedDishes: ["บะหมี่ตับหมู-หอยลาย (蛤蜊猪肝面)", "บะหมี่น้ำมันต้นหอม (葱油面)"],
+    links: []
+  },
+  {
+    id: "restaurant-012",
+    zone: "Anfu Rd",
+    name: "Baker & Spice (Anfu Road)",
+    nameZh: "Baker & Spice(安福路店)",
+    image: "",
+    gallery: [],
+    cuisine: ["Bakery", "Brunch"],
+    description:
+      "เบเกอรี่-คาเฟ่บนถนนอันฝู มีระเบียงชั้นสองมองลงมาเห็นถนน ซินนามอนโรลกับสโคนแครนเบอร์รีเป็นของขึ้นชื่อ เหมาะเป็นมื้อเที่ยงเบาๆ ระหว่างเดินย่านเก่า",
+    address: "Anfu Road, Xuhui District, Shanghai",
+    price: "¥60–120",
+    recommendedDishes: ["Cinnamon Roll", "Cranberry Scone", "Sourdough Sandwich"],
+    links: []
+  },
+  {
+    id: "restaurant-013",
+    zone: "Anfu Rd",
+    name: "Lokal by Wagas (Anfu Road)",
+    nameZh: "Lokal(安福路店)",
+    image: "",
+    gallery: [],
+    cuisine: ["Western", "Vietnamese"],
+    description:
+      "ห้องกระจกมีคอร์ทยาร์ดนั่งกลางแจ้ง อาหารฝรั่งผสมเอเชีย มีเฝอเวียดนามและชีสเค้กบลูเบอร์รี เป็นร้านที่คนแวะกินและถ่ายรูประหว่างเดินอันฝูลู่",
+    address: "Anfu Road, Xuhui District, Shanghai",
+    price: "¥80–150",
+    recommendedDishes: ["Vietnamese Pho", "Blueberry Cheesecake", "Brunch Plate"],
+    links: []
+  },
+  {
+    id: "restaurant-014",
+    zone: "Wukang Rd",
+    name: "% Arabica (Wukang Road)",
+    nameZh: "% Arabica(武康路店)",
+    image: "",
+    gallery: [],
+    cuisine: ["Coffee"],
+    description:
+      "ร้านกาแฟบนถนนอู่คัง ร้านเล็กคนเยอะ ซื้อแล้วถือเดินต่อได้ ใช้เป็นจุดจับกาแฟระหว่างเดินอู่คังลู่-อันฝูลู่ (อีกร้านที่คนแวะคือ Old Mai Cafe ที่ชั้นล่างตึกอู่คัง)",
+    address: "Wukang Road, Xuhui District, Shanghai",
+    price: "¥30–50",
+    recommendedDishes: ["Spanish Latte", "Caffè Latte"],
+    links: []
+  },
+  {
+    id: "restaurant-015",
+    zone: "Yu Garden",
+    name: "Lü Bo Lang",
+    nameZh: "绿波廊",
+    image: "",
+    gallery: [],
+    cuisine: ["Shanghainese"],
+    description:
+      "ร้านเซี่ยงไฮ้เก่าแก่ในสวนหยูหยวน บรรยากาศจีนโบราณ มองเห็นสวน ราคาสูงกว่าแผงข้างนอกแต่ได้นั่งสบายและไม่ต้องยืนต่อคิว เหมาะเป็นมื้อเย็นถ้าไม่อยากแย่งที่นั่งกับนักท่องเที่ยว",
+    address: "115 Yuyuan Road, Huangpu District, Shanghai",
+    price: "¥200–400",
+    recommendedDishes: ["ซาลาเปาไส้ปู", "เต้าหู้ปู", "ขนมทอดกรอบ"],
+    links: []
+  },
+  {
+    id: "restaurant-016",
+    zone: "Huangpu",
+    name: "Huxilao Longtang Noodle House (Guangdong Rd)",
+    nameZh: "沪西老弄堂面馆(广东路店)",
+    image: "",
+    gallery: [],
+    cuisine: ["Shanghainese", "Noodles"],
+    description:
+      "สาขาถนนกวางตุ้งของร้านบะหมี่เจ้าเดียวกัน อยู่ห่างจาก M1NT (ถนนฝูโจว) แค่บล็อกเดียว กินเร็วก่อนไปคลับได้พอดี เมนูเหมือนสาขาหลัก",
+    address: "Room 02, 1F World Trade Building, 500 Guangdong Road, Huangpu District, Shanghai",
+    price: "¥30–60",
+    recommendedDishes: ["บะหมี่ตับหมู-หอยลาย (蛤蜊猪肝面)", "บะหมี่น้ำมันต้นหอม (葱油面)"],
+    links: []
   }
 ];
