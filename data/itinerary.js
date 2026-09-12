@@ -1123,6 +1123,7 @@ window.ITINERARY_DATA = [
       },
       {
         id: "d3-xintiandi",
+        thumbnail: "assets/images/activities/d3-xintiandi.webp",
         type: "activity",
         time: "15:30",
         title: "Xintiandi",
@@ -1134,7 +1135,9 @@ window.ITINERARY_DATA = [
           location: "Lane 181 Taicang Road, Huangpu District",
           metroStation: "Xintiandi",
           metroExit: "6",
-          entranceFee: "ฟรี"
+          entranceFee: "ฟรี",
+          referenceUrl: "https://www.lemon8-app.com/@knpofficialy/7533463962302611985?region=th",
+          referenceLabel: "Lemon8 Review"
         }
       },
       {
