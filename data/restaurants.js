@@ -73,7 +73,7 @@ window.RESTAURANTS_DATA = [
     zone: "Yu Garden",
     name: "Nanxiang Steamed Bun Restaurant",
     nameZh: "南翔馒头店",
-    image: "",
+    image: "assets/images/restaurants/restaurant-003.jpg",
     gallery: [],
     cuisine: ["Shanghainese", "Dim Sum"],
     description:
@@ -83,7 +83,8 @@ window.RESTAURANTS_DATA = [
     recommendedDishes: ["Crab Roe Bun", "Pork Xiao Long Bao", "Chicken Soup"],
     links: [
       { label: "TripAdvisor", url: "https://www.tripadvisor.com/", type: "review", rating: "4.0" },
-      { label: "Dianping (大众点评)", url: "https://www.dianping.com/", type: "review", rating: "4.3" }
+      { label: "Dianping (大众点评)", url: "https://www.dianping.com/", type: "review", rating: "4.3" },
+      { label: "Trip.com Moments", url: "https://th.trip.com/moments/detail/shanghai-2-131035592/", type: "review" }
     ]
   },
   {
