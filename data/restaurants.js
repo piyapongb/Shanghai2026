@@ -132,8 +132,12 @@ window.RESTAURANTS_DATA = [
     zone: "Xuhui",
     name: "Jian Guo 328",
     nameZh: "建国328小馆",
-    image: "",
-    gallery: [],
+    image: "assets/images/restaurants/restaurant-007.jpg",
+    gallery: [
+      "assets/images/restaurants/restaurant-007-2.jpg",
+      "assets/images/restaurants/restaurant-007-3.jpg",
+      "assets/images/restaurants/restaurant-007-4.jpg"
+    ],
     cuisine: ["Shanghainese", "Home-style"],
     description:
       "ร้านอาหารเซี่ยงไฮ้แบบบ้านๆ ในย่านฝรั่งเศสเก่า ราคาไม่แรง รสจัดกำลังดี เหมาะลองอาหารเซี่ยงไฮ้แท้ๆ สักมื้อ",
@@ -149,7 +153,7 @@ window.RESTAURANTS_DATA = [
     zone: "Huanghe Rd",
     name: "Huanghe Road Food Street",
     nameZh: "黄河路美食街",
-    image: "",
+    image: "assets/images/restaurants/restaurant-008.jpg",
     gallery: [],
     cuisine: ["Shanghainese", "Street Food"],
     description:
@@ -157,7 +161,10 @@ window.RESTAURANTS_DATA = [
     address: "Huanghe Road, Huangpu District, Shanghai",
     price: "¥30–150",
     recommendedDishes: ["Sheng Jian Bao", "Xiao Long Bao", "ปูขน (ตามฤดู)", "ปลาตุ๋นซีอิ๊ว"],
-    links: []
+    links: [
+      { label: "Trip.com Moments (Restaurants)", url: "https://www.trip.com/moments/theme/poi-huanghe-road-144315197-restaurant-993134/", type: "review" },
+      { label: "Trip.com Moments (Food)", url: "https://th.trip.com/moments/theme/poi-huanghe-road-144315197-food-993052/", type: "review" }
+    ]
   },
   {
     id: "restaurant-009",
