@@ -1162,6 +1162,7 @@ window.ITINERARY_DATA = [
       },
       {
         id: "d3-lujiazui",
+        thumbnail: "assets/images/activities/d3-lujiazui.jpg",
         type: "activity",
         time: "20:00",
         title: "Lujiazui Night View \u2014 Waterfront",
