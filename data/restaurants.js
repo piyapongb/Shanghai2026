@@ -206,15 +206,19 @@ window.RESTAURANTS_DATA = [
     zone: "Jing'an",
     name: "Huxilao Longtang Noodle House (Maoming North Rd)",
     nameZh: "沪西老弄堂面馆(茂名北路)",
-    image: "",
-    gallery: [],
+    image: "assets/images/restaurants/restaurant-011.jpg",
+    gallery: [
+      "assets/images/restaurants/restaurant-011-2.jpg"
+    ],
     cuisine: ["Shanghainese", "Noodles"],
     description:
       "ร้านบะหมี่เซี่ยงไฮ้แบบเปิ่นปังที่คนท้องถิ่นต่อคิว เมนูขึ้นชื่อคือบะหมี่ตับหมูผัดกับหอยลาย ซีอิ๊วเข้มข้น สาขานี้เดินจากสถานี West Nanjing Road ได้ อยู่บนเส้นทางวันสุดท้ายพอดี",
     address: "107 Maoming North Road, Jing'an District, Shanghai",
     price: "¥30–60",
     recommendedDishes: ["บะหมี่ตับหมู-หอยลาย (蛤蜊猪肝面)", "บะหมี่น้ำมันต้นหอม (葱油面)"],
-    links: []
+    links: [
+      { label: "Lemon8 (@praew_napat)", url: "https://www.lemon8-app.com/@praew_napat/7601287417132073490?region=th", type: "review" }
+    ]
   },
   {
     id: "restaurant-012",
