@@ -249,8 +249,11 @@ window.RESTAURANTS_DATA = [
     zone: "Anfu Rd",
     name: "Lokal by Wagas (Anfu Road)",
     nameZh: "Lokal(安福路店)",
-    image: "",
-    gallery: [],
+    image: "assets/images/restaurants/restaurant-013.jpg",
+    gallery: [
+      "assets/images/restaurants/restaurant-013-2.jpg",
+      "assets/images/restaurants/restaurant-013-3.jpg"
+    ],
     cuisine: ["Western", "Vietnamese"],
     description:
       "ห้องกระจกมีคอร์ทยาร์ดนั่งกลางแจ้ง อาหารฝรั่งผสมเอเชีย มีเฝอเวียดนามและชีสเค้กบลูเบอร์รี เป็นร้านที่คนแวะกินและถ่ายรูประหว่างเดินอันฝูลู่",
@@ -264,7 +267,7 @@ window.RESTAURANTS_DATA = [
     zone: "Wukang Rd",
     name: "% Arabica (Wukang Road)",
     nameZh: "% Arabica(武康路店)",
-    image: "",
+    image: "assets/images/restaurants/restaurant-014.jpg",
     gallery: [],
     cuisine: ["Coffee"],
     description:
@@ -272,7 +275,10 @@ window.RESTAURANTS_DATA = [
     address: "Wukang Road, Xuhui District, Shanghai",
     price: "¥30–50",
     recommendedDishes: ["Spanish Latte", "Caffè Latte"],
-    links: []
+    links: [
+      { label: "Trip.com Moments", url: "https://th.trip.com/moments/detail/shanghai-2-141578992/", type: "review" },
+      { label: "Lemon8 (@itsbonus26)", url: "https://www.lemon8-app.com/@itsbonus26/7488654940957704720?region=th", type: "review" }
+    ]
   },
   {
     id: "restaurant-015",
