@@ -110,8 +110,12 @@ window.RESTAURANTS_DATA = [
     zone: "The Bund",
     name: "Lost Heaven (Bund)",
     nameZh: "花马天堂(外滩店)",
-    image: "",
-    gallery: [],
+    image: "assets/images/restaurants/restaurant-005.jpg",
+    gallery: [
+      "assets/images/restaurants/restaurant-005-2.jpg",
+      "assets/images/restaurants/restaurant-005-3.jpg",
+      "assets/images/restaurants/restaurant-005-4.jpg"
+    ],
     cuisine: ["Yunnan", "Southeast Asian"],
     description:
       "อาหารยูนนานในตึกเก่าย่านเดอะบันด์ บรรยากาศไฟสลัวสวย เหมาะเป็นมื้อเย็นก่อนออกไปเดินริมน้ำ ควรจองล่วงหน้า",
@@ -119,7 +123,8 @@ window.RESTAURANTS_DATA = [
     price: "¥200–350",
     recommendedDishes: ["Dai Style Grilled Fish", "Bamboo Chicken", "Yunnan Mint Salad"],
     links: [
-      { label: "TripAdvisor", url: "https://www.tripadvisor.com/", type: "review", rating: "4.4" }
+      { label: "TripAdvisor", url: "https://www.tripadvisor.com/", type: "review", rating: "4.4" },
+      { label: "Facebook", url: "https://www.facebook.com/groups/3386051408376052/posts/3759773354337187/", type: "review" }
     ]
   },
   {
