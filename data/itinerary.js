@@ -1233,6 +1233,7 @@ window.ITINERARY_DATA = [
       },
       {
         id: "d4-museum",
+        thumbnail: "assets/images/activities/d4-museum.jpg",
         type: "activity",
         time: "09:00",
         title: "Shanghai Natural History Museum",
