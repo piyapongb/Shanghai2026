@@ -1010,6 +1010,7 @@ window.ITINERARY_DATA = [
       },
       {
         id: "d2-club",
+        thumbnail: "assets/images/activities/d2-club.jpg",
         type: "activity",
         time: "20:00",
         title: "M1NT Club",
@@ -1064,6 +1065,7 @@ window.ITINERARY_DATA = [
       },
       {
         id: "d3-longhua",
+        thumbnail: "assets/images/activities/d3-longhua.webp",
         type: "activity",
         time: "09:30",
         title: "Longhua Temple",
