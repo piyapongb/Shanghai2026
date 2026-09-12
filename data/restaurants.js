@@ -52,16 +52,20 @@ window.RESTAURANTS_DATA = [
     zone: "Huangpu",
     name: "Jia Jia Tang Bao",
     nameZh: "佳家汤包",
-    image: "",
-    gallery: [],
+    image: "assets/images/restaurants/restaurant-002.jpg",
+    gallery: [
+      "assets/images/restaurants/restaurant-002-2.jpg",
+      "assets/images/restaurants/restaurant-002-3.jpg"
+    ],
     cuisine: ["Shanghainese", "Dim Sum"],
     description:
       "ร้านเสี่ยวหลงเปาเล็กๆ แต่คนต่อคิวยาว ขึ้นชื่อว่าน้ำซุปในตัวแป้งหวานกลมกล่อมที่สุดร้านหนึ่งในเมือง",
-    address: "90 Huanghe Road, Huangpu District, Shanghai",
+    address: "127 Huanghe Road, Huangpu District, Shanghai",
     price: "¥40–80",
     recommendedDishes: ["Crab Roe Xiao Long Bao", "Pork Xiao Long Bao", "Wonton Soup"],
     links: [
-      { label: "Dianping (大众点评)", url: "https://www.dianping.com/", type: "review", rating: "4.5" }
+      { label: "Dianping (大众点评)", url: "https://www.dianping.com/", type: "review", rating: "4.5" },
+      { label: "Lemon8 (@story.of.mee)", url: "https://www.lemon8-app.com/@story.of.mee/7610418458219676168?region=th", type: "review" }
     ]
   },
   {
