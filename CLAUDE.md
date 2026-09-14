@@ -147,8 +147,14 @@ flight | park | other`:
   - **`kind` is the English industry term** ("Dark ride", "Walk-through").
     An earlier version put a Thai phrase in the chip and overflowed it on
     narrow screens; the Thai now lives once, in the day briefing's glossary
-    popup, instead of in every card. When adding a ride type not in that
-    glossary, add it there too.
+    popup, instead of in every card. **The chip itself is the shortcut into
+    that glossary** — if `kind` matches a `term` in any day's briefing
+    glossary the chip renders as a button that opens just that one
+    definition; if it doesn't match, it renders as a plain non-clickable
+    chip. So a ride type missing from the glossary silently loses its
+    popup: always add the term to the briefing glossary when you add a new
+    `kind`. Matching is exact and case-sensitive — "Dark Ride" will not
+    find the entry for "Dark ride".
   - **`wet`** puts a droplet chip on the card ("เปียกทั้งตัว", "ละอองน้ำ") and
     **`warning`** an alert line under How it works. Keep `warning` to what
     you'd regret not knowing in the queue — no photo on the ride, ponchos
@@ -179,7 +185,10 @@ flight | park | other`:
   `groups[]` (labelled bullet lists — the prohibited-items list) or
   `glossary[]` (`term`/`meaning` rows — the ride-type words), plus optional
   `intro` and `note`. Popups exist so the briefing stays a screen tall: put
-  anything list-shaped in one rather than inline.
+  anything list-shaped in one rather than inline. The `glossary[]` rows do
+  double duty: they render as the full list inside the briefing popup *and*
+  back the per-term popup a ride's type chip opens (see `kind` above), so
+  they're indexed across every day, not just the one they sit on.
 - **`hideTimes: true` on a day** drops the time column for that day only
   (`.timeline--no-time`), and items on it don't need a `time` at all — the
   order in `items[]` *is* the running order. Used for the park day, where a
@@ -233,7 +242,11 @@ script list.
 - `js/app.js` — state, event wiring, tab/day switching, the weather
   hydration pass (`hydrateWeather`), theme handling, and three `<dialog>`
   popups: `bindLightboxEvents` (photos), `bindCharacterDialogEvents`
-  (character bios), `bindInfoDialogEvents` (briefing popups). Each is one
+  (character bios), and `bindInfoDialogEvents` + `bindGlossaryDialogEvents`,
+  which share `#info-dialog` (briefing popups and single-term ride glossary
+  popups respectively) through one writer, `fillInfoDialog`. Only
+  `bindInfoDialogEvents` binds the dismiss handlers for that dialog —
+  binding them twice would register duplicate close listeners. Each is one
   delegated document click listener keyed off a data attribute — copy that
   pattern for a fourth. All three open through `openDialog`/`closeDialog`,
   which add a `.dialog--fallback` class when `showModal()` is missing

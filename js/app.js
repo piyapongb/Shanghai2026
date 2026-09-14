@@ -16,6 +16,7 @@
   let restaurantIndex = {};
   let characterIndex = {};
   let infoDialogIndex = {};
+  let glossaryIndex = {};
 
   /* ---------- Bootstrap ---------- */
 
@@ -28,6 +29,8 @@
     restaurantIndex = buildRestaurantIndex(restaurants);
     characterIndex = window.CHARACTERS_DATA || {};
     infoDialogIndex = buildInfoDialogIndex(days);
+    glossaryIndex = buildGlossaryIndex(days);
+    C.setGlossaryIndex(glossaryIndex);
     validateReferences(days, restaurantIndex, characterIndex);
 
     step("hero", function () {
@@ -48,6 +51,7 @@
     bindLightboxEvents();
     bindCharacterDialogEvents();
     bindInfoDialogEvents();
+    bindGlossaryDialogEvents();
     bindThemeEvents();
     initTheme();
     initDayObserver(days);
@@ -594,12 +598,68 @@
     return index;
   }
 
-  function bindInfoDialogEvents() {
-    const dialog = document.getElementById("info-dialog");
+  /* Every briefing glossary flattened into one term -> entry map, so a ride
+     chip can open its own definition without knowing which day's dialog
+     happens to hold it. First definition wins if two days ever disagree. */
+  function buildGlossaryIndex(days) {
+    const index = {};
+    days.forEach(function (day) {
+      const dialogs = (day.briefing && day.briefing.dialogs) || [];
+      dialogs.forEach(function (dialog) {
+        (dialog.glossary || []).forEach(function (entry) {
+          if (entry && entry.term && !index[entry.term]) index[entry.term] = entry;
+        });
+      });
+    });
+    return index;
+  }
+
+  /* One writer for #info-dialog, shared by the briefing popups and the ride
+     glossary chips. `record` is the briefing dialog shape: title, intro,
+     optional `glossary` pairs, optional `groups` of bullets, note. */
+  function fillInfoDialog(record) {
     const titleEl = document.getElementById("info-dialog-title");
     const introEl = document.getElementById("info-dialog-intro");
     const bodyEl = document.getElementById("info-dialog-body");
     const noteEl = document.getElementById("info-dialog-note");
+
+    titleEl.textContent = record.title || "";
+    introEl.textContent = record.intro || "";
+    introEl.hidden = !record.intro;
+    noteEl.textContent = record.note || "";
+    noteEl.hidden = !record.note;
+
+    U.clear(bodyEl);
+
+    /* Two shapes: `groups` of bullets (the prohibited-items list) and
+       `glossary` term/meaning pairs (the ride-type words). */
+    if (record.glossary && record.glossary.length) {
+      const dl = U.el("dl", { class: "glossary" });
+      record.glossary.forEach(function (entry) {
+        dl.appendChild(U.el("div", { class: "glossary-row" }, [
+          U.el("dt", {}, [entry.term]),
+          U.el("dd", {}, [entry.meaning])
+        ]));
+      });
+      bodyEl.appendChild(dl);
+    }
+
+    (record.groups || []).forEach(function (group) {
+      const block = U.el("div", { class: "info-group" });
+      if (group.label) {
+        block.appendChild(U.el("h4", { class: "field-label" }, [group.label]));
+      }
+      const list = U.el("ul", { class: "info-list" });
+      (group.items || []).forEach(function (item) {
+        list.appendChild(U.el("li", {}, [item]));
+      });
+      block.appendChild(list);
+      bodyEl.appendChild(block);
+    });
+  }
+
+  function bindInfoDialogEvents() {
+    const dialog = document.getElementById("info-dialog");
     const closeBtn = document.getElementById("info-dialog-close");
 
     document.addEventListener("click", function (e) {
@@ -607,45 +667,28 @@
       if (!trigger) return;
       const record = infoDialogIndex[trigger.getAttribute("data-info-dialog")];
       if (!record) return;
-
-      titleEl.textContent = record.title || "";
-      introEl.textContent = record.intro || "";
-      introEl.hidden = !record.intro;
-      noteEl.textContent = record.note || "";
-      noteEl.hidden = !record.note;
-
-      U.clear(bodyEl);
-
-      /* Two shapes: `groups` of bullets (the prohibited-items list) and
-         `glossary` term/meaning pairs (the ride-type words). */
-      if (record.glossary && record.glossary.length) {
-        const dl = U.el("dl", { class: "glossary" });
-        record.glossary.forEach(function (entry) {
-          dl.appendChild(U.el("div", { class: "glossary-row" }, [
-            U.el("dt", {}, [entry.term]),
-            U.el("dd", {}, [entry.meaning])
-          ]));
-        });
-        bodyEl.appendChild(dl);
-      }
-
-      (record.groups || []).forEach(function (group) {
-        const block = U.el("div", { class: "info-group" });
-        if (group.label) {
-          block.appendChild(U.el("h4", { class: "field-label" }, [group.label]));
-        }
-        const list = U.el("ul", { class: "info-list" });
-        (group.items || []).forEach(function (item) {
-          list.appendChild(U.el("li", {}, [item]));
-        });
-        block.appendChild(list);
-        bodyEl.appendChild(block);
-      });
-
+      fillInfoDialog(record);
       openDialog(dialog);
     });
 
     bindDialogDismiss(dialog, closeBtn);
+  }
+
+  /* Clicking a ride's type chip opens that one glossary entry - the term as
+     the heading, its meaning as the intro line. Reuses #info-dialog rather
+     than adding a fourth dialog to index.html; dismissal is already wired by
+     bindInfoDialogEvents, so this only opens. */
+  function bindGlossaryDialogEvents() {
+    const dialog = document.getElementById("info-dialog");
+
+    document.addEventListener("click", function (e) {
+      const trigger = e.target.closest("[data-glossary-term]");
+      if (!trigger) return;
+      const entry = glossaryIndex[trigger.getAttribute("data-glossary-term")];
+      if (!entry) return;
+      fillInfoDialog({ title: entry.term, intro: entry.meaning });
+      openDialog(dialog);
+    });
   }
 
   /* ---------- Theme ---------- */

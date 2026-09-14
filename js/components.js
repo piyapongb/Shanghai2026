@@ -7,6 +7,14 @@
 
   const U = window.Utils;
 
+  /* Term -> { term, meaning }, handed in by app.js from the day briefings.
+     Only used to decide whether a ride-type chip has something to open. */
+  let glossaryIndex = {};
+
+  function setGlossaryIndex(index) {
+    glossaryIndex = index || {};
+  }
+
   /* ---------- Small building blocks ---------- */
 
   function copyRow(text, a11yLabel, extraClass) {
@@ -564,6 +572,27 @@
     return chip;
   }
 
+  /* The ride type is the one chip that carries a definition - the day's
+     briefing glossary is what says that "Trackless dark ride" means a car
+     with no rails under it. Clicking the chip opens that single entry, the
+     same interaction as clicking a character chip. A type with no glossary
+     entry stays a plain chip: a button that opens nothing is worse than no
+     button. */
+  function rideKindChip(kind) {
+    if (!kind) return null;
+    if (!glossaryIndex[kind]) return rideChip(kind, null, "ride-chip--type");
+    return U.el(
+      "button",
+      {
+        type: "button",
+        class: "ride-chip ride-chip--type ride-chip--glossary",
+        "data-glossary-term": kind,
+        "aria-label": "What \u0022" + kind + "\u0022 means"
+      },
+      [U.el("span", {}, [kind]), U.icon("search", "ride-chip-icon")]
+    );
+  }
+
   function renderRideCard(ride) {
     const card = U.el("article", { class: "ride-card" });
 
@@ -577,10 +606,10 @@
     /* Type and showtime are chips on their own wrapping row - the chip used
        to be pinned right of the title and overflowed on narrow screens.
        `kind` stays in English on purpose: the day's briefing carries the Thai
-       glossary for these terms. */
+       glossary for these terms, and the chip itself opens that entry. */
     const chips = [
       rideChip(ride.when, "clock", "ride-chip--when"),
-      rideChip(ride.kind, null, "ride-chip--type"),
+      rideKindChip(ride.kind),
       rideChip(ride.wet, "droplet", "ride-chip--wet")
     ].filter(Boolean);
     if (chips.length) {
@@ -958,6 +987,7 @@
   }
 
   window.Components = {
+    setGlossaryIndex: setGlossaryIndex,
     renderHero: renderHero,
     renderMainTabs: renderMainTabs,
     renderDayNav: renderDayNav,
