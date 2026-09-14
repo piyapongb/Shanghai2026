@@ -49,7 +49,7 @@
 
   function detailsPanel(panelId) {
     const panel = U.el("div", { id: panelId, class: "details-panel", role: "region" });
-    panel.hidden = true;
+    panel.toggleAttribute("inert", true);
     return panel;
   }
 
@@ -410,7 +410,7 @@
       class: "restaurant-card" + (opts.compact ? " restaurant-card--compact" : ""),
       "data-cuisine": (restaurant.cuisine || []).join("|").toLowerCase(),
       "data-zone": U.normalize(restaurant.zone),
-      "data-search": U.normalize(restaurant.name + " " + restaurant.nameZh)
+      "data-search": U.normalize([restaurant.name, restaurant.nameZh].filter(Boolean).join(" "))
     });
 
     card.appendChild(mediaThumb(restaurant.image, restaurant.name, "food", "restaurant-card-media"));

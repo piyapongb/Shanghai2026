@@ -404,25 +404,13 @@
     if (!panel) return;
     const isOpen = btn.getAttribute("aria-expanded") === "true";
 
-    if (isOpen) {
-      btn.setAttribute("aria-expanded", "false");
-      panel.classList.remove("is-open");
-      const onEnd = function () {
-        panel.hidden = true;
-        panel.removeEventListener("transitionend", onEnd);
-      };
-      if (prefersReducedMotion()) {
-        panel.hidden = true;
-      } else {
-        panel.addEventListener("transitionend", onEnd);
-      }
-    } else {
-      panel.hidden = false;
-      btn.setAttribute("aria-expanded", "true");
-      requestAnimationFrame(function () {
-        panel.classList.add("is-open");
-      });
-    }
+    /* `inert` is what removes a closed panel from the tab order and the
+       accessibility tree; CSS visibility does the same for browsers that
+       predate it. Both flip synchronously, so toggling faster than the
+       animation can no longer leave the panel and the button disagreeing. */
+    btn.setAttribute("aria-expanded", isOpen ? "false" : "true");
+    panel.classList.toggle("is-open", !isOpen);
+    panel.toggleAttribute("inert", isOpen);
   }
 
   /* ---------- Copy buttons (event delegation) ---------- */
@@ -442,12 +430,17 @@
 
   function showCopyFeedback(btn) {
     btn.classList.add("is-copied");
-    const prevLabel = btn.getAttribute("aria-label");
+    /* Capture the real label once. Reading it on every click meant a second
+       click inside the timeout captured "Copied" as the label to restore,
+       leaving the button permanently announcing that instead of its name. */
+    if (btn._copyLabel === undefined) {
+      btn._copyLabel = btn.getAttribute("aria-label");
+    }
     btn.setAttribute("aria-label", "Copied");
     clearTimeout(btn._copyTimer);
     btn._copyTimer = setTimeout(function () {
       btn.classList.remove("is-copied");
-      btn.setAttribute("aria-label", prevLabel);
+      btn.setAttribute("aria-label", btn._copyLabel);
     }, 1600);
   }
 

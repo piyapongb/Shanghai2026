@@ -173,7 +173,11 @@ window.Weather = (function () {
     const today = new Date();
     const start = toKey(today);
     const end = toKey(addDays(today, FORECAST_HORIZON_DAYS));
-    const key = "forecast|" + locationKey(location) + "|" + start;
+    /* No date in the key: a key that changed daily left yesterday's entry
+       orphaned in localStorage, never read again and so never expired. The
+       3-hour TTL is well under a day, so a stale entry is always rejected
+       (and cleared) on the next read. */
+    const key = "forecast|" + locationKey(location);
 
     const cached = cacheGet(key);
     if (cached) return Promise.resolve(cached);

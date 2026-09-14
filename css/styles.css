@@ -692,13 +692,27 @@ button.timeline-media:focus-visible img { transform: scale(1.08); }
   display: grid;
   grid-template-rows: 0fr;
   opacity: 0;
-  transition: grid-template-rows var(--motion-slow) var(--ease-standard), opacity var(--motion-base) ease;
+  /* The display rule above outranks the `hidden` attribute, so visibility is
+     what actually keeps a closed panel out of the tab order and the
+     accessibility tree. The delay holds it visible until the collapse
+     animation has finished playing. */
+  visibility: hidden;
+  transition: grid-template-rows var(--motion-slow) var(--ease-standard),
+              opacity var(--motion-base) ease,
+              visibility 0s linear var(--motion-slow);
 }
 .details-panel > * {
   overflow: hidden;
   min-height: 0;
 }
-.details-panel.is-open { grid-template-rows: 1fr; opacity: 1; }
+.details-panel.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+  transition: grid-template-rows var(--motion-slow) var(--ease-standard),
+              opacity var(--motion-base) ease,
+              visibility 0s;
+}
 
 /* Panels sit directly inside an unpadded card, so the inset here lines the
    detail text up with the card body above it. The timeline overrides it. */

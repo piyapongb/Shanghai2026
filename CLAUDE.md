@@ -405,6 +405,19 @@ step 1 above can safely be "delete everything, then build it back up."
   inside a timeline item's nearby-restaurants list, and no fixed number is
   safe for all combinations. Current implementation uses
   `grid-template-rows: 0fr ↔ 1fr`, which sizes to real content — keep it.
+- **The `hidden` attribute does nothing on `.details-panel`.** Its
+  `display: grid` is an author rule and outranks the UA stylesheet's
+  `[hidden] { display: none }`, so `panel.hidden = true` silently changed
+  nothing. Collapsed panels stayed in the tab order and the accessibility
+  tree — 342 of the page's 443 focusable elements sat inside closed
+  accordions, and a keyboard user fell into invisible content after 17 Tab
+  presses. What actually closes a panel now is `inert` (set from
+  `toggleAccordion`, and on creation in `detailsPanel`) plus a
+  `visibility: hidden` that transitions in after the collapse animation for
+  browsers older than `inert`. Don't reintroduce `hidden` here, and if you
+  add another panel that animates open, hide it the same way. Elsewhere
+  `hidden` is fine — restaurant cards, zone groups and tab panels set no
+  `display`, so it collapses them normally.
 - **A restaurant's `gallery` array needs ≥2 entries to render at all.**
   One entry is indistinguishable from zero in the UI. If a photo should be
   visible, either put it in `image` (main photo) or add a second one to
