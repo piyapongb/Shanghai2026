@@ -135,15 +135,18 @@
       );
     }
     hero.appendChild(media);
+    const dateRange = U.formatDateRange(trip.startDate, trip.endDate);
     hero.appendChild(
       U.el("div", { class: "hero-content" }, [
         U.el("p", { class: "hero-eyebrow" }, [trip.destination || ""]),
-        U.el("h1", { class: "hero-title" }, [trip.title]),
-        U.el("p", { class: "hero-dates" }, [
-          U.icon("clock", "hero-dates-icon"),
-          U.el("span", {}, [U.formatDateRange(trip.startDate, trip.endDate)])
-        ])
-      ])
+        U.el("h1", { class: "hero-title" }, [trip.title || ""]),
+        dateRange
+          ? U.el("p", { class: "hero-dates" }, [
+              U.icon("clock", "hero-dates-icon"),
+              U.el("span", {}, [dateRange])
+            ])
+          : null
+      ].filter(Boolean))
     );
     return hero;
   }
@@ -184,7 +187,10 @@
 
   function renderDayNav(days, activeDayId) {
     const nav = U.el("nav", { class: "day-nav", "aria-label": "Select day" });
-    const list = U.el("div", { class: "day-nav-list", role: "tablist" });
+    /* Not a tab widget: these scroll the page, they never swap a panel. Tab
+       semantics promised arrow-key navigation and an owned tabpanel that do
+       not exist, so they are plain buttons marking the current day. */
+    const list = U.el("div", { class: "day-nav-list" });
     days.forEach(function (day) {
       const isActive = day.id === activeDayId;
       list.appendChild(
@@ -193,8 +199,7 @@
           {
             type: "button",
             class: "day-nav-btn" + (isActive ? " is-active" : ""),
-            role: "tab",
-            "aria-selected": isActive ? "true" : "false",
+            "aria-current": isActive ? "true" : null,
             "data-day-target": day.id
           },
           [
@@ -408,7 +413,7 @@
     const panelId = U.uid("restaurant-panel");
     const card = U.el("article", {
       class: "restaurant-card" + (opts.compact ? " restaurant-card--compact" : ""),
-      "data-cuisine": (restaurant.cuisine || []).join("|").toLowerCase(),
+      "data-cuisine": (restaurant.cuisine || []).map(U.normalize).join("|"),
       "data-zone": U.normalize(restaurant.zone),
       "data-search": U.normalize([restaurant.name, restaurant.nameZh].filter(Boolean).join(" "))
     });
@@ -739,7 +744,12 @@
     if (hasDetails) {
       const panel = detailsPanel(panelId);
       if (item.type === "restaurant") {
-        panel.appendChild(renderNearbyRestaurants(item.nearbyRestaurantIds || [item.restaurantId], restaurantIndex));
+        /* The headline restaurant always leads, even when nearbyRestaurantIds
+           forgets to list it - it used to vanish from its own meal. */
+        const shown = [item.restaurantId]
+          .concat(item.nearbyRestaurantIds || [])
+          .filter(function (id, i, all) { return id && all.indexOf(id) === i; });
+        panel.appendChild(renderNearbyRestaurants(shown, restaurantIndex));
       } else if (item.type === "park") {
         panel.appendChild(renderParkDetails(item.park, options.characters));
       } else {
@@ -808,15 +818,24 @@
       "aria-labelledby": day.id + "-heading"
     });
 
+    const dayDate = U.formatDateLong(day.date);
     section.appendChild(
       U.el("div", { class: "day-header" }, [
         U.el("h2", { id: day.id + "-heading", class: "day-heading" }, ["Day " + day.dayNumber]),
-        U.el("p", { class: "day-date" }, [U.formatDateLong(day.date)])
-      ])
+        dayDate ? U.el("p", { class: "day-date" }, [dayDate]) : null
+      ].filter(Boolean))
     );
 
+    // --- 3. live weather needs somewhere to land even with no static block
     const weather = renderWeather(day.weather, { dayId: day.id });
-    if (weather) section.appendChild(weather);
+    if (weather) {
+      section.appendChild(weather);
+    } else {
+      /* An empty anchor, not a card: hydrateWeather looks up this day by
+         data-weather-for and replaces whatever it finds. Without it a day
+         carrying no static `weather` could never show live weather at all. */
+      section.appendChild(U.el("div", { class: "weather-slot", "data-weather-for": day.id }));
+    }
 
     const briefing = renderDayBriefing(day.briefing);
     if (briefing) section.appendChild(briefing);
@@ -850,12 +869,17 @@
 
     const body = U.el("div", { class: "hotel-card-body" });
 
-    body.appendChild(
-      U.el("p", { class: "hotel-stay-range" }, [
-        U.icon("clock", "hotel-stay-icon"),
-        U.el("span", {}, [U.formatDateShort(hotel.stayFrom) + " – " + U.formatDateShort(hotel.stayTo)])
-      ])
-    );
+    const from = U.formatDateShort(hotel.stayFrom);
+    const to = U.formatDateShort(hotel.stayTo);
+    const stay = from && to ? from + " – " + to : (from || to);
+    if (stay) {
+      body.appendChild(
+        U.el("p", { class: "hotel-stay-range" }, [
+          U.icon("clock", "hotel-stay-icon"),
+          U.el("span", {}, [stay])
+        ])
+      );
+    }
 
     body.appendChild(copyRow(hotel.name, hotel.name, "copy-row--name"));
     if (hotel.nameZh) {
@@ -900,10 +924,12 @@
     return select;
   }
 
+  /* Mirrors groupByZone's fallback, so the "Other" heading it can produce is
+     also reachable from the filter instead of being unselectable. */
   function getUniqueZones(restaurants) {
     const set = {};
     restaurants.forEach(function (r) {
-      if (r.zone) set[r.zone] = true;
+      set[r.zone || "Other"] = true;
     });
     return Object.keys(set).sort();
   }

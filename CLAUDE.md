@@ -426,6 +426,29 @@ step 1 above can safely be "delete everything, then build it back up."
   `fetch-images.js` resizes anything; a full-resolution phone photo used
   as a 68px timeline thumbnail is pure waste and slows the page down for
   every visitor.
+- **Any render that throws takes the whole page down with it.** `init()`
+  used to call the renderers in a bare sequence, so one malformed record —
+  a hotel missing `stayFrom`, say — skipped every later line including the
+  event wiring. The page still *looked* right while no tab, accordion,
+  copy button or theme toggle responded to a click. Each render step is
+  wrapped in `step()` now and logs to the console instead; keep new steps
+  inside it. The date formatters in `utils.js` return `""` rather than
+  throwing for the same reason — `renderHero` is early enough in `init()`
+  that a missing `startDate` in trip.js blanked the entire page, which is
+  exactly the half-finished state step 1 of the reuse checklist creates.
+- **Anything JS injects into an empty box needs its height reserved in
+  CSS.** `#hero-root` and `#main-tabs-root` are empty at first paint, so
+  the page dropped ~230px once JS ran — CLS 0.83 on a phone, well into
+  Google's "poor" band. Both now carry a `min-height` matching what they
+  actually render (see the note above `.hero` in styles.css). Re-measure
+  and update those numbers if the hero or tab row changes height.
+- **A day with no static `weather` block used to be unable to show live
+  weather at all.** `hydrateWeather` finds its target by
+  `[data-weather-for]`, and that attribute only existed on a rendered
+  weather card — no static block meant no card, no anchor, and the live
+  result was dropped silently. `renderDaySection` now emits an empty
+  `.weather-slot` anchor in that case. Keeping a static fallback is still
+  the right habit, but it is no longer load-bearing.
 - **A `fetch-images.js` `SLOTS` entry left in place after its photo is
   already real does nothing useful.** The rewrite step matches by exact
   path string — once `add-image.js` (or a prior `fetch-images.js` run)

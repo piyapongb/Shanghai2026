@@ -18,7 +18,7 @@
 @media (min-width: 768px) {
   .container { padding-inline: var(--space-6); }
 
-  .hero { min-height: 240px; }
+  #hero-root, .hero { min-height: 240px; }
   .hero-content { padding: var(--space-8) var(--space-6) var(--space-7); }
 
   .day-nav-list { overflow-x: visible; flex-wrap: wrap; }
@@ -41,7 +41,8 @@
 @media (min-width: 1024px) {
   .utility-bar-inner, .main-tabs-bar .container, .tab-panel { padding-inline: var(--space-7); }
 
-  .hero { min-height: 300px; }
+  #hero-root, .hero { min-height: 300px; }
+  #main-tabs-root { min-height: 57px; }
   .hero-title { font-size: 38px; }
 
   .main-tabs { gap: var(--space-4); }

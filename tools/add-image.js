@@ -277,8 +277,13 @@ function main() {
   let finalDestRelPath = destRelPath;
   if (opts.gallery) {
     // Never overwrite another gallery photo for the same id: number it.
+    // Checking every extension, not just this one - looking only for the
+    // incoming extension handed a .webp the number an existing .jpg held.
+    const takenNames = fs.existsSync(path.join(ROOT, destRelDir))
+      ? fs.readdirSync(path.join(ROOT, destRelDir))
+      : [];
     let n = 2;
-    while (fs.existsSync(path.join(ROOT, destRelDir, id + "-" + n + ext))) n++;
+    while (takenNames.some(function (f) { return f.indexOf(id + "-" + n + ".") === 0; })) n++;
     finalDestRelPath = destRelDir + "/" + id + "-" + n + ext;
   }
 

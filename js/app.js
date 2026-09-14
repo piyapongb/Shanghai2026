@@ -30,14 +30,14 @@
     infoDialogIndex = buildInfoDialogIndex(days);
     validateReferences(days, restaurantIndex, characterIndex);
 
-    document.getElementById("hero-root").appendChild(C.renderHero(trip));
-
-    applyTripChrome(trip);
-
-    renderTabs();
-    renderItineraryPanel(days, restaurantIndex);
-    renderRestaurantsPanel(restaurants);
-    renderHotelsPanel(hotels);
+    step("hero", function () {
+      document.getElementById("hero-root").appendChild(C.renderHero(trip));
+    });
+    step("trip chrome", function () { applyTripChrome(trip); });
+    step("tabs", renderTabs);
+    step("itinerary", function () { renderItineraryPanel(days, restaurantIndex); });
+    step("restaurants", function () { renderRestaurantsPanel(restaurants); });
+    step("hotels", function () { renderHotelsPanel(hotels); });
 
     state.activeDay = days.length ? days[0].id : null;
 
@@ -53,6 +53,18 @@
     initDayObserver(days);
     initStickyOffsets();
     hydrateWeather(days);
+  }
+
+  /* One bad record used to take the whole page with it: a render throwing
+     skipped every later line of init, event wiring included, so the page
+     still looked right while nothing responded to a click. Isolating each
+     step costs a bad record only its own section. */
+  function step(name, fn) {
+    try {
+      fn();
+    } catch (err) {
+      console.error("[init] " + name + " failed to render:", err);
+    }
   }
 
   /**
@@ -229,7 +241,8 @@
     document.querySelectorAll("[data-day-target]").forEach(function (btn) {
       const isActive = btn.getAttribute("data-day-target") === dayId;
       btn.classList.toggle("is-active", isActive);
-      btn.setAttribute("aria-selected", isActive ? "true" : "false");
+      if (isActive) btn.setAttribute("aria-current", "true");
+      else btn.removeAttribute("aria-current");
       if (isActive) {
         btn.scrollIntoView({ behavior: "auto", block: "nearest", inline: "center" });
       }

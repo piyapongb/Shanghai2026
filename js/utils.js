@@ -132,24 +132,33 @@
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
   ];
 
+  /* Data files are hand-edited, so a date can be missing or malformed. These
+     used to throw on anything unexpected, and from renderHero that took the
+     whole page down. They return null / "" now and callers skip the line. */
   function parseISODate(dateStr) {
+    if (typeof dateStr !== "string") return null;
     const parts = dateStr.split("-").map(Number);
-    return new Date(parts[0], parts[1] - 1, parts[2]);
+    if (parts.length !== 3 || parts.some(isNaN)) return null;
+    const date = new Date(parts[0], parts[1] - 1, parts[2]);
+    return isNaN(date.getTime()) ? null : date;
   }
 
   function formatDateLong(dateStr) {
     const d = parseISODate(dateStr);
+    if (!d) return "";
     return WEEKDAYS[d.getDay()] + ", " + d.getDate() + " " + MONTHS[d.getMonth()] + " " + d.getFullYear();
   }
 
   function formatDateShort(dateStr) {
     const d = parseISODate(dateStr);
+    if (!d) return "";
     return d.getDate() + " " + MONTHS[d.getMonth()];
   }
 
   function formatDateRange(startStr, endStr) {
     const start = parseISODate(startStr);
     const end = parseISODate(endStr);
+    if (!start || !end) return "";
     const sameMonth = start.getMonth() === end.getMonth() && start.getFullYear() === end.getFullYear();
     if (sameMonth) {
       return start.getDate() + "–" + end.getDate() + " " + MONTHS[end.getMonth()] + " " + end.getFullYear();

@@ -270,6 +270,14 @@ html { scroll-behavior: smooth; }
 
 /* ---------- Hero ---------- */
 
+/* The hero and the tab row are both built by JS into empty boxes, so at
+   first paint they had no height and the whole page dropped once JS ran
+   (CLS 0.83 on a phone). Reserving their measured heights keeps the page
+   still. Keep these in step with the .hero min-heights and the tab row's
+   real height, here and at the breakpoints in responsive.css. */
+#hero-root { min-height: 176px; }
+#main-tabs-root { min-height: 56px; }
+
 .hero {
   position: relative;
   overflow: hidden;
