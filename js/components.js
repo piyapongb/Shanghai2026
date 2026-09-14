@@ -17,9 +17,13 @@
 
   /* ---------- Small building blocks ---------- */
 
-  function copyRow(text, a11yLabel, extraClass) {
+  /* `lang` marks the text itself, not the row: the copy button's label is
+     English ("Copy <name>") and should stay that way. Chinese names carry
+     lang="zh" so a screen reader switches voice instead of spelling them
+     out with English phonetics. */
+  function copyRow(text, a11yLabel, extraClass, lang) {
     const row = U.el("div", { class: "copy-row" + (extraClass ? " " + extraClass : "") });
-    row.appendChild(U.el("span", { class: "copy-row-text" }, [text]));
+    row.appendChild(U.el("span", { class: "copy-row-text", lang: lang || null }, [text]));
     if (text) {
       const iconCopy = U.el("span", { class: "copy-btn-icon copy-btn-icon--copy" }, [U.icon("copy")]);
       const iconCheck = U.el("span", { class: "copy-btn-icon copy-btn-icon--check" }, [U.icon("check")]);
@@ -422,7 +426,11 @@
     const card = U.el("article", {
       class: "restaurant-card" + (opts.compact ? " restaurant-card--compact" : ""),
       "data-cuisine": (restaurant.cuisine || []).map(U.normalize).join("|"),
-      "data-zone": U.normalize(restaurant.zone),
+      /* Same "Other" fallback as groupByZone and getUniqueZones. Without it
+         a restaurant with no zone landed under the "Other" heading and in
+         the filter dropdown, but carried an empty data-zone - so picking
+         "Other" matched nothing at all. */
+      "data-zone": U.normalize(restaurant.zone || "Other"),
       "data-search": U.normalize([restaurant.name, restaurant.nameZh].filter(Boolean).join(" "))
     });
 
@@ -431,7 +439,7 @@
     const body = U.el("div", { class: "restaurant-card-body" });
     body.appendChild(copyRow(restaurant.name, restaurant.name, "copy-row--name"));
     if (restaurant.nameZh) {
-      body.appendChild(copyRow(restaurant.nameZh, restaurant.nameZh, "copy-row--zh"));
+      body.appendChild(copyRow(restaurant.nameZh, restaurant.nameZh, "copy-row--zh", "zh"));
     }
     if (restaurant.cuisine && restaurant.cuisine.length) {
       const tags = U.el("div", { class: "tag-row" });
@@ -473,15 +481,25 @@
       wrap.appendChild(block);
     }
 
-    if (restaurant.gallery && restaurant.gallery.length > 1) {
-      const gallery = U.el("div", { class: "gallery", role: "list", "aria-label": "Photo gallery" });
-      restaurant.gallery.forEach(function (src) {
+    /* Anything already shown as the main photo is dropped rather than
+       repeated, and what is left renders even if it is a single photo. The
+       old rule hid galleries under two entries outright, which silently
+       swallowed a real second photo whenever a restaurant had exactly one
+       extra - the file sat on disk with nothing pointing at it. */
+    const galleryShots = (restaurant.gallery || []).filter(function (src) {
+      return src && src !== restaurant.image;
+    });
+    if (galleryShots.length) {
+      /* No list roles here: role="listitem" on a <button> replaces the
+         button role, so assistive tech announced these as plain list items
+         with no hint that they open a photo. */
+      const gallery = U.el("div", { class: "gallery", role: "group", "aria-label": "Photo gallery" });
+      galleryShots.forEach(function (src) {
         const btn = U.el(
           "button",
           {
             type: "button",
             class: "gallery-thumb",
-            role: "listitem",
             "data-lightbox-src": src,
             "aria-label": "View larger photo of " + restaurant.name
           },
@@ -601,7 +619,7 @@
     }
 
     card.appendChild(U.el("h5", { class: "ride-name" }, [ride.name]));
-    if (ride.nameZh) card.appendChild(U.el("p", { class: "ride-name-zh" }, [ride.nameZh]));
+    if (ride.nameZh) card.appendChild(U.el("p", { class: "ride-name-zh", lang: "zh" }, [ride.nameZh]));
 
     /* Type and showtime are chips on their own wrapping row - the chip used
        to be pinned right of the title and overflowed on narrow screens.
@@ -744,12 +762,12 @@
     if (item.type === "restaurant") {
       titles.appendChild(U.el("span", { class: "timeline-title" }, [item.title]));
       if (item.titleZh) {
-        titles.appendChild(U.el("span", { class: "timeline-title-zh" }, [item.titleZh]));
+        titles.appendChild(U.el("span", { class: "timeline-title-zh", lang: "zh" }, [item.titleZh]));
       }
     } else {
       titles.appendChild(copyRow(item.title, item.title, "copy-row--title"));
       if (item.titleZh) {
-        titles.appendChild(copyRow(item.titleZh, item.titleZh, "copy-row--titlezh"));
+        titles.appendChild(copyRow(item.titleZh, item.titleZh, "copy-row--titlezh", "zh"));
       }
     }
 
@@ -826,13 +844,17 @@
     if (briefing.dialogs && briefing.dialogs.length) {
       const row = U.el("div", { class: "briefing-actions" });
       briefing.dialogs.forEach(function (dialog) {
+        /* app.js looks the popup up by id. A dialog missing one rendered a
+           button that swallowed the click and opened nothing, which reads
+           as a broken page rather than as missing data. */
+        if (!dialog.id) return;
         row.appendChild(U.el(
           "button",
           { type: "button", class: "briefing-action", "data-info-dialog": dialog.id },
           [U.icon(dialog.icon || "search", "briefing-action-icon"), U.el("span", {}, [dialog.label])]
         ));
       });
-      card.appendChild(row);
+      if (row.childNodes.length) card.appendChild(row);
     }
 
     return card;
@@ -912,7 +934,7 @@
 
     body.appendChild(copyRow(hotel.name, hotel.name, "copy-row--name"));
     if (hotel.nameZh) {
-      body.appendChild(copyRow(hotel.nameZh, hotel.nameZh, "copy-row--zh"));
+      body.appendChild(copyRow(hotel.nameZh, hotel.nameZh, "copy-row--zh", "zh"));
     }
 
     body.appendChild(U.el("div", { class: "hotel-card-footer" }, [detailsToggle(panelId, "Details")]));

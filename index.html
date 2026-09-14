@@ -56,7 +56,9 @@
     <button type="button" id="lightbox-close" class="lightbox-close" aria-label="Close photo viewer">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="20" height="20"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
     </button>
-    <img id="lightbox-image" src="" alt="" />
+    <!-- No src= here: an empty one resolves to the page URL and the browser
+         re-requests the document. app.js sets and clears it per photo. -->
+    <img id="lightbox-image" alt="" />
   </dialog>
 
   <dialog id="character-dialog" class="character-dialog" aria-labelledby="character-dialog-name">
@@ -70,7 +72,7 @@
       </div>
       <div class="character-dialog-names">
         <h3 id="character-dialog-name" class="character-dialog-name"></h3>
-        <p id="character-dialog-name-zh" class="character-dialog-name-zh"></p>
+        <p id="character-dialog-name-zh" class="character-dialog-name-zh" lang="zh"></p>
       </div>
     </div>
     <p id="character-dialog-bio" class="character-dialog-bio"></p>

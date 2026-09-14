@@ -44,19 +44,23 @@
 
     state.activeDay = days.length ? days[0].id : null;
 
-    bindTabEvents();
-    bindAccordionEvents();
-    bindCopyEvents();
-    bindDayNavEvents(days);
-    bindLightboxEvents();
-    bindCharacterDialogEvents();
-    bindInfoDialogEvents();
-    bindGlossaryDialogEvents();
-    bindThemeEvents();
-    initTheme();
-    initDayObserver(days);
-    initStickyOffsets();
-    hydrateWeather(days);
+    /* Wiring gets the same isolation as rendering. It used to run bare, so
+       the first binding that threw silently skipped every one after it -
+       and a page whose accordions open but whose theme buttons are dead is
+       harder to diagnose than one that fails loudly in the console. */
+    step("tab events", bindTabEvents);
+    step("accordion events", bindAccordionEvents);
+    step("copy events", bindCopyEvents);
+    step("day nav events", function () { bindDayNavEvents(days); });
+    step("lightbox", bindLightboxEvents);
+    step("character dialog", bindCharacterDialogEvents);
+    step("info dialog", bindInfoDialogEvents);
+    step("glossary dialog", bindGlossaryDialogEvents);
+    step("theme events", bindThemeEvents);
+    step("theme", initTheme);
+    step("day observer", function () { initDayObserver(days); });
+    step("sticky offsets", initStickyOffsets);
+    step("weather", function () { hydrateWeather(days); });
   }
 
   /* One bad record used to take the whole page with it: a render throwing
@@ -110,7 +114,12 @@
       if (!location) return;
 
       window.Weather.getWeatherForDay(location, day.date).then(function (weather) {
-        if (!weather) return;
+        /* A reply can come back shaped correctly but empty - Open-Meteo
+           omitting weather_code leaves no label, and an archive window with
+           no usable rows leaves no temperature. Swapping that in would trade
+           the day's hand-written fallback for a blank card, so it has to
+           carry at least a condition or a temperature to be worth showing. */
+        if (!weather || (!weather.forecast && !weather.temperature)) return;
         const current = document.querySelector('[data-weather-for="' + day.id + '"]');
         if (!current) return;
         const fresh = C.renderWeather(weather, {
@@ -118,6 +127,8 @@
           locationName: location.name
         });
         if (fresh) current.replaceWith(fresh);
+      }).catch(function (err) {
+        console.warn("[weather] Could not update " + day.id + ":", err);
       });
     });
   }
@@ -483,6 +494,10 @@
       dialog.close();
     } else {
       dialog.removeAttribute("open");
+      /* Only a real .close() fires the `close` event. Dispatching it here
+         keeps the fallback path observable too, so cleanup listeners run on
+         every browser rather than only the modern ones. */
+      dialog.dispatchEvent(new Event("close"));
     }
     dialog.classList.remove("dialog--fallback");
   }
@@ -512,12 +527,22 @@
     document.addEventListener("click", function (e) {
       const trigger = e.target.closest("[data-lightbox-src]");
       if (!trigger) return;
-      img.src = trigger.getAttribute("data-lightbox-src");
+      /* Drop the previous photo first. Leaving it in place meant the last
+         image stayed on screen until the new one decoded, so opening a
+         second photo flashed the first one back at you. */
+      img.removeAttribute("src");
       img.alt = trigger.getAttribute("aria-label") || "";
+      img.src = trigger.getAttribute("data-lightbox-src");
       openDialog(dialog);
     });
 
     bindDialogDismiss(dialog, closeBtn);
+    /* Covers every close path - button, backdrop, Escape, native or
+       fallback - so nothing is held in memory between viewings. */
+    dialog.addEventListener("close", function () {
+      img.removeAttribute("src");
+      img.alt = "";
+    });
   }
 
   /* ---------- Character popup ---------- */
@@ -695,15 +720,41 @@
 
   const THEME_KEY = "trip-theme-preference";
 
+  /* localStorage throws outright when site data is blocked (Safari private
+     browsing, "block all cookies"), so every access is best-effort: losing
+     the remembered theme is fine, losing the rest of init is not. */
+  function readStoredTheme() {
+    try {
+      return localStorage.getItem(THEME_KEY);
+    } catch (err) {
+      return null;
+    }
+  }
+
+  function storeTheme(theme) {
+    try {
+      localStorage.setItem(THEME_KEY, theme);
+    } catch (err) {
+      /* Theme still applies for this visit; it just will not be remembered. */
+    }
+  }
+
   function initTheme() {
-    const stored = localStorage.getItem(THEME_KEY);
-    state.theme = stored || "system";
+    state.theme = readStoredTheme() || "system";
     applyTheme(state.theme);
     updateThemeControlUI();
 
-    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function () {
+    const query = window.matchMedia("(prefers-color-scheme: dark)");
+    const onSystemChange = function () {
       if (state.theme === "system") applyTheme("system");
-    });
+    };
+    /* addEventListener on a MediaQueryList only landed in Safari 14; older
+       builds expose the deprecated addListener instead. */
+    if (typeof query.addEventListener === "function") {
+      query.addEventListener("change", onSystemChange);
+    } else if (typeof query.addListener === "function") {
+      query.addListener(onSystemChange);
+    }
   }
 
   function applyTheme(theme) {
@@ -723,7 +774,7 @@
       if (!btn) return;
       const theme = btn.getAttribute("data-theme-option");
       state.theme = theme;
-      localStorage.setItem(THEME_KEY, theme);
+      storeTheme(theme);
       applyTheme(theme);
       updateThemeControlUI();
     });

@@ -204,9 +204,12 @@ flight | park | other`:
 Flat array, `id: "restaurant-NNN"` (not necessarily contiguous — deleting
 one leaves a gap on purpose, don't renumber the rest). `links[]` holds
 review/website links (`{ label, url, type: "review"|"website", rating? }`).
-`gallery[]` only renders once it has **2 or more** entries (below that, the
-gallery section doesn't show at all — a single-photo gallery array is
-effectively invisible, which surprised the owner once already).
+`gallery[]` renders from **one entry upward**, and any entry equal to the
+record's `image` is dropped rather than shown twice. It used to need two or
+more, which silently swallowed a real extra photo whenever a restaurant had
+exactly one — the file sat in `assets/images/restaurants/` with nothing
+pointing at it. A lone thumbnail renders at a third of the row width, which
+is the same size it would be in a full row.
 
 ### `data/hotels.js`
 Flat array, `checkIn`/`checkOut` are the hotel's **stated policy times**
@@ -253,6 +256,11 @@ script list.
   (older Safari/Firefox): without it the `open` attribute alone leaves the
   dialog sitting inline in the page, which reads as "the button does
   nothing". Never call `showModal()` directly.
+  **Every line of `init()` runs inside `step()`**, bindings included, not
+  just the render calls: the wiring is the part most likely to throw on an
+  old browser, and a bare throw there used to skip every binding after it,
+  leaving a page that looks finished but ignores clicks. Add new bootstrap
+  work as `step("name", fn)`, never bare.
 - `js/weather.js` — see next section.
 - `css/styles.css` + `css/responsive.css` — design tokens live as CSS
   custom properties near the top of `styles.css`; breakpoints are narrow
@@ -406,6 +414,34 @@ step 1 above can safely be "delete everything, then build it back up."
 
 ## Known gotchas (learned the hard way — don't reintroduce these)
 
+- **Anything that can throw on an old or locked-down browser needs a
+  guard, not optimism.** Two real ones: `localStorage` throws outright (not
+  returns null) when site data is blocked, and `MediaQueryList.addEventListener`
+  only exists from Safari 14 — both sat in `initTheme`, so on those browsers
+  the theme *and* every later bootstrap step died together. Reads and writes
+  of storage go through `readStoredTheme`/`storeTheme`; the media query
+  falls back to `addListener`.
+- **Live weather must never overwrite a good static fallback with an empty
+  card.** Open-Meteo can answer correctly-shaped but contentless — no
+  `weather_code` means no label, an archive window with no usable rows means
+  no temperature — and `hydrateWeather` used to swap that in regardless,
+  replacing the day's hand-written block with a blank card. It now requires
+  a condition or a temperature before replacing anything.
+- **A `<img>` with `src=""` re-requests the page itself.** The empty
+  attribute resolves against the document URL, so the lightbox placeholder
+  was quietly fetching `index.html` as an image on every load. Leave the
+  attribute off entirely and set it in JS.
+- **Clear the lightbox image when it closes.** Leaving the last `src` in
+  place meant the previous photo stayed on screen until the next one
+  decoded, so opening a second photo flashed the first one back. Cleanup
+  hangs off the dialog's `close` event, and `closeDialog` dispatches that
+  event by hand on the no-`showModal()` fallback path, where only removing
+  the `open` attribute would otherwise fire nothing.
+- **A button wired to a data attribute the lookup can't resolve is worse
+  than no button.** Ride-type chips without a glossary entry and briefing
+  buttons without an `id` both used to render and then swallow the click.
+  Both now fall back to plain text / are skipped. Apply the same rule to
+  any new data-attribute-driven control.
 - **A single stray character can silently empty the entire itinerary.** A
   misplaced backtick after a day's closing brace once opened an
   unterminated template literal that swallowed the rest of `itinerary.js`;
@@ -431,10 +467,16 @@ step 1 above can safely be "delete everything, then build it back up."
   add another panel that animates open, hide it the same way. Elsewhere
   `hidden` is fine — restaurant cards, zone groups and tab panels set no
   `display`, so it collapses them normally.
-- **A restaurant's `gallery` array needs ≥2 entries to render at all.**
-  One entry is indistinguishable from zero in the UI. If a photo should be
-  visible, either put it in `image` (main photo) or add a second one to
-  `gallery`.
+- **Keep the zone fallback identical in all three places.** A restaurant
+  with no `zone` is filed under "Other" by `groupByZone`, listed as "Other"
+  by `getUniqueZones`, and must also carry `data-zone="other"` from
+  `renderRestaurantCard` — `filterRestaurants` compares that attribute
+  literally. When the card was the only one missing the fallback, picking
+  "Other" in the dropdown matched nothing and the panel went empty.
+- **Never put `role="listitem"` (or any role) on a `<button>` that does
+  something.** The role replaces the button role outright, so the gallery
+  thumbnails announced as inert list items despite opening the lightbox.
+  The gallery is a `role="group"` of plain buttons now.
 - **Check image file size after adding one.** Neither `add-image.js` nor
   `fetch-images.js` resizes anything; a full-resolution phone photo used
   as a 68px timeline thumbnail is pure waste and slows the page down for
